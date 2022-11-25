@@ -369,4 +369,34 @@ public class ProductDaoImpl extends DBConnection implements IProductDAO {
 //		productModel p = dao.getProductByID("2");
 //		System.out.println(p);
 	}
+	public productModel findProductByID(String Id) {		
+        String sql = "SELECT * FROM Product Where productId =?";
+        try {
+            Connection conn = super.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, Id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+				return new productModel(
+						rs.getInt("productId"),
+						rs.getString("productCode"),
+						rs.getInt("productCode"), 						
+						rs.getInt("categoryId"),
+						rs.getString("description"),
+						rs.getFloat("price"),
+						rs.getInt("amount"),
+						rs.getInt("stock"),
+						rs.getString("images"),
+						rs.getInt("status"),
+						rs.getInt("wishlist"),
+						rs.getDate("createDate"),
+						rs.getInt("sellerId"));
+			}
+            
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+	}
 }

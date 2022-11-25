@@ -17,7 +17,7 @@ public class DBConnection {
 
 
 
-//Kết nối SQL Server với Windows Authentication
+//Káº¿t ná»‘i SQL Server vá»›i Windows Authentication
 	public Connection getConnection() throws Exception {
 		String url = "jdbc:sqlserver://" + serverName + ":" + portNumber + "\\" + instance
 				+ ";integratedSecurity=true;databaseName=" + dbName;

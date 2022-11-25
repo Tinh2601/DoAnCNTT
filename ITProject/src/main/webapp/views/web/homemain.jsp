@@ -52,7 +52,7 @@
 						alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title text-center">
-							<a href="product.html" title="View Product">${top1.productName}</a>
+							<a href="detail?pid=${o.productId}" title="View Product">${top1.productName}</a>
             
 							
 							
@@ -89,7 +89,7 @@
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="product.html" title="View Product">${o.productName}</a>
+											<a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a>
 										</h4>
 										<p class="card-text">Sản Phẩm Mới</p>
 										<div class="row">
@@ -130,7 +130,7 @@
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="product.html" title="View Product">${o.productName}</a>
+											<a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a>
 										</h4>
 										<p class="card-text">Hàng đẹp giá rẻ</p>
 										<div class="row">
