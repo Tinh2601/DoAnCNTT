@@ -1,4 +1,5 @@
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -71,15 +72,15 @@ public class adminControl extends HttpServlet {
 		UserDAOimpl dao = new UserDAOimpl();
 		UserModel user = dao.login(username, password);
 
-		// tạo hàm lấy thuộc tính role
+		// táº¡o hÃ m láº¥y thuá»™c tÃ­nh role
 		String role = request.getParameter("role");
 		if (user != null) {
 			if (action != null && action.equals("login")) {
 				if (role.equals("User")) {
 					response.sendRedirect(request.getContextPath() + "/home");
-					session.setAttribute("USERMODEL", user); // chỗ này gửi cái full name lên
+					session.setAttribute("USERMODEL", user); // chá»— nÃ y gá»­i cÃ¡i full name lÃªn
 				} else if (role.equals("Admin")) {
-					response.sendRedirect(request.getContextPath() + "/admin-home"); // viết thêm hàm gọi cái này ra
+					response.sendRedirect(request.getContextPath() + "/admin-home"); // viáº¿t thÃªm hÃ m gá»�i cÃ¡i nÃ y ra
 				}
 			}
 		} else {

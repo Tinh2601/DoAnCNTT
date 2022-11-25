@@ -20,26 +20,20 @@ public class SearchControl extends HttpServlet{
 		protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			resp.setContentType("text/html;charset=UTF-8");
 	        
-			// search tiếng Việt
+			// search tiáº¿ng Viá»‡t
 			req.setCharacterEncoding("UTF-8");
 	        
 	        
 	        String txtSearch = req.getParameter("txt");
-	        
-
-
-	        
-	        
 	        ProductDaoImpl dao = new ProductDaoImpl();
-	        
-
+	       
 	        //
 	        // search
 	        List<productModel> list = dao.searchProduct(txtSearch);
-	        req.setAttribute("listP", list);
+	        req.setAttribute("list", list);
 	        
-	        
-	        //hiển thị chữ trên ô input search
+	        req.setAttribute("txtname",txtSearch);
+	        //hiá»ƒn thá»‹ chá»¯ trÃªn Ã´ input search
 	        req.setAttribute("txtS", txtSearch);
 	        
 	        
@@ -54,6 +48,6 @@ public class SearchControl extends HttpServlet{
 	        productModel top1 = dao.findTopOne();
 	        req.setAttribute("top1", top1);
 	        
-	        req.getRequestDispatcher("/views/web/home.jsp").forward(req, resp);
+	        req.getRequestDispatcher("/views/web/search.jsp").forward(req, resp);
 		}
 }
