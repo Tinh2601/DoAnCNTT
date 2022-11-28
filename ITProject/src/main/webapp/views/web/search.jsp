@@ -67,7 +67,7 @@
 				<core:forEach items="${list}" var="o">
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="card">
-                                    <img class="card-img-top" src="${o.image}" alt="Card image cap">
+                                    <img class="card-img-top" src="${o.images}" alt="Card image cap">
                                     <div class="card-body">
                                         <h4 class="card-title show_txt"><a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a></h4>
                                         <p class="card-text show_txt">Giá tốt</p>

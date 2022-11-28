@@ -48,7 +48,7 @@
 						<i class="fa fa-heart"></i> Top one
 					</div>
 					<img class="img-fluid border-0"
-						src="${top1.image}"
+						src="${top1.images}"
 						alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title text-center">

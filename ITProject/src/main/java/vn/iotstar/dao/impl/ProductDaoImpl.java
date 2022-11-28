@@ -10,11 +10,19 @@ import vn.iotstar.config.JpaConfig;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
+
 public class ProductDaoImpl {
 
 	public List<Product> findAll() {
 		EntityManager enma = JpaConfig.getEntityManager();
 		TypedQuery<Product> query = enma.createNamedQuery("Product.findAll", Product.class);
+		return query.getResultList();
+	}
+
+	public List<Product> getProductByCID(int cateID) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT c FROM Product c WHERE c.categoryId like :cateID";
+		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
 		return query.getResultList();
 	}
 
@@ -38,15 +46,24 @@ public class ProductDaoImpl {
 		return query.setMaxResults(1).getSingleResult();
 	}
 
+	public List<Product> findByProductName(String txtsearch) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT c FROM Product c WHERE c.productName like :title";
+		TypedQuery<Product> query = enma.createQuery(jpql, Product.class); // createQuery # createNamedQuery
+		query.setParameter("title", "%" + txtsearch + "%");
+		return query.getResultList();
+	}
+	
+	
 	public static void main(String[] args) {
 		ProductDaoImpl dao = new ProductDaoImpl();
 
 		// System.out.println(dao.findAll());
-//		Product product = dao.findTop1Price();
+	List<Product> product = dao.findByProductName("a");
 //		if (product != null) {
 //			System.out.println("ko lỗi !");
 //		}
 //		System.out.println(dao.count());
-		System.out.println(dao.findTop1Price());
+		System.out.println(product);
 	}
 }

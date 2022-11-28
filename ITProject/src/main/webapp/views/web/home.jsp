@@ -27,8 +27,8 @@
 					</div>
 					<ul class="list-group ">
 						<c:forEach items="${listCC}" var="o">
-							<li  ><a class="list-group-item text-back ${tagCate == o.cateId ? "active":""}"
-								href="category?cateId=${o.cateId}">${o.cateName}</a></li>
+							<li  ><a class="list-group-item text-back ${cid == o.categoryId ? "active":""}"
+								href="category?cateId=${o.categoryId}">${o.categoryName}</a></li>
 						</c:forEach>
 
 					</ul>
