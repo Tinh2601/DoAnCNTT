@@ -20,12 +20,13 @@ import vn.iotstar.entity.Product;
 /**
  * Servlet implementation class WebCateroeyControl
  */
-@WebServlet(urlPatterns = {"/web-category"})
+@WebServlet(urlPatterns = {"/web-category","/web-category/list"})
 public class WebCateroryControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDaoImpl Productdao = new ProductDaoImpl();
 	UserDAOimpl UserDao = new UserDAOimpl();
 	CategoryDAOimpl CategoryDAO= new CategoryDAOimpl();
+	
 	public void load(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");	
 		//String cateID= request.getParameter("cid");
@@ -36,26 +37,29 @@ public class WebCateroryControl extends HttpServlet {
 		request.setAttribute("listCC", listCate);
 		request.setAttribute("listP", list);
 		//request.setAttribute("listP", productbycid);
-		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
-		rd.forward(request, response);
+		
+	}
+	
+	public void ProductbyCID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		// hien thi danh sach category
+        int cateID = Integer.parseInt(request.getParameter("cateId"));
+        CategoryDAOimpl cdao = new CategoryDAOimpl();
+        List<Category> listCate = cdao.findAll();
+        request.setAttribute("listCC", listCate);
+        
+     
+        ProductDaoImpl dao = new ProductDaoImpl();       			  
+        // hien thi sp theo id -> search
+        List<Product> list = dao.getProductByCID(cateID);
+        request.setAttribute("listP", list);
+        
+        RequestDispatcher rd1 = request.getRequestDispatcher("/views/web/home.jsp");
+		rd1.forward(request, response);
+      
 // 		
 	}
-	public void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			String searchtxt = request.getParameter("txtS");
-
-			List<Product> list = Productdao.findByProductName(searchtxt);
-			request.setAttribute("list", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
-			rd.forward(request, response);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "Eror: " + e.getMessage());
-			
-		}
-// 		
-	}
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -77,6 +81,13 @@ public class WebCateroryControl extends HttpServlet {
 		
 		String url = request.getRequestURL().toString();
 			load(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
+			rd.forward(request, response);
+			if(url.contains("list")) {
+				ProductbyCID(request, response);
+				
+			}
+//	 		
 		
 	}
 

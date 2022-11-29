@@ -11,6 +11,7 @@ import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
 
+
 public class ProductDaoImpl {
 
 	public List<Product> findAll() {
@@ -21,10 +22,12 @@ public class ProductDaoImpl {
 
 	public List<Product> getProductByCID(int cateID) {
 		EntityManager enma = JpaConfig.getEntityManager();
-		String jpql = "SELECT c FROM Product c WHERE c.categoryId like :cateID";
+		String jpql = "select c from Product c join c.category where c.category LIKE :id";
 		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
+		query.setParameter("id", cateID);
 		return query.getResultList();
 	}
+
 
 	public Product findLastProduct() {
 		EntityManager enma = JpaConfig.getEntityManager();
