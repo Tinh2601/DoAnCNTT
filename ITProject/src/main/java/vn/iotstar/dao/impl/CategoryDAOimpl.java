@@ -17,5 +17,7 @@ public class CategoryDAOimpl {
 		TypedQuery<Category> query = enma.createNamedQuery("Category.findAll", Category.class);
 		return query.getResultList();
 	}
-
+	public static void main(String[] args) {
+		System.out.println("hello world");
+	}
 }

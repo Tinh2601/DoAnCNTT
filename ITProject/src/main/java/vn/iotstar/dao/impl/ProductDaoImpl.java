@@ -8,7 +8,7 @@ import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
 import vn.iotstar.entity.Product;
-import vn.iotstar.entity.User;
+
 
 
 
@@ -22,9 +22,9 @@ public class ProductDaoImpl {
 
 	public List<Product> getProductByCID(int cateID) {
 		EntityManager enma = JpaConfig.getEntityManager();
-		String jpql = "select c from Product c join c.category where c.category LIKE :id";
+		String jpql = "SELECT p FROM Product p join p.category where p.category.categoryId LIKE ?1";
 		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
-		query.setParameter("id", cateID);
+		query.setParameter(1, cateID);
 		return query.getResultList();
 	}
 
@@ -59,14 +59,6 @@ public class ProductDaoImpl {
 	
 	
 	public static void main(String[] args) {
-		ProductDaoImpl dao = new ProductDaoImpl();
-
-		// System.out.println(dao.findAll());
-	List<Product> product = dao.findByProductName("a");
-//		if (product != null) {
-//			System.out.println("ko lỗi !");
-//		}
-//		System.out.println(dao.count());
-		System.out.println(product);
+		System.out.println("hello world");
 	}
 }
