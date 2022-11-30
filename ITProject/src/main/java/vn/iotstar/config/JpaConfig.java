@@ -6,7 +6,7 @@ public class JpaConfig {
 
 	public static EntityManager getEntityManager() {
 
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ShopOnline");
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("ITProject");
 
 		return factory.createEntityManager();
 

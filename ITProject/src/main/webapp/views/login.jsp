@@ -14,34 +14,32 @@
 
       <h3>Login Page</h3>
       <p style="color: red;">${errorString}</p>
-	  
 
-      <form method="POST" action='<c:url value="/login" />'>
-         <table >
+
+      <form method="POST" action="${pageContext.request.contextPath}/login">
+         <table border="0">
             <tr>
                <td>User Name</td>
-               <td><input type="text" name="username" value= "" /> </td>
+               <td><input type="text" name="userName" value= "${user.userName}" /> </td>
             </tr>
             <tr>
                <td>Password</td>
-               <td><input type="password" name="password" value= "" /> </td>
+               <td><input type="text" name="password" value= "${user.password}" /> </td>
             </tr>
             <tr>
-               <td>Role</td>
-               <td><input type="text" name="role" value= "" /> </td>
-            </tr>
-            <tr>
-               <td><input type="hidden" name="action" value="login" />  </td>
+               <td>Remember me</td>
+               <td><input type="checkbox" name="rememberMe" value= "Y" /> <a href="signup"> Sign up </a> </td>
             </tr>
             <tr>
                <td colspan ="2">
                   <input type="submit" value= "Submit" />
+                  <a href="${pageContext.request.contextPath}/">Cancel</a>
                </td>
             </tr>
          </table>
       </form>
 
-
+      <p style="color:blue;">User Name: tom, password: tom001 or jerry/jerry001</p>
 
 
    </body>

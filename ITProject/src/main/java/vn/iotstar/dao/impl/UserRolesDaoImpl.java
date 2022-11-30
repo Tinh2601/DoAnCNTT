@@ -7,32 +7,30 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
-import vn.iotstar.entity.Category;
+import vn.iotstar.entity.UserRole;
 
-public class CategoryDaoImpl {
-
-
-	public List<Category> findAll() {
+public class UserRolesDaoImpl {
+	public List<UserRole> findAll() {
 		EntityManager enma = JpaConfig.getEntityManager();
-		TypedQuery<Category> query = enma.createNamedQuery("Category.findAll", Category.class);
+		TypedQuery<UserRole> query = enma.createNamedQuery("UserRole.findAll", UserRole.class);
 		return query.getResultList();
 	}
 
-	public List<Category> findByCategoryname(String categoryName) {
+	public List<UserRole> findByRolename(String roleName) {
 		EntityManager enma = JpaConfig.getEntityManager();
-		String jpql = "SELECT c FROM Category c WHERE c.categoryName like :categoryName";
-		TypedQuery<Category> query = enma.createQuery(jpql, Category.class);
-		query.setParameter("categoryName", "%" + categoryName + "%");
+		String jpql = "SELECT u FROM UserRole u WHERE u.roleName like :roleName";
+		TypedQuery<UserRole> query = enma.createQuery(jpql, UserRole.class);
+		query.setParameter("roleName", "%" + roleName + "%");
 		return query.getResultList();
 	}
 
 
-	public void update(Category category) {
+	public void update(UserRole userrole) {
 		EntityManager enma = JpaConfig.getEntityManager(); //
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			enma.merge(category);
+			enma.merge(userrole);
 			trans.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,14 +41,14 @@ public class CategoryDaoImpl {
 		}
 	}
 
-	public void delete(int categoryId) throws Exception {
+	public void delete(int roleId) throws Exception {
 		EntityManager enma = JpaConfig.getEntityManager(); //
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			Category category = enma.find(Category.class, categoryId);
-			if (category != null) {
-				enma.remove(category);
+			UserRole userrole = enma.find(UserRole.class, roleId);
+			if (userrole != null) {
+				enma.remove(userrole);
 			} else {
 				throw new Exception("Không tìm thấy !");
 			}
@@ -64,12 +62,12 @@ public class CategoryDaoImpl {
 		}
 	}
 	
-	public void insert(Category category) {
+	public void insert(UserRole userrole) {
 		EntityManager enma = JpaConfig.getEntityManager(); 
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			enma.persist(category); 
+			enma.persist(userrole); 
 			trans.commit(); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,37 +79,35 @@ public class CategoryDaoImpl {
 	}
 
 	public static void main(String[] args) {
-		CategoryDaoImpl dao = new CategoryDaoImpl();
+		UserRolesDaoImpl dao = new UserRolesDaoImpl();
 
-		List<Category> l1 = dao.findAll();
+		List<UserRole> l1 = dao.findAll();
 		System.out.println(l1);
 
 		System.out.println("-----------------------------------------------------------------");
 
-		List<Category> l2 = dao.findByCategoryname("Bitis");
+		List<UserRole> l2 = dao.findByRolename("admin");
 		System.out.println(l2);
 
 		System.out.println("-----------------------------------------------------------------");
 
-		Category c1 = new Category();
+		UserRole r1 = new UserRole();
 
-		c1.setCategoryName("nước ngọt");
-		c1.setCategoryId(0);
+		r1.setRoleName("nước ngọt");
+
 		
-		dao.insert(c1);
+//		dao.insert(r1);
 		
-//		c1.setCategoryId(6);
-//		c1.setCategoryName("Bitis");
-//		c1.setImages("https://upload.wikimedia.org/wikipedia/vi/thumb/3/37/Bitis_logo.svg/1200px-Bitis_logo.svg.png");
-//		c1.setStatus(6);
-//		dao.update(c1);
+		r1.setRoleId(4);
+		r1.setRoleName("nước chanh");
+//		dao.update(r1);
 		
-//		try {
-//			dao.delete(6);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+		try {
+			dao.delete(4);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 }

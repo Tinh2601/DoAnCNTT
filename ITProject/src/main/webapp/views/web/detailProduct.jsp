@@ -37,7 +37,7 @@
 				<div class="card bg-light mb-3">
 					<div class="card-body">
 						<a href="" data-toggle="modal" data-target="#productModal"> <img
-							class="img-fluid" src=${detail.image } />
+							class="img-fluid" src=${detail.images } />
 							<p class="text-center">Zoom</p>
 						</a>
 					</div>

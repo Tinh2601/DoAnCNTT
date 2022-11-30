@@ -69,7 +69,7 @@
                                 <div class="card">
                                     <img class="card-img-top" src="${o.images}" alt="Card image cap">
                                     <div class="card-body">
-                                        <h4 class="card-title show_txt"><a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a></h4>
+                                        <h4 class="card-title show_txt"><a href="${pageContext.request.contextPath}/product/detail?pid=${o.productId}" title="View Product">${o.productName}</a></h4>
                                         <p class="card-text show_txt">Giá tốt</p>
                                         <div class="row">
                                             <div class="col">

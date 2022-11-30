@@ -16,6 +16,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 
 	private String code;
@@ -47,13 +48,6 @@ public class User implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="roleId")
 	private UserRole userRole;
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", code=" + code + ", email=" + email + ", fullname=" + fullname + ", images="
-				+ images + ", password=" + password + ", phone=" + phone + ", status=" + status + ", username="
-				+ username + ", carts=" + carts + ", seller=" + seller + ", userRole=" + userRole + "]";
-	}
 
 	public User() {
 	}

@@ -37,12 +37,12 @@
 				<!-- Menu desktop -->
 				<div  class="menu-desktop">
 					<ul class="main-menu">
-						<li><a href="web-home">Home</a> <!-- <ul class="sub-menu">
+						<li><a href="${pageContext.request.contextPath}/homemain">Home</a> <!-- <ul class="sub-menu">
 								<li><a href="index.html">Homepage 1</a></li>
 								<li><a href="home-02.html">Homepage 2</a></li>
 								<li><a href="home-03.html">Homepage 3</a></li>
 							</ul></li> -->
-						<li class="<!-- active- -->menu"><a href="web-category">Category</a></li>
+						<li class="<!-- active- -->menu"><a href="${pageContext.request.contextPath}/category/list">Category</a></li>
 
 						<!-- <li class="label1" data-label1="hot"><a
 							href="shoping-cart.html">Features</a></li> -->
@@ -58,7 +58,7 @@
 				<!-- Icon header -->
 				<div class="wrap-icon-header flex-w flex-r-m">
 					<div class="input-group input-group-sm" style="width: 50%;">
-						<form action='<c:url value="web-search"/>' method="get"
+						<form action="${pageContext.request.contextPath}/search" method="post"
 							class="form-inline my-2 my-lg-0">
 							<div class="input-group input-group-sm">
 								<input oninput="searchByName(this)" value="${txtS}" name="txt"

@@ -27,8 +27,8 @@
 					</div>
 					<ul class="list-group ">
 						<c:forEach items="${listCC}" var="o">
-							<li  ><a class="list-group-item text-back ${cid == o.categoryId ? "active":""}"
-								href="${pageContext.request.contextPath}/web-category/list?cateId=${o.categoryId}">${o.categoryName}</a></li>
+							<li  ><a class="list-group-item text-back ${tagCate == o.categoryId ? "active":""}"
+								href="${pageContext.request.contextPath}/category/productfind?categoryId=${o.categoryId}">${o.categoryName}</a></li>
 						</c:forEach>
 
 					</ul>
@@ -44,7 +44,7 @@
 								<img class="card-img-top" src="${o.images}" alt="Card image cap">
 								<div class="card-body">
 									<h4 class="card-title show_txt">
-										<a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a>
+										<a href="${pageContext.request.contextPath}/product/detail?pid=${o.productId}" title="View Product">${o.productName}</a>
 									</h4>
 									<p class="card-text show_txt"></p>
 									<div class="row">

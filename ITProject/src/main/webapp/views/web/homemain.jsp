@@ -52,17 +52,17 @@
 						alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title text-center">
-							<a href="detail?pid=${o.productId}" title="View Product">${top1.productName}</a>
+							<a href="${pageContext.request.contextPath}/product/detail?pid=${top1.productId}" title="View Product">${top1.productName}</a>
             
 							
 							
 						</h4>
 						<div class="row">
 							<div class="col">
-								<p class="btn btn-danger btn-block">${top1.price} đ</p>
+								<p class="btn btn-danger btn-block">${top1.price} </p>
 							</div>
 							<div class="col">
-								<a href="productdetail?pid=${top1.productId}" class="btn btn-success btn-block">View</a>
+								<a href="${pageContext.request.contextPath}/product/detail?pid=${top1.productId}" class="btn btn-success btn-block">View</a>
 							</div>
 						</div>
 					</div>				
@@ -85,11 +85,11 @@
 							<div class="col-sm">
 								<div class="card">
 									<img class="card-img-top"
-										src="${o.image }"
+										src="${o.images }"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a>
+											<a href="${pageContext.request.contextPath}/product/detail?pid=${o.productId}" title="View Product">${o.productName}</a>
 										</h4>
 										<p class="card-text">Sản Phẩm Mới</p>
 										<div class="row">
@@ -126,11 +126,11 @@
 							<div class="col-sm">
 								<div class="card">
 									<img class="card-img-top"
-										src="${o.image }"
+										src="${o.images }"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="detail?pid=${o.productId}" title="View Product">${o.productName}</a>
+											<a href="${pageContext.request.contextPath}/product/detail?pid=${o.productId}" title="View Product">${o.productName}</a>
 										</h4>
 										<p class="card-text">Hàng đẹp giá rẻ</p>
 										<div class="row">

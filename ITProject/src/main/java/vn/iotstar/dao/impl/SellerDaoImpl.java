@@ -7,32 +7,30 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
-import vn.iotstar.entity.Category;
+import vn.iotstar.entity.Seller;
 
-public class CategoryDaoImpl {
-
-
-	public List<Category> findAll() {
+public class SellerDaoImpl {
+	public List<Seller> findAll() {
 		EntityManager enma = JpaConfig.getEntityManager();
-		TypedQuery<Category> query = enma.createNamedQuery("Category.findAll", Category.class);
+		TypedQuery<Seller> query = enma.createNamedQuery("Seller.findAll", Seller.class);
 		return query.getResultList();
 	}
 
-	public List<Category> findByCategoryname(String categoryName) {
+	public List<Seller> findBySellername(String sellername) {
 		EntityManager enma = JpaConfig.getEntityManager();
-		String jpql = "SELECT c FROM Category c WHERE c.categoryName like :categoryName";
-		TypedQuery<Category> query = enma.createQuery(jpql, Category.class);
-		query.setParameter("categoryName", "%" + categoryName + "%");
+		String jpql = "SELECT s FROM Seller s WHERE s.sellername like :sellername";
+		TypedQuery<Seller> query = enma.createQuery(jpql, Seller.class);
+		query.setParameter("sellername", "%" + sellername + "%");
 		return query.getResultList();
 	}
 
 
-	public void update(Category category) {
+	public void update(Seller seller) {
 		EntityManager enma = JpaConfig.getEntityManager(); //
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			enma.merge(category);
+			enma.merge(seller);
 			trans.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -43,14 +41,14 @@ public class CategoryDaoImpl {
 		}
 	}
 
-	public void delete(int categoryId) throws Exception {
+	public void delete(int sellerId) throws Exception {
 		EntityManager enma = JpaConfig.getEntityManager(); //
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			Category category = enma.find(Category.class, categoryId);
-			if (category != null) {
-				enma.remove(category);
+			Seller seller = enma.find(Seller.class, sellerId);
+			if (seller != null) {
+				enma.remove(seller);
 			} else {
 				throw new Exception("Không tìm thấy !");
 			}
@@ -64,12 +62,12 @@ public class CategoryDaoImpl {
 		}
 	}
 	
-	public void insert(Category category) {
+	public void insert(Seller seller) {
 		EntityManager enma = JpaConfig.getEntityManager(); 
 		EntityTransaction trans = enma.getTransaction(); //
 		try {
 			trans.begin();
-			enma.persist(category); 
+			enma.persist(seller); 
 			trans.commit(); 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,33 +79,31 @@ public class CategoryDaoImpl {
 	}
 
 	public static void main(String[] args) {
-		CategoryDaoImpl dao = new CategoryDaoImpl();
+		SellerDaoImpl dao = new SellerDaoImpl();
 
-		List<Category> l1 = dao.findAll();
+		List<Seller> l1 = dao.findAll();
 		System.out.println(l1);
 
 		System.out.println("-----------------------------------------------------------------");
 
-		List<Category> l2 = dao.findByCategoryname("Bitis");
+		List<Seller> l2 = dao.findBySellername("tinh");
 		System.out.println(l2);
 
 		System.out.println("-----------------------------------------------------------------");
 
-		Category c1 = new Category();
+		Seller s1 = new Seller();
 
-		c1.setCategoryName("nước ngọt");
-		c1.setCategoryId(0);
+		s1.setSellername("nước ngọt");
+		s1.setStatus(1);
+
 		
-		dao.insert(c1);
-		
-//		c1.setCategoryId(6);
-//		c1.setCategoryName("Bitis");
-//		c1.setImages("https://upload.wikimedia.org/wikipedia/vi/thumb/3/37/Bitis_logo.svg/1200px-Bitis_logo.svg.png");
-//		c1.setStatus(6);
-//		dao.update(c1);
+//		dao.insert(s1);
+		s1.setSellerId(5);
+		s1.setStatus(0);
+		dao.update(s1);
 		
 //		try {
-//			dao.delete(6);
+//			dao.delete(4);
 //		} catch (Exception e) {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();

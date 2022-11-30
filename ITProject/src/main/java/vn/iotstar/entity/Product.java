@@ -12,21 +12,11 @@ import java.util.List;
 @Entity
 @NamedQuery(name="Product.findAll", query="SELECT p FROM Product p")
 public class Product implements Serializable {
-	
-
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int productId;
-
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", amount=" + amount + ", createDate=" + createDate
-				+ ", description=" + description + ", images=" + images + ", price=" + price + ", productCode="
-				+ productCode + ", productName=" + productName + ", status=" + status + ", stock=" + stock
-				+ ", wishlist=" + wishlist + ", cartItems=" + cartItems + ", category=" + category + ", seller="
-				+ seller + "]";
-	}
 
 	private int amount;
 
