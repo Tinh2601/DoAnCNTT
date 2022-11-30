@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
@@ -167,7 +168,33 @@ public class ProductDaoImpl {
 		}
 		return top3;
 	}
-
+	
+	public int count() {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT count(p) FROM Product p";
+		Query query = enma.createQuery(jpql); // import persistance
+		return ((Long) query.getSingleResult()).intValue();
+	}
+	
+	public List<Product> findAll(int offset, int limit) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT p FROM Product p ";
+		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
+		List<Product> listAll = query.getResultList();
+		List<Product> top4 = new ArrayList<Product>();
+		int i = 1;  // giống như vị trí của mảng , bắt đầu từ 0 	; các cặp số bắt đầu : 0,3  -> 0,1,2 
+		for (Product product : listAll) {				//			3,6	->3,4,5
+			
+			if ((i>= offset) && (i <=limit)) {
+				top4.add(product);
+			}
+			
+			i++;
+		}
+		return top4;
+		
+	}
+	
 	public static void main(String[] args) {
 		ProductDaoImpl dao = new ProductDaoImpl();
 

@@ -1,4 +1,4 @@
-<!-- vì nội dung nằm ở giữa bên trong thẻ row cho nên phần footer có những thẻ đóng của phần header bên trên -->
+
 
 <div class="row">
 							<div class="col-xs-12">
@@ -22,8 +22,8 @@
     <div class="footer-inner">
         <div class="footer-content">
             <span class="bigger-120">
-                <span class="blue bolder">Ace</span>
-                Application &copy; 2013-2014
+                <span class="blue bolder">K&T SHOP</span>
+                ITProject &copy; 2022
             </span>
 
             &nbsp; &nbsp;
