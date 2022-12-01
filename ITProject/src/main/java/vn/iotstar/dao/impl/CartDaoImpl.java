@@ -8,12 +8,22 @@ import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
 import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.User;
 
 public class CartDaoImpl {
 	public List<Cart> findAll() {
 		EntityManager enma = JpaConfig.getEntityManager();
 		TypedQuery<Cart> query = enma.createNamedQuery("Cart.findAll", Cart.class);
+		return query.getResultList();
+	}
+	
+	public List<Cart> CheckCartstatus(int userId,int status) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT p FROM Cart p join p.userId where p.userId.userId LIKE ?1 and p.status LIKE ?2";
+		TypedQuery<Cart> query = enma.createQuery(jpql, Cart.class);
+		query.setParameter(1, userId);
+		query.setParameter(2, status);
 		return query.getResultList();
 	}
 
@@ -74,7 +84,7 @@ public class CartDaoImpl {
 	public static void main(String[] args) {
 		CartDaoImpl dao = new CartDaoImpl();
 
-		List<Cart> l1 = dao.findAll();
+		List<Cart> l1 = dao.CheckCartstatus(5, 0);
 		System.out.println(l1);
 
 //		System.out.println("-----------------------------------------------------------------");
@@ -84,24 +94,17 @@ public class CartDaoImpl {
 //
 //		System.out.println("-----------------------------------------------------------------");
 
-		Cart c1 = new Cart();
-		c1.setCartId("2");
-		
-		User u = new User();
-		u.setUserId(1);
-		
-		
-//		dao.insert(c1);
-		c1.setUser(u);
-		
-//		dao.update(c1);
-//		
-		try {
-			dao.delete("1");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		/*
+		 * Cart c1 = new Cart(); c1.setCartId("2");
+		 * 
+		 * User u = new User(); u.setUserId(1);
+		 * 
+		 * 
+		 * // dao.insert(c1); c1.setUser(u);
+		 * 
+		 * // dao.update(c1); // try { dao.delete("1"); } catch (Exception e) { // TODO
+		 * Auto-generated catch block e.printStackTrace(); }
+		 */
 
 	}
 }

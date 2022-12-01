@@ -67,18 +67,18 @@
 				<ul class="pagination">
 					<c:if test="${tag>1}">
 						<li class="page-item disabled"><a
-							href="${pageContext.request.contextPath}/category/list?index=${tag-1}">Previous</a></li>
+							href="${pageContext.request.contextPath}/category/productfind?categoryId=${tagCate}&index=${tag-1}">Previous</a></li>
 					</c:if>
 					<c:forEach begin="1" end="${endP}" var="i">
 
 						<li class="page-item ${tag==i?"active":""}" ><a
-							href="${pageContext.request.contextPath}/category/list?index=${i}"
+							href="${pageContext.request.contextPath}/category/productfind?categoryId=${tagCate}&index=${i}"
 							class="page-link">${i}</a></li>
 
 					</c:forEach>
 					<c:if test="${tag<endP}">
 						<li class="page-item"><a
-							href="${pageContext.request.contextPath}/category/list?index=${tag+1}"
+							href="${pageContext.request.contextPath}/category/productfind?categoryId=${tagCate}&index=${tag+1}"
 							class="page-link">Next</a></li>
 					</c:if>
 				</ul>

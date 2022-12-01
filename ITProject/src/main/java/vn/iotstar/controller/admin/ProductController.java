@@ -47,7 +47,7 @@ public class ProductController extends HttpServlet{
 			request.getRequestDispatcher("/views/admin/product/edit.jsp").forward(request, response);
 		}else if (url.contains("search")) {
 
-			search(request, response); // bỏ cái hàm này nó vẫn chạy được thì phương thức nhận vào lấy doGet bên trên kia 
+			search(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
 
 		}
 		findAll(request, response);
@@ -69,11 +69,11 @@ public class ProductController extends HttpServlet{
 
 		} else if (url.contains("delete")) {
 
-			delete(request, response); // bỏ cái hàm này nó vẫn chạy được thì phương thức nhận vào lấy doGet bên trên kia 
+			delete(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
 
 		}else if (url.contains("search")) {
 
-			search(request, response); // bỏ cái hàm này nó vẫn chạy được thì phương thức nhận vào lấy doGet bên trên kia 
+			search(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
 
 		}
 		findAll(request, response);
@@ -147,7 +147,7 @@ public class ProductController extends HttpServlet{
 			String productId = request.getParameter("productId");
 			productdao.delete(Integer.parseInt(productId));
 
-			request.setAttribute("message", "Đã xóa thành công");
+			request.setAttribute("message", "Ä�Ã£ xÃ³a thÃ nh cÃ´ng");
 
 		} catch (Exception e) {
 
@@ -181,16 +181,16 @@ public class ProductController extends HttpServlet{
 	        }
 			int index = Integer.parseInt(indexPage);
 	        int count = productdao.count();
-	        int endPage = count/4;    // -> mỗi trang 4 sp 
+	        int endPage = count/4;    // -> má»—i trang 4 sp 
 	        if(count % 4 !=0) {
 	        	endPage++;
 	        }
 
-	        // với mỗi trang 4 sp 
+	        // vá»›i má»—i trang 4 sp 
 	        // trang 1 : 1,4 
 	        // trang 2 : 1+4,4+4
 	        // trang 3 : 1+4+4,4+4+4
-	        // trang n : 1+(số sp phân trang )*(index-1) , (số sp phân trang )*(index)
+	        // trang n : 1+(sá»‘ sp phÃ¢n trang )*(index-1) , (sá»‘ sp phÃ¢n trang )*(index)
 	        int offset = 1 + 4*(index-1);
 	        int limit = 4*index;
 	        List<Product> list = productdao.findAll(offset,limit);   
@@ -220,7 +220,7 @@ public class ProductController extends HttpServlet{
 
 			BeanUtils.populate(product, request.getParameterMap());
 			
-			//set thuộc tính cho khóa ngoại
+			//set thuá»™c tÃ­nh cho khÃ³a ngoáº¡i
 			Category category = new Category();
 			category.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
 

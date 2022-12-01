@@ -1,4 +1,4 @@
-package vn.iotstar.controller;
+package vn.iotstar.controller.web;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,10 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import vn.iotstar.dao.impl.CartDaoImpl;
+import vn.iotstar.dao.impl.CartItemDaoImpl;
 import vn.iotstar.dao.impl.CategoryDaoImpl;
 import vn.iotstar.dao.impl.ProductDaoImpl;
+import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
+
 
 @WebServlet(urlPatterns = { "/homemain", "/category/list", "/category/productfind", "/search", "/product/detail",
 		"/contact", "/cart" })
@@ -20,6 +25,7 @@ public class WebController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CategoryDaoImpl categorydao = new CategoryDaoImpl();
 	ProductDaoImpl productdao = new ProductDaoImpl();
+	int cateIDpublic = 0;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,7 +40,7 @@ public class WebController extends HttpServlet {
 		}else if (url.contains("contact")) {
 			contact(request, response);
 		}else if (url.contains("cart")) {
-			contact(request, response);
+			cart(request, response);
 		}
 		
 
@@ -57,7 +63,7 @@ public class WebController extends HttpServlet {
 		} else if (url.contains("contact")) {
 			contact(request, response);
 		}else if (url.contains("cart")) {
-			contact(request, response);
+			cart(request, response);
 		}
 
 		loadHome(request, response);
@@ -65,6 +71,14 @@ public class WebController extends HttpServlet {
 
 	protected void cart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CartDaoImpl DaoCart=new CartDaoImpl();
+		CartItemDaoImpl DaoCartItem=new CartItemDaoImpl();
+		List<Cart> cartuser= DaoCart.CheckCartstatus(5, 0);
+		if(cartuser != null) {
+			List<CartItem> listcart=DaoCartItem.findCartItemByCartID(1);
+			request.setAttribute("listcart", cartuser);
+		}
+		
 		request.getRequestDispatcher("/views/web/cart.jsp").forward(request, response);
 	}
 	
@@ -138,14 +152,40 @@ public class WebController extends HttpServlet {
 		request.setAttribute("listCC", listCate);
 //        request.setAttribute("tagCate", cateID);
 
-		// hien thi sp top1
-		ProductDaoImpl dao = new ProductDaoImpl();
-		Product top1 = dao.findTop1Price();
-		request.setAttribute("top1", top1);
 
 		// hien thi sp theo id -> search
-		List<Product> list = productdao.findAll();
-		request.setAttribute("listP", list);
+		//List<Product> list = productdao.findAll();
+		//request.setAttribute("listP", list);
+		
+		
+		
+		String indexPage = request.getParameter("index");
+        if(indexPage == null) {
+        	indexPage = "1";
+        }
+		int index = Integer.parseInt(indexPage);
+        int count = productdao.count();
+        int endPage = count/9;    // -> mỗi trang 4 sp 
+        if(count % 9 !=0) {
+        	endPage++;
+        }
+
+        // với mỗi trang 4 sp 
+        // trang 1 : 1,4 
+        // trang 2 : 1+4,4+4
+        // trang 3 : 1+4+4,4+4+4
+        // trang n : 1+(số sp phân trang )*(index-1) , (số sp phân trang )*(index)
+        int offset = 1 + 9*(index-1);
+        int limit = 9
+        		*index;
+        List<Product> list2 = productdao.findAll(offset,limit);   
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+		
+		 
+		request.setAttribute("listP", list2);
+		
+	
 
 		request.getRequestDispatcher("/views/web/home.jsp").forward(request, response);
 	}
@@ -160,16 +200,45 @@ public class WebController extends HttpServlet {
 		request.setAttribute("tagCate", cateID);
 		request.setAttribute("listCC", listCate);
 		request.setAttribute("tagCate", cateID);
+		
+		
 
-		// hien thi sp top1
-		ProductDaoImpl dao = new ProductDaoImpl();
-		Product top1 = dao.findTop1Price();
-		request.setAttribute("top1", top1);
 
 		// hien thi sp theo id -> search
 		List<Product> list = productdao.getProductByCID(cateID);
-		request.setAttribute("listP", list);
+		
+		String indexPage = request.getParameter("index");
+        if(indexPage == null) {
+        	indexPage = "1";
+        }
+		int index = Integer.parseInt(indexPage);
+        int count = productdao.countbyCid(cateID);
+        int endPage = count/6;    // -> mỗi trang 4 sp 
+        if(count % 6 !=0) {
+        	endPage++;
+        }
 
-		request.getRequestDispatcher("/views/web/home.jsp").forward(request, response);
+        // với mỗi trang 4 sp 
+        // trang 1 : 1,4 
+        // trang 2 : 1+4,4+4
+        // trang 3 : 1+4+4,4+4+4
+        // trang n : 1+(số sp phân trang )*(index-1) , (số sp phân trang )*(index)
+        int offset = 1 + 6*(index-1);
+        int limit = 6
+        		*index;
+        List<Product> list2 = productdao.findAllByCid(offset,limit,cateID);   
+        request.setAttribute("endP", endPage);
+        request.setAttribute("tag", index);
+		
+		 
+		request.setAttribute("listP", list2);
+
+		request.getRequestDispatcher("/views/web/home2.jsp").forward(request, response);
 	}
+	
+	
+	
+	
+	
+	
 }

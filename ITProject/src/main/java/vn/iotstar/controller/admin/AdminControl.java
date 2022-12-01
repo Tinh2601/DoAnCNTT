@@ -19,7 +19,7 @@ import vn.iotstar.dao.impl.UserDaoImpl;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
-@WebServlet(urlPatterns = { "/home", "/login", "/logout" })
+@WebServlet(urlPatterns = { "/admin-home", "/login", "/logout" })
 public class AdminControl extends HttpServlet {
 	
 	/**
@@ -65,7 +65,7 @@ public class AdminControl extends HttpServlet {
 		} else if (action != null && action.equals("logout")) {
 			session.removeAttribute("USERMODEL");
 			load(request, response);
-			response.sendRedirect(request.getContextPath() + "/home");
+			response.sendRedirect(request.getContextPath() + "/homemain");
 		} else {
 			load(request, response);
 			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
@@ -93,7 +93,7 @@ public class AdminControl extends HttpServlet {
 		if (user != null) {
 			if (action != null && action.equals("login")) {
 				if (user.getUserRole().getRoleName().equals("user")) {
-					response.sendRedirect(request.getContextPath() + "/home");
+					response.sendRedirect(request.getContextPath() + "/homemain");
 					session.setAttribute("USERMODEL", user); 
 				} else if (user.getUserRole().getRoleName().equals("admin")) {
 					response.sendRedirect(request.getContextPath() + "/admin-home"); 

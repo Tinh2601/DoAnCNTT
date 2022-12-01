@@ -71,7 +71,7 @@ public class ProductDaoImpl {
 			if (product != null) {
 				enma.remove(product);
 			} else {
-				throw new Exception("Không tìm thấy !");
+				throw new Exception("KhÃ´ng tÃ¬m tháº¥y !");
 			}
 			trans.commit();
 		} catch (Exception e) {
@@ -88,6 +88,14 @@ public class ProductDaoImpl {
 		String jpql = "SELECT p FROM Product p WHERE p.productName like :productName";
 		TypedQuery<Product> query = enma.createQuery(jpql, Product.class); // createQuery # createNamedQuery
 		query.setParameter("productName", "%" + productName + "%");
+		return query.getResultList();
+	}
+	public List<Product> findProDuctBetween(int dau, int cuoi) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT p FROM Product p WHERE p.productId between ?1 and ?2";
+		TypedQuery<Product> query = enma.createQuery(jpql, Product.class); // createQuery # createNamedQuery
+		query.setParameter(1, dau);
+		query.setParameter(2, cuoi);
 		return query.getResultList();
 	}
 	
@@ -175,6 +183,13 @@ public class ProductDaoImpl {
 		Query query = enma.createQuery(jpql); // import persistance
 		return ((Long) query.getSingleResult()).intValue();
 	}
+	public int countbyCid(int cid) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT count(p) FROM Product p where p.category.categoryId like ?1";
+		Query query = enma.createQuery(jpql); // import persistance
+		query.setParameter(1, cid);
+		return ((Long) query.getSingleResult()).intValue();
+	}
 	
 	public List<Product> findAll(int offset, int limit) {
 		EntityManager enma = JpaConfig.getEntityManager();
@@ -182,7 +197,26 @@ public class ProductDaoImpl {
 		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
 		List<Product> listAll = query.getResultList();
 		List<Product> top4 = new ArrayList<Product>();
-		int i = 1;  // giống như vị trí của mảng , bắt đầu từ 0 	; các cặp số bắt đầu : 0,3  -> 0,1,2 
+		int i = 1;  // giá»‘ng nhÆ° vá»‹ trÃ­ cá»§a máº£ng , báº¯t Ä‘áº§u tá»« 0 	; cÃ¡c cáº·p sá»‘ báº¯t Ä‘áº§u : 0,3  -> 0,1,2 
+		for (Product product : listAll) {				//			3,6	->3,4,5
+			
+			if ((i>= offset) && (i <=limit)) {
+				top4.add(product);
+			}
+			
+			i++;
+		}
+		return top4;
+		
+	}
+	public List<Product> findAllByCid(int offset, int limit,int cid) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT p FROM Product p where p.category.categoryId like ?1 ";
+		TypedQuery<Product> query = enma.createQuery(jpql, Product.class);
+		query.setParameter(1, cid);
+		List<Product> listAll = query.getResultList();
+		List<Product> top4 = new ArrayList<Product>();
+		int i = 1;  // giá»‘ng nhÆ° vá»‹ trÃ­ cá»§a máº£ng , báº¯t Ä‘áº§u tá»« 0 	; cÃ¡c cáº·p sá»‘ báº¯t Ä‘áº§u : 0,3  -> 0,1,2 
 		for (Product product : listAll) {				//			3,6	->3,4,5
 			
 			if ((i>= offset) && (i <=limit)) {
@@ -205,7 +239,7 @@ public class ProductDaoImpl {
 //		  "-----------------------------------------------------------------");
 //		  
 //		  List<Product> l2 =
-//		  dao.findByProductName("Giày Thể Thao Nam Hunter X DSMH10500XAM (Xám)");
+//		  dao.findByProductName("GiÃ y Thá»ƒ Thao Nam Hunter X DSMH10500XAM (XÃ¡m)");
 //		  System.out.println(l2);
 //		  
 //		  System.out.println(
@@ -241,7 +275,7 @@ public class ProductDaoImpl {
 		s1.setSellerId(1);
 		Product p1 = new Product();
 
-		p1.setProductName("nước ngọt");
+		p1.setProductName("nÆ°á»›c ngá»�t");
 		p1.setStatus(2);
 		p1.setCategory(c1);
 		p1.setSeller(s1);

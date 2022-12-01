@@ -63,7 +63,7 @@ public class CategoryDaoImpl {
 			if (category != null) {
 				enma.remove(category);
 			} else {
-				throw new Exception("Không tìm thấy !");
+				throw new Exception("KhÃ´ng tÃ¬m tháº¥y !");
 			}
 			trans.commit();
 		} catch (Exception e) {
@@ -97,7 +97,7 @@ public class CategoryDaoImpl {
 		TypedQuery<Category> query = enma.createQuery(jpql, Category.class);
 		List<Category> listAll = query.getResultList();
 		List<Category> top4 = new ArrayList<Category>();
-		int i = 1;  // giống như vị trí của mảng , bắt đầu từ 0 	; các cặp số bắt đầu : 0,3  -> 0,1,2 
+		int i = 1;  // giá»‘ng nhÆ° vá»‹ trÃ­ cá»§a máº£ng , báº¯t Ä‘áº§u tá»« 0 	; cÃ¡c cáº·p sá»‘ báº¯t Ä‘áº§u : 0,3  -> 0,1,2 
 		for (Category category : listAll) {				//			3,6	->3,4,5
 			
 			if ((i>= offset) && (i <=limit)) {
@@ -132,7 +132,7 @@ public class CategoryDaoImpl {
 //
 //		Category c1 = new Category();
 //
-//		c1.setCategoryName("nước ngọt");
+//		c1.setCategoryName("nÆ°á»›c ngá»�t");
 //		c1.setCategoryId(0);
 //		
 //		dao.insert(c1);

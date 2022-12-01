@@ -48,7 +48,7 @@
 						<i class="fa fa-heart"></i> Top one
 					</div>
 					<img class="img-fluid border-0"
-						src="${top1.images}"
+						src="${top1.images}" width="600" height="400"
 						alt="Card image cap">
 					<div class="card-body">
 						<h4 class="card-title text-center">
@@ -85,7 +85,7 @@
 							<div class="col-sm">
 								<div class="card">
 									<img class="card-img-top"
-										src="${o.images }"
+										src="${o.images }" width="600" height="400"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
@@ -126,7 +126,7 @@
 							<div class="col-sm">
 								<div class="card">
 									<img class="card-img-top"
-										src="${o.images }"
+										src="${o.images }" width="600" height="400"
 										alt="Card image cap">
 									<div class="card-body">
 										<h4 class="card-title">
