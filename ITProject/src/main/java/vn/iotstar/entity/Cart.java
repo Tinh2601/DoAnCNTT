@@ -16,7 +16,8 @@ public class Cart implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String cartId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int cartId;
 
 	private Timestamp buyDate;
 
@@ -34,11 +35,11 @@ public class Cart implements Serializable {
 	public Cart() {
 	}
 
-	public String getCartId() {
+	public int getCartId() {
 		return this.cartId;
 	}
 
-	public void setCartId(String cartId) {
+	public void setCartId(int cartId) {
 		this.cartId = cartId;
 	}
 
@@ -71,6 +72,15 @@ public class Cart implements Serializable {
 	}
 
 	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public Cart(int cartId, Timestamp buyDate, int status, User user, List<CartItem> cartItems) {
+		super();
+		this.cartId = cartId;
+		this.buyDate = buyDate;
+		this.status = status;
+		this.user = user;
 		this.cartItems = cartItems;
 	}
 

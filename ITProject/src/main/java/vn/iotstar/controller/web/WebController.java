@@ -1,6 +1,8 @@
 package vn.iotstar.controller.web;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -8,15 +10,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 
 import vn.iotstar.dao.impl.CartDaoImpl;
 import vn.iotstar.dao.impl.CartItemDaoImpl;
 import vn.iotstar.dao.impl.CategoryDaoImpl;
+import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.dao.impl.ProductDaoImpl;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
+import vn.iotstar.entity.User;
 
 
 @WebServlet(urlPatterns = { "/homemain", "/category/list", "/category/productfind", "/search", "/product/detail",
@@ -71,15 +77,42 @@ public class WebController extends HttpServlet {
 
 	protected void cart(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		CartDaoImpl DaoCart=new CartDaoImpl();
-		CartItemDaoImpl DaoCartItem=new CartItemDaoImpl();
-		List<Cart> cartuser= DaoCart.CheckCartstatus(5, 0);
-		if(cartuser != null) {
-			List<CartItem> listcart=DaoCartItem.findCartItemByCartID(1);
-			request.setAttribute("listcart", cartuser);
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		User u = (User) session.getAttribute("USERMODEL");
+		//session.getAttribute("USERMODEL");
+		//User lg= (User) session.getAttribute("USERMODEL");;
+		DaoDBConection DAO=new DaoDBConection();
+		CartDaoImpl cartDao=new CartDaoImpl();
+		CartItemDaoImpl cartItem =new CartItemDaoImpl();
+			  
+		//try {
+			Cart cart =cartDao.CheckCartstatus(u.getUserId(),0);
+		if(cart !=null) {
+			
+			List<CartItem> listcart=cartItem.hienthicart(cart.getCartId());
+			request.setAttribute("listcart",listcart);
 		}
+		else
+		{
+			
+			Date date = new Date();
+			  Timestamp timestamp2 = new Timestamp(date.getTime());
+			DAO.Insert_Cart(u.getUserId(),timestamp2,0);
+		}
+		//}
+		/*catch (Exception e)
+		{
+			e.printStackTrace();
+
+			request.setAttribute("error", "Eror: " + e.getMessage());
+		}*/
 		
 		request.getRequestDispatcher("/views/web/cart.jsp").forward(request, response);
+
+		
+	
+		
 	}
 	
 	protected void contact(HttpServletRequest request, HttpServletResponse response)

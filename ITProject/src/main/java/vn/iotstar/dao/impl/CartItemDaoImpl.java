@@ -51,6 +51,13 @@ public class CartItemDaoImpl {
 			enma.close();
 		}
 	}
+	public List<CartItem> hienthicart(int cartId) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT p FROM CartItem p join p.product join p.cart where  p.cart.cartId LIKE ?1";
+		TypedQuery<CartItem> query = enma.createQuery(jpql, CartItem.class);
+		query.setParameter(1, cartId);
+		return query.getResultList();
+	}
 
 	public void delete(String cartItemId) throws Exception {
 		EntityManager enma = JpaConfig.getEntityManager(); //

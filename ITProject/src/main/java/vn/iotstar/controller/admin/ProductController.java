@@ -47,7 +47,7 @@ public class ProductController extends HttpServlet{
 			request.getRequestDispatcher("/views/admin/product/edit.jsp").forward(request, response);
 		}else if (url.contains("search")) {
 
-			search(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
+			search(request, response); // bÃ¡Â»ï¿½ cÃƒÂ¡i hÃƒÂ m nÃƒÂ y nÃƒÂ³ vÃ¡ÂºÂ«n chÃ¡ÂºÂ¡y Ã„â€˜Ã†Â°Ã¡Â»Â£c thÃƒÂ¬ phÃ†Â°Ã†Â¡ng thÃ¡Â»Â©c nhÃ¡ÂºÂ­n vÃƒÂ o lÃ¡ÂºÂ¥y doGet bÃƒÂªn trÃƒÂªn kia 
 
 		}
 		findAll(request, response);
@@ -69,11 +69,11 @@ public class ProductController extends HttpServlet{
 
 		} else if (url.contains("delete")) {
 
-			delete(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
+			delete(request, response); // bÃ¡Â»ï¿½ cÃƒÂ¡i hÃƒÂ m nÃƒÂ y nÃƒÂ³ vÃ¡ÂºÂ«n chÃ¡ÂºÂ¡y Ã„â€˜Ã†Â°Ã¡Â»Â£c thÃƒÂ¬ phÃ†Â°Ã†Â¡ng thÃ¡Â»Â©c nhÃ¡ÂºÂ­n vÃƒÂ o lÃ¡ÂºÂ¥y doGet bÃƒÂªn trÃƒÂªn kia 
 
 		}else if (url.contains("search")) {
 
-			search(request, response); // bá»� cÃ¡i hÃ m nÃ y nÃ³ váº«n cháº¡y Ä‘Æ°á»£c thÃ¬ phÆ°Æ¡ng thá»©c nháº­n vÃ o láº¥y doGet bÃªn trÃªn kia 
+			search(request, response); // bÃ¡Â»ï¿½ cÃƒÂ¡i hÃƒÂ m nÃƒÂ y nÃƒÂ³ vÃ¡ÂºÂ«n chÃ¡ÂºÂ¡y Ã„â€˜Ã†Â°Ã¡Â»Â£c thÃƒÂ¬ phÃ†Â°Ã†Â¡ng thÃ¡Â»Â©c nhÃ¡ÂºÂ­n vÃƒÂ o lÃ¡ÂºÂ¥y doGet bÃƒÂªn trÃƒÂªn kia 
 
 		}
 		findAll(request, response);
@@ -147,7 +147,7 @@ public class ProductController extends HttpServlet{
 			String productId = request.getParameter("productId");
 			productdao.delete(Integer.parseInt(productId));
 
-			request.setAttribute("message", "Ä�Ã£ xÃ³a thÃ nh cÃ´ng");
+			request.setAttribute("message", "Ã„ï¿½ÃƒÂ£ xÃƒÂ³a thÃƒÂ nh cÃƒÂ´ng");
 
 		} catch (Exception e) {
 
@@ -181,16 +181,16 @@ public class ProductController extends HttpServlet{
 	        }
 			int index = Integer.parseInt(indexPage);
 	        int count = productdao.count();
-	        int endPage = count/4;    // -> má»—i trang 4 sp 
+	        int endPage = count/4;    // -> mÃ¡Â»â€”i trang 4 sp 
 	        if(count % 4 !=0) {
 	        	endPage++;
 	        }
 
-	        // vá»›i má»—i trang 4 sp 
+	        // vÃ¡Â»â€ºi mÃ¡Â»â€”i trang 4 sp 
 	        // trang 1 : 1,4 
 	        // trang 2 : 1+4,4+4
 	        // trang 3 : 1+4+4,4+4+4
-	        // trang n : 1+(sá»‘ sp phÃ¢n trang )*(index-1) , (sá»‘ sp phÃ¢n trang )*(index)
+	        // trang n : 1+(sÃ¡Â»â€˜ sp phÃƒÂ¢n trang )*(index-1) , (sÃ¡Â»â€˜ sp phÃƒÂ¢n trang )*(index)
 	        int offset = 1 + 4*(index-1);
 	        int limit = 4*index;
 	        List<Product> list = productdao.findAll(offset,limit);   
@@ -220,7 +220,7 @@ public class ProductController extends HttpServlet{
 
 			BeanUtils.populate(product, request.getParameterMap());
 			
-			//set thuá»™c tÃ­nh cho khÃ³a ngoáº¡i
+			//set thuÃ¡Â»â„¢c tÃƒÂ­nh cho khÃƒÂ³a ngoÃ¡ÂºÂ¡i
 			Category category = new Category();
 			category.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
 
@@ -233,7 +233,7 @@ public class ProductController extends HttpServlet{
 			
 			productdao.update(product);
 			request.setAttribute("product", product);
-			request.setAttribute("message", "Cập nhật thành công!");
+			request.setAttribute("message", "Cập nhật thành công");
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "Eror: " + e.getMessage());

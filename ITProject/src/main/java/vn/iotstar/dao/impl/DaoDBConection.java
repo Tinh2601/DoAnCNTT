@@ -3,11 +3,14 @@ package vn.iotstar.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.keyvalue.TiedMapEntry;
 
 import vn.iotstar.config.DBConnection;
+import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Category;
 import vn.iotstar.entity.Product;
@@ -54,6 +57,21 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	public Cart Insert_Cart(int userid,Timestamp buyDate,int status) {
+		String query = "INSERT INTO dbo.Cart([userId], [buyDate], [status]) VALUES(?,?,?)";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, userid);
+			ps.setTimestamp(2, buyDate);
+			ps.setInt(3, status);
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 	public User CheckLoginGoogle(String email) {
 		ResultSet rs = null;
 		User user=new User();
@@ -76,6 +94,31 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	public List Giohang(int cartid) {
+		ResultSet rs = null;
+		List list=new ArrayList();
+		String query = "select Product.images,Product.productName,Product.stock,CartItem.quantity,CartItem.unitPrice from Product Join CartItem on Product.productId=CartItem.productId where CartItem.cartId=?";
+		try {
+			
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
+			ps.setInt(1, cartid);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				list.add(1, rs.getString("image"));
+				list.add(2, rs.getString("productName"));
+				list.add(3, rs.getInt("stock"));
+				list.add(4, rs.getInt("quantity"));
+				list.add(5, rs.getString("uniPrice"));
+				
+				return list;
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+	
 	/*
 	 * public User CheckLoginGoogle(String email) { User String sql =
 	 * "SELECT * FROM Category"; try { Connection conn = super.getConnection(); //
@@ -92,6 +135,7 @@ public class DaoDBConection extends DBConnection  {
 	 * vao LIST } } catch (Exception e) { e.printStackTrace(); } return categories;
 	 * // tra ve LIST cac cotegory }
 	 */
+	
 
 	
 

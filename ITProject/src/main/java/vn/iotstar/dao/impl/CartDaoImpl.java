@@ -18,13 +18,13 @@ public class CartDaoImpl {
 		return query.getResultList();
 	}
 	
-	public List<Cart> CheckCartstatus(int userId,int status) {
+	public Cart CheckCartstatus(int userId,int status) {
 		EntityManager enma = JpaConfig.getEntityManager();
-		String jpql = "SELECT p FROM Cart p join p.userId where p.userId.userId LIKE ?1 and p.status LIKE ?2";
+		String jpql = "SELECT p FROM Cart p join p.user where p.user.userId LIKE ?1 and p.status LIKE ?2";
 		TypedQuery<Cart> query = enma.createQuery(jpql, Cart.class);
 		query.setParameter(1, userId);
 		query.setParameter(2, status);
-		return query.getResultList();
+		return query.getSingleResult();
 	}
 
 
@@ -84,8 +84,8 @@ public class CartDaoImpl {
 	public static void main(String[] args) {
 		CartDaoImpl dao = new CartDaoImpl();
 
-		List<Cart> l1 = dao.CheckCartstatus(5, 0);
-		System.out.println(l1);
+		//List<Cart> l1 = dao.CheckCartstatus(5, 0);
+		//System.out.println(l1);
 
 //		System.out.println("-----------------------------------------------------------------");
 //

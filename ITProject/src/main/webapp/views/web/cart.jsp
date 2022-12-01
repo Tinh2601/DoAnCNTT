@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,11 +42,17 @@
                     
                     <core:forEach items="${listcart}" var="o">
                             <tr>
-                            <td><img src= "${o.image}" width="50" height="50"> </td>
-                            <td>${o.productName}</td>
-                            <td>${o.stock}</td>
+                            <td><img src= "${o.product.images}" width="50" height="50"> </td>
+                            <td>${o.product.productName}</td>
+                      
+									<core:if test="${o.product.amount >0}">
+										<td>Còn Hàng</td>
+									</core:if>
+									<core:if test="${o.product.amount <=0}">
+										<td>Hết Hàng</td>
+									</core:if>
                             <td><input class="form-control" type="text" value="1" /></td>
-                            <td class="text-right">${o.price} đ</td>
+                            <td class="text-right">${o.unitPrice} đ</td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
                         </core:forEach>
