@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 
 public class DBConnection {
     
-    private final String serverName = "DESKTOP-CVO372O";
+    private final String serverName = "DESKTOP-8GRK9TE\\SQLEXPRESS";
 	private final String dbName = "ShopGiay";
 	private final String portNumber = "1433";
 	private final String instance = "";// MSSQLSERVER LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
 	private final String userID = "sa";
-	private final String password = "123456";
+	private final String password = "123";
 
 	
 	

@@ -20,6 +20,7 @@
 
 <link rel="stylesheet"
 	href="<c:url value='/template/login/css/style.css'/>">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body class="img js-fullheight"
@@ -70,10 +71,10 @@
 						</form>
 						<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 						<div class="social d-flex text-center">
-							<a href="#" class="px-2 py-2 mr-md-1 rounded"><span
-								class="ion-logo-facebook mr-2"></span> Facebook</a> <a href="#"
+							<a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/ITProject/LoginGoogle&response_type=code&client_id=597365929873-i32sjlv29nfmh3k381ridut8l9nv3bi7.apps.googleusercontent.com&approval_prompt=force" class="px-2 py-2 mr-md-1 rounded"><span
+								class="ion-logo-facebook mr-2"></span> Google</a> <!-- <a href="#"
 								class="px-2 py-2 ml-md-1 rounded"><span
-								class="ion-logo-twitter mr-2"></span> Twitter</a>
+								class="ion-logo-twitter mr-2"></span> Twitter</a> -->
 						</div>
 					</div>
 				</div>

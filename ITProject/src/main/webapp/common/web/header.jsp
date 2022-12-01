@@ -17,7 +17,7 @@
 					</c:if>
 					<c:if test="${not empty USERMODEL}">
 						<a href="#" class="flex-c-m trans-04 p-lr-25"> Welcome ,
-							${sessionScope.USERMODEL.fullname } </a>
+							${sessionScope.USERMODEL.fullname } ,ID:${sessionScope.USERMODEL.userId } </a>
 						<a href='<c:url value="/logout?action=logout"/>'
 							class="flex-c-m trans-04 p-lr-25"> Logout </a>
 					</c:if>
