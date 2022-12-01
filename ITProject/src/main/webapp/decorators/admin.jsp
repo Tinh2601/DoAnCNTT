@@ -316,6 +316,39 @@ img {
 
 	<!-- footer -->
 	<%@ include file="/common/admin/footer.jsp"%>
+	
+	<script type="text/javascript">       
+			if('ontouchstart' in document.documentElement) document.write("<script src="<c:url value='/template/admin/js/jquery.mobile.custom.min.js' />">"+"<"+"/script>");
+		</script>
+		<script src="<c:url value='/template/admin/js/bootstrap.min.js' />"></script>
+		
+		<script src="<c:url value='/template/admin/js/jquery-ui.custom.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.ui.touch-punch.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.easypiechart.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.sparkline.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.flot.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.flot.pie.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/jquery.flot.resize.min.js' />"></script>
+		
 
+
+		<!-- ace scripts -->
+		<script src="<c:url value='/template/admin/js/ace-elements.min.js' />"></script>
+		<script src="<c:url value='/template/admin/js/ace.min.js' />"></script>
+	<script type="text/javascript">
+			
+			
+				//show the dropdowns on top or bottom depending on window height and menu position
+				$('#task-tab .dropdown-hover').on('mouseenter', function(e) {
+					var offset = $(this).offset();
+			
+					var $w = $(window)
+					if (offset.top > $w.scrollTop() + $w.innerHeight() - 100) 
+						$(this).addClass('dropup');
+					else $(this).removeClass('dropup');
+				});
+			
+			})
+		</script>
 </body>
 </html>

@@ -22,7 +22,7 @@
                             <h2>Manage <b>Category</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+                            <a href="${pageContext.request.contextPath}/admin-category/create"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Category</span></a>
                             
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                                 <td>
                                     <img src="${o.images}">
                                 </td>
-                                <td>${o.status} $</td>
+                                <td>${o.status} </td>
                                 <td>
                                     <a href="${pageContext.request.contextPath}/admin-category/edit?categoryId=${o.categoryId}"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
                                     <a href="${pageContext.request.contextPath}/admin-category/delete?categoryId=${o.categoryId}" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>

@@ -64,7 +64,7 @@ public class LoginGoogle extends HttpServlet {
 		}
 		else 
 		{
-			login_google.Insert_Login(usergg.getEmail(),usergg.getEmail(),usergg.getGiven_name(),usergg.getPicture(), 3, 3);
+			login_google.Insert_Login(usergg.getEmail(),usergg.getEmail(),usergg.getGiven_name(),usergg.getPicture(), 3, 3,1);
 			User a2=login_google.CheckLoginGoogle(usergg.getEmail());
 			response.sendRedirect(request.getContextPath() + "/homemain");
 			session.setAttribute("USERMODEL", a2);

@@ -20,21 +20,21 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<h2>
-							Manage <b>Product</b>
+							Manage <b>Member</b>
 						</h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="${pageContext.request.contextPath}/admin-product/create" class="btn btn-success"
+						<a href="${pageContext.request.contextPath}/admin-user/create" class="btn btn-success"
 							data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add
-								New Product</span></a>
+								New Member</span></a>
 						<div class="dropdown">
 							<a class="btn btn-secondary dropdown-toggle" href="#"
 								role="button" id="dropdownMenuLink" data-bs-toggle="dropdown"
-								aria-expanded="false"> Category </a>
+								aria-expanded="false"> Role </a>
 
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-								<c:forEach items="${categorys}" var="o">
-									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin-product/search?categoryId=${o.categoryId}">${o.categoryName}</a></li>
+								<c:forEach items="${userroles}" var="o">
+									<li><a class="dropdown-item" href="${pageContext.request.contextPath}/admin-user/search?roleId=${o.roleId}">${o.roleName}</a></li>
 								</c:forEach>
 							</ul>
 						</div>
@@ -49,35 +49,33 @@
 
 						<th>ID</th>
 						<th>Name</th>
-						<th>Category</th>
-						<th>Description</th>
-						<th>Price</th>
-						<th>Amount</th>
+						<th>Email</th>
+						<th>Full name</th>
+						<th>Password</th>
 						<th>Image</th>
+						<th>Phone</th>
 						<th>Status</th>
-						<th>Create Date</th>
-						<th>Seller Id</th>
+						<th>Role</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach items="${products}" var="o">
+					<c:forEach items="${users}" var="o">
 						<tr>
-							<td>${o.productId}</td>
-							<td>${o.productName}</td>
-							<td>${o.category.categoryName}</td>
-							<td>${o.productCode}</td>
-							<td>${o.price}</td>
-							<td>${o.amount}</td>
+							<td>${o.userId}</td>
+							<td>${o.username}</td>
+							<td>${o.email}</td>
+							<td>${o.fullname}</td>
+							<td>${o.password}</td>
 							<td><img src="${o.images}"></td>
+							<td>${o.phone}</td>
 							<td>${o.status}</td>
-							<td>${o.createDate}</td>
-							<td>${o.seller.sellerId}</td>
+							<td>${o.userRole.roleName}</td>
 							<td><a
-								href="${pageContext.request.contextPath}/admin-product/edit?productId=${o.productId}"
+								href="${pageContext.request.contextPath}/admin-user/edit?userId=${o.userId}"
 								class="edit" data-toggle="modal"><i class="material-icons"
 									data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-								href="${pageContext.request.contextPath}/admin-product/delete?productId=${o.productId}"
+								href="${pageContext.request.contextPath}/admin-user/delete?userId=${o.userId}"
 								class="delete" data-toggle="modal"><i class="material-icons"
 									data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
 						</tr>
@@ -90,18 +88,18 @@
 				<ul class="pagination">
 					<c:if test="${tag>1}">
 						<li class="page-item disabled"><a
-							href="${pageContext.request.contextPath}/admin-product?index=${tag-1}">Previous</a></li>
+							href="${pageContext.request.contextPath}/admin-user?index=${tag-1}">Previous</a></li>
 					</c:if>
 					<c:forEach begin="1" end="${endP}" var="i">
 
 						<li class="page-item ${tag==i?"active":""}" ><a
-							href="${pageContext.request.contextPath}/admin-product?index=${i}"
+							href="${pageContext.request.contextPath}/admin-user?index=${i}"
 							class="page-link">${i}</a></li>
 
 					</c:forEach>
 					<c:if test="${tag<endP}">
 						<li class="page-item"><a
-							href="${pageContext.request.contextPath}/admin-product?index=${tag+1}"
+							href="${pageContext.request.contextPath}/admin-user?index=${tag+1}"
 							class="page-link">Next</a></li>
 					</c:if>
 				</ul>
@@ -113,16 +111,16 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<form
-					action="${pageContext.request.contextPath}/admin-product/create"
+					action="${pageContext.request.contextPath}/admin-user/create"
 					method="post">
 					<div class="modal-header">
-						<h4 class="modal-title">Add Product</h4>
+						<h4 class="modal-title">Add Member</h4>
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label>ID</label> <input name="productId" type="text"
+							<label>ID</label> <input name="userId" type="text"
 								class="form-control" readonly required>
 						</div>
 						<div class="form-group">

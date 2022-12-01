@@ -22,20 +22,71 @@
 		<ul class="nav nav-list">
 			<li class="active"><a > <i
 					class="menu-icon fa fa-tachometer"></i> <span class="menu-text">
-						Dashboard </span>
+						Admin </span>
 			</a> <b class="arrow"></b></li>
 
-			<li class=""><a href="${pageContext.request.contextPath}/admin-category" > <i
-					class="menu-icon fa fa-desktop"></i> <span class="menu-text">
-						Category </span> 
-			</a></li>
 
-			<li class=""><a href="${pageContext.request.contextPath}/admin-product" > <i
-					class="menu-icon fa fa-list"></i> <span class="menu-text">
-						Product </span> 
-			</a></li>
+			<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-list"></i>
+							<span class="menu-text"> Manager </span>
+
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
+
+						<b class="arrow"></b>
+
+						<ul class="submenu">
 
 
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-category">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Category
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+							
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-product">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Product
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-user">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Member
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="admin-add-product">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Cart 
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+							<li class="">
+								<a href="admin-add-product">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Cart Item
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+
+						</ul>
+					</li>
 
 			<li class=""><a href="widgets.html"> <i
 					class="menu-icon fa fa-list-alt"></i> <span class="menu-text">

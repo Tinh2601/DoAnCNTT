@@ -35,8 +35,8 @@ public class DaoDBConection extends DBConnection  {
 	 * } } catch (Exception e) { e.printStackTrace(); } return categories; // tra ve
 	 * LIST cac cotegory }
 	 */
-	public User Insert_Login(String user_name, String email, String fullname, String image,int roleid,int sellerid) {
-		String query = "INSERT INTO dbo.Users([username], [email], [fullname],[images],[roleId],[sellerid]) VALUES(?,?,?,?,?,?)";
+	public User Insert_Login(String user_name, String email, String fullname, String image,int roleid,int sellerid,int status) {
+		String query = "INSERT INTO dbo.Users([username], [email], [fullname],[images],[roleId],[sellerid],[status]) VALUES(?,?,?,?,?,?,?)";
 		try {
 			Connection con = super.getConnection();
 			PreparedStatement ps = con.prepareStatement(query);
@@ -47,6 +47,7 @@ public class DaoDBConection extends DBConnection  {
 
 			ps.setInt(5, roleid);
 			ps.setInt(6,sellerid);
+			ps.setInt(7, status);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception

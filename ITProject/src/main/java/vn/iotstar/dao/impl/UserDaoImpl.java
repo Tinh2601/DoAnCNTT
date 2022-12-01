@@ -1,12 +1,15 @@
 package vn.iotstar.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import vn.iotstar.config.JpaConfig;
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Seller;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.UserRole;
@@ -15,6 +18,47 @@ import vn.iotstar.entity.UserRole;
 
 public class UserDaoImpl {
 	
+	public int count() {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT count(u) FROM User u";
+		Query query = enma.createQuery(jpql); // import persistance
+		return ((Long) query.getSingleResult()).intValue();
+	}
+	
+	public List<User> findAll(int offset, int limit) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT u FROM User u ";
+		TypedQuery<User> query = enma.createQuery(jpql, User.class);
+		List<User> listAll = query.getResultList();
+		List<User> top4 = new ArrayList<User>();
+		int i = 1;  // giá»‘ng nhÆ° vá»‹ trÃ­ cá»§a máº£ng , báº¯t Ä‘áº§u tá»« 0 	; cÃ¡c cáº·p sá»‘ báº¯t Ä‘áº§u : 0,3  -> 0,1,2 
+		for (User user : listAll) {				//			3,6	->3,4,5
+			
+			if ((i>= offset) && (i <=limit)) {
+				top4.add(user);
+			}
+			
+			i++;
+		}
+		return top4;
+		
+	}
+	
+	public User findProductByID(int userId) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT u FROM User u WHERE u.userId like :userId";
+		TypedQuery<User> query = enma.createQuery(jpql, User.class); // createQuery # createNamedQuery
+		query.setParameter("userId",userId);
+		return query.getSingleResult();
+	}
+	
+	public List<User> getUserByRolesId(int roleId) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT u FROM User u join u.userRole where u.userRole.roleId LIKE ?1 ";
+		TypedQuery<User> query = enma.createQuery(jpql, User.class); // createQuery # createNamedQuery
+		query.setParameter(1, roleId);
+		return query.getResultList();
+	}
 	
 	public User login(String user, String pass) {
 		EntityManager enma = JpaConfig.getEntityManager();
@@ -102,13 +146,13 @@ public class UserDaoImpl {
 		 */
 		
 		
-		  Seller seller2 = new Seller(); seller2.setSellerId(3);
-		  
-		  UserRole userrole = new UserRole(); userrole.setRoleId(3);
-		  
-		  User c2 = new User(); c2.setPhone("0708128879");
-		  c2.setFullname("Nguyen Tinh"); c2.setSeller(seller2);
-		  c2.setUserRole(userrole); dao.insert(c2);
+//		  Seller seller2 = new Seller(); seller2.setSellerId(3);
+//		  
+//		  UserRole userrole = new UserRole(); userrole.setRoleId(3);
+//		  
+//		  User c2 = new User(); c2.setPhone("0708128879");
+//		  c2.setFullname("Nguyen Tinh"); c2.setSeller(seller2);
+//		  c2.setUserRole(userrole); dao.insert(c2);
 		 
 		
 //		try {
@@ -127,7 +171,7 @@ public class UserDaoImpl {
 //		  List<User> list = dao.findByUsername("tinh");
 //		  System.out.println(list);
 		  
-		  List<User> list = dao.findAll();
+		  List<User> list = dao.getUserByRolesId(1);
 		  System.out.println(list);
 		
 	}
