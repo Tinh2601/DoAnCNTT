@@ -70,16 +70,7 @@
 							<li class="">
 								<a href="admin-add-product">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Cart 
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-
-							<li class="">
-								<a href="admin-add-product">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Cart Item
+									Order
 								</a>
 
 								<b class="arrow"></b>

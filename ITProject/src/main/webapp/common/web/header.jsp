@@ -7,17 +7,16 @@
 			<div class="content-topbar flex-sb-m h-full container">
 				<div class="left-top-bar">IT Project</div>
 
-				<div class="right-top-bar flex-w h-full">
-
-					<a href="#" class="flex-c-m trans-04 p-lr-25"> Help & FAQs </a> <a
-						href="#" class="flex-c-m trans-04 p-lr-25"> My Account </a>
+				<div class="right-top-bar flex-w h-full">		 
+					
 					<c:if test="${empty USERMODEL}">
 						<a href='<c:url value="/login?action=login"/>'
 							class="flex-c-m trans-04 p-lr-25"> Login </a>
 					</c:if>
 					<c:if test="${not empty USERMODEL}">
+						<a href="${pageContext.request.contextPath}/profile" class="flex-c-m trans-04 p-lr-25"> My Account </a>
 						<a href="#" class="flex-c-m trans-04 p-lr-25"> Welcome ,
-							${sessionScope.USERMODEL.fullname } ,ID:${sessionScope.USERMODEL.userId } </a>
+							${sessionScope.USERMODEL.fullname } </a>
 						<a href='<c:url value="/logout?action=logout"/>'
 							class="flex-c-m trans-04 p-lr-25"> Logout </a>
 					</c:if>
@@ -51,7 +50,7 @@
 
 						<!-- <li><a href="about.html">About</a></li>
  -->
-						<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
+						<li><a href="contact">Contact</a></li>
 					</ul>
 				</div>
 
@@ -73,26 +72,14 @@
 						</form>
 					</div>
 					<!-- Icon header -->
-					<c:if test="${empty USERMODEL}">
-						<div
+
+
+					<div
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="0">
-						<a href="login"> <i class="zmdi zmdi-shopping-cart"></i></a>
+						data-notify="2">
+						<a href="cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
 						
 					</div>
-					</c:if>
-					<c:if test="${not empty USERMODEL}">
-						<div
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="o">
-						<a href="${pageContext.request.contextPath}/cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
-						
-					</div>
-
-					</c:if>
-
-
-					
 
 					<a href="#"
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"

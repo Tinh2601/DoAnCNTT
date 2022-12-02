@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>Register</title>
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,7 +20,7 @@
 
 <link rel="stylesheet"
 	href="<c:url value='/template/login/css/style.css'/>">
-	<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 
 <body class="img js-fullheight"
@@ -29,23 +29,44 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
-					<h2 class="heading-section">Login</h2>
+					<h2 class="heading-section">Register</h2>
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-						<h3 class="mb-4 text-center"><a href="${pageContext.request.contextPath}/register">Register new account </a></h3>
-						<form method="POST" action='<c:url value="/login" />'
+						<form method="POST" action="${pageContext.request.contextPath}/register"
 							class="signin-form">
+							<!-- Username -->
 							<div class="form-group">
 								<input type="text" name="username" value="" class="form-control"
 									placeholder="Username" required>
 							</div>
+							<!--  Full Name-->
 							<div class="form-group">
-								<input id="password-field" type="password" name="password"
-									value="" class="form-control" placeholder="Password" required>
-								<span toggle="#password-field"
+								<input type="text" name="fullname" value="" class="form-control"
+									placeholder="Full Name" required>
+							</div>
+							<!-- Email -->
+							<div class="form-group">
+								<input id="password-field" type="email" name="email" value=""
+									class="form-control" placeholder="Email" required>
+							</div>
+							<!--  Phone-->
+							<div class="form-group">
+								<input type="number" name="phone" value="" class="form-control"
+									placeholder="Phone" required>
+							</div>
+							<div class="form-group">
+								<input type="password" name="password" value="" class="form-control"
+									placeholder="Password" required>
+									<span toggle="#password-field"
+									class="fa fa-fw fa-eye field-icon toggle-password"></span>
+							</div>
+							<div class="form-group">
+								<input type="password" name="" value="" class="form-control"
+									placeholder="Re-Enter Password" required>
+									<span toggle="#password-field"
 									class="fa fa-fw fa-eye field-icon toggle-password"></span>
 							</div>
 							<div class="form-group">
@@ -71,8 +92,11 @@
 						</form>
 						<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 						<div class="social d-flex text-center">
-							<a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/ITProject/LoginGoogle&response_type=code&client_id=597365929873-i32sjlv29nfmh3k381ridut8l9nv3bi7.apps.googleusercontent.com&approval_prompt=force" class="px-2 py-2 mr-md-1 rounded"><span
-								class="ion-logo-facebook mr-2"></span> Google</a> <!-- <a href="#"
+							<a
+								href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile%20openid&redirect_uri=http://localhost:8080/ITProject/LoginGoogle&response_type=code&client_id=597365929873-i32sjlv29nfmh3k381ridut8l9nv3bi7.apps.googleusercontent.com&approval_prompt=force"
+								class="px-2 py-2 mr-md-1 rounded"><span
+								class="ion-logo-facebook mr-2"></span> Google</a>
+							<!-- <a href="#"
 								class="px-2 py-2 ml-md-1 rounded"><span
 								class="ion-logo-twitter mr-2"></span> Twitter</a> -->
 						</div>

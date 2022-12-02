@@ -56,7 +56,6 @@
 						<th>Image</th>
 						<th>Status</th>
 						<th>Create Date</th>
-						<th>Seller Id</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
@@ -72,7 +71,6 @@
 							<td><img src="${o.images}"></td>
 							<td>${o.status}</td>
 							<td>${o.createDate}</td>
-							<td>${o.seller.sellerId}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/admin-product/edit?productId=${o.productId}"
 								class="edit" data-toggle="modal"><i class="material-icons"
