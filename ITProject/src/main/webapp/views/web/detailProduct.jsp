@@ -81,7 +81,7 @@
 									</div>
 								</div>
 							</div>
-							<a href="cart.html"
+							<a href="${pageContext.request.contextPath}/cart/add?productid=${detail.productId}&price=${detail.price}"
 								class="btn btn-success btn-lg btn-block text-uppercase"> <i
 								class="fa fa-shopping-cart"></i> Add To Cart
 							</a>

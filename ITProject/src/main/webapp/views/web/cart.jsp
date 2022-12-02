@@ -51,7 +51,7 @@
 									<core:if test="${o.product.amount <=0}">
 										<td>Hết Hàng</td>
 									</core:if>
-                            <td><input class="form-control" type="text" value="1" /></td>
+                            <td><input class="form-control" type="number" value="${o.quantity }" /></td>
                             <td class="text-right">${o.unitPrice} đ</td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
@@ -123,7 +123,7 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                    <button class="btn btn-block btn-light">Cập Nhật Giỏ Hàng</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>

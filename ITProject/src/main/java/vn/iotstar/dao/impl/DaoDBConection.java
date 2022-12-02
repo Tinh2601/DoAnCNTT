@@ -72,6 +72,42 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	
+	public CartItem Insert_CartItem(int quantity,float unitprice,int productId,int Cartid) {
+		String query = "INSERT INTO dbo.CartItem([quantity], [unitPrice], [productId],[cartId]) VALUES(?,?,?,?)";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, quantity);
+			ps.setFloat(2, unitprice);
+			ps.setInt(3, productId);
+			ps.setInt(4, Cartid);
+			
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	public CartItem Update_CartItem(int quantity,float unitprice,int productId,int Cartid,int cartItemId) {
+		String query = "UPDATE [CartItem] SET quantity =?,unitPrice=?,productId=?,cartId=? WHERE cartItemId = ?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, quantity);
+			ps.setFloat(2, unitprice);
+			ps.setInt(3, productId);
+			ps.setInt(4, Cartid);
+			ps.setInt(5, cartItemId);
+			
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
 	public User CheckLoginGoogle(String email) {
 		ResultSet rs = null;
 		User user=new User();
@@ -94,30 +130,62 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
-	public List Giohang(int cartid) {
+	public Cart CheckCartStatus(int userid,int status) {
 		ResultSet rs = null;
-		List list=new ArrayList();
-		String query = "select Product.images,Product.productName,Product.stock,CartItem.quantity,CartItem.unitPrice from Product Join CartItem on Product.productId=CartItem.productId where CartItem.cartId=?";
+		Cart cart=new Cart();
+		String query = "select * from Cart where userId=? and status=?";
+		try {
+			
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
+			ps.setInt(1, userid);
+			ps.setInt(2, status);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				cart.setCartId(rs.getInt("cartId"));
+				cart.setUser(null);
+				cart.setBuyDate(rs.getTimestamp("buyDate"));
+				cart.setStatus(rs.getInt("status"));
+				
+				return cart;
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+	public CartItem CheckCartItemStatus(int cartid,int productid) {
+		ResultSet rs = null;
+		CartItem cartitem=new CartItem();
+		String query = "select * from CartItem where cartId=? and productId=?";
 		try {
 			
 			Connection con = super.getConnection();
 			PreparedStatement ps = con.prepareStatement(query);
 			ps = con.prepareStatement(query);
 			ps.setInt(1, cartid);
+			ps.setInt(2, productid);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				list.add(1, rs.getString("image"));
-				list.add(2, rs.getString("productName"));
-				list.add(3, rs.getInt("stock"));
-				list.add(4, rs.getInt("quantity"));
-				list.add(5, rs.getString("uniPrice"));
+				Cart cart=new Cart();
+				cart.setCartId(rs.getInt("cartId"));
+				Product pro=new Product();
+				pro.setProductId(rs.getInt("productId"));
+				cartitem.setCartItemId(rs.getInt("cartItemId"));
+				cartitem.setQuantity(rs.getInt("quantity"));
+				cartitem.setUnitPrice(rs.getInt("unitPrice"));
+				cartitem.setProduct(pro);
+				cartitem.setCart(cart);
 				
-				return list;
+				
+				return cartitem;
 			}
 		} catch (Exception e) {
 		}
 		return null;
 	}
+	
+	
 	
 	/*
 	 * public User CheckLoginGoogle(String email) { User String sql =

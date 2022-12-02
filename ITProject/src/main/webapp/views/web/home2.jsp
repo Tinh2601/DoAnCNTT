@@ -52,7 +52,7 @@
 											<p class="btn btn-danger btn-block">${o.price} đ</p>
 										</div>
 										<div class="col">
-											<a href="cart-add?pic=${o.productId} }" class="btn btn-success btn-block">Add to cart</a>
+											<a href="${pageContext.request.contextPath}/cart/add?productid=${o.productId}&price=${o.price}" class="btn btn-success btn-block">Add to cart</a>
 										</div>
 									</div>
 								</div>

@@ -46,6 +46,7 @@ public class Cart implements Serializable {
 	public Timestamp getBuyDate() {
 		return this.buyDate;
 	}
+	
 
 	public void setBuyDate(Timestamp buyDate) {
 		this.buyDate = buyDate;

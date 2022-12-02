@@ -51,7 +51,7 @@
 
 						<!-- <li><a href="about.html">About</a></li>
  -->
-						<li><a href="contact">Contact</a></li>
+						<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
 					</ul>
 				</div>
 
@@ -76,7 +76,7 @@
 					<c:if test="${empty USERMODEL}">
 						<div
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="2">
+						data-notify="0">
 						<a href="login"> <i class="zmdi zmdi-shopping-cart"></i></a>
 						
 					</div>
@@ -84,8 +84,8 @@
 					<c:if test="${not empty USERMODEL}">
 						<div
 						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="2">
-						<a href="cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
+						data-notify="o">
+						<a href="${pageContext.request.contextPath}/cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
 						
 					</div>
 

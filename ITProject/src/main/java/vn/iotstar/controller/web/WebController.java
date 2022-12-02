@@ -57,6 +57,7 @@ public class WebController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
 		String url = request.getRequestURL().toString();
 		if (url.contains("list")) {
 			loadCategoryAndProduct(request, response);
@@ -83,11 +84,11 @@ public class WebController extends HttpServlet {
 		//session.getAttribute("USERMODEL");
 		//User lg= (User) session.getAttribute("USERMODEL");;
 		DaoDBConection DAO=new DaoDBConection();
-		CartDaoImpl cartDao=new CartDaoImpl();
+		//CartDaoImpl cartDao=new CartDaoImpl();
 		CartItemDaoImpl cartItem =new CartItemDaoImpl();
 			  
 		//try {
-			Cart cart =cartDao.CheckCartstatus(u.getUserId(),0);
+			Cart cart =DAO.CheckCartStatus(u.getUserId(),0);
 		if(cart !=null) {
 			
 			List<CartItem> listcart=cartItem.hienthicart(cart.getCartId());
@@ -209,8 +210,7 @@ public class WebController extends HttpServlet {
         // trang 3 : 1+4+4,4+4+4
         // trang n : 1+(số sp phân trang )*(index-1) , (số sp phân trang )*(index)
         int offset = 1 + 9*(index-1);
-        int limit = 9
-        		*index;
+        int limit = 9*index;
         List<Product> list2 = productdao.findAll(offset,limit);   
         request.setAttribute("endP", endPage);
         request.setAttribute("tag", index);
@@ -233,7 +233,6 @@ public class WebController extends HttpServlet {
 		request.setAttribute("tagCate", cateID);
 		request.setAttribute("listCC", listCate);
 		request.setAttribute("tagCate", cateID);
-		
 		
 
 

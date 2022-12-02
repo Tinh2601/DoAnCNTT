@@ -18,6 +18,7 @@ import vn.iotstar.dao.impl.CartItemDaoImpl;
 import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.dao.impl.UserDaoImpl;
 import vn.iotstar.entity.Cart;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.User;
 
 /**
@@ -39,21 +40,17 @@ public class testUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CartItemDaoImpl dao = new CartItemDaoImpl();
-		PrintWriter printWriter = response.getWriter();
-
-		HttpSession session = request.getSession();
-		User u = (User) session.getAttribute("USERMODEL");
-		//session.getAttribute("USERMODEL");
-		//User lg= (User) session.getAttribute("USERMODEL");;
-		DaoDBConection DAO=new DaoDBConection();
-		CartDaoImpl cartDao=new CartDaoImpl();
-		//CartItemDaoImpl cartItem =new CartItemDaoImpl();
-		//Cart cart =cartDao.CheckCartstatus(u.getUserId(),0);	  
-		 //String useridd=Integer.toString(u.getUserId());
-		 Date date = new Date();
-		  Timestamp timestamp2 = new Timestamp(date.getTime());
-		printWriter.println(cartDao.CheckCartstatus(u.getUserId(),0));
+		
+		 CartItemDaoImpl dao = new CartItemDaoImpl(); PrintWriter printWriter =
+		  response.getWriter();
+		  
+		  HttpSession session = request.getSession(); User u = (User)
+		  session.getAttribute("USERMODEL"); //session.getAttribute("USERMODEL");
+		  //User lg= (User) session.getAttribute("USERMODEL");; DaoDBConection DAO=new
+		 DaoDBConection DAO=new DaoDBConection();
+		 CartItem cart=DAO.Update_CartItem(2, 200, 2, 13,32);
+		 printWriter.println(cart);
+		 
 	}
 
 	/**

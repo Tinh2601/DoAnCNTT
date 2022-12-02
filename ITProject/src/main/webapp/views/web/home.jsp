@@ -1,19 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="core"%>
 <%@include file="/common/taglib.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
+<core:if test="${thongbao >0}">																		
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Thông Báo!</strong> Thêm vào giỏ hàng thành công.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+</core:if>
+
 	<!-- Section-->
 	<section class="jumbotron text-center">
 	<div class="container">
 		<h1 class="jumbotron-heading">K&T SHOP CATEGORY</h1>
 		<p class="lead text-muted mb-0">Có rất nhiều lựa chọn dành cho bạn</p>
 	</div>
+	
 </section>
 	<!-- Product -->
 	<div class="bg0 m-t-23 p-b-140">
@@ -52,7 +65,7 @@
 											<p class="btn btn-danger btn-block">${o.price} đ</p>
 										</div>
 										<div class="col">
-											<a href="cart-add?pic=${o.productId} }" class="btn btn-success btn-block">Add to cart</a>
+											<a href="${pageContext.request.contextPath}/cart/add?productid=${o.productId}&price=${o.price}" class="btn btn-success btn-block">Add to cart</a>
 										</div>
 									</div>
 								</div>
