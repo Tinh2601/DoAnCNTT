@@ -9,12 +9,29 @@ import javax.persistence.TypedQuery;
 import vn.iotstar.config.JpaConfig;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
+import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
 public class CartDaoImpl {
 	public List<Cart> findAll() {
 		EntityManager enma = JpaConfig.getEntityManager();
 		TypedQuery<Cart> query = enma.createNamedQuery("Cart.findAll", Cart.class);
+		return query.getResultList();
+	}
+	
+	public Cart findCartByID(int cartId) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT c FROM Cart c join c.user where c.cartId like :cartId and c.status!=0";
+		TypedQuery<Cart> query = enma.createQuery(jpql, Cart.class); // createQuery # createNamedQuery
+		query.setParameter("cartId",cartId);
+		return query.getSingleResult();
+	}
+	
+	
+	public List<Cart> ListOrder() {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT c FROM Cart c join c.user where  c.status!=0";
+		TypedQuery<Cart> query = enma.createQuery(jpql, Cart.class);		
 		return query.getResultList();
 	}
 	

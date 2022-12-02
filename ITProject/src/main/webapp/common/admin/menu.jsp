@@ -68,7 +68,7 @@
 							</li>
 
 							<li class="">
-								<a href="admin-add-product">
+								<a href="${pageContext.request.contextPath}/admin-order">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Order
 								</a>

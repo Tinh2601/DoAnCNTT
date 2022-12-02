@@ -18,6 +18,13 @@ public class CartItemDaoImpl {
 		return query.getResultList();
 	}
 	
+	public List<CartItem> OrderDetail(int userId) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT c FROM CartItem c join c.cart join c.product where c.cart.user.userId like :userId and c.cart.status!=0";
+		TypedQuery<CartItem> query = enma.createQuery(jpql, CartItem.class); // createQuery # createNamedQuery
+		query.setParameter("userId",userId);
+		return query.getResultList();
+	}
 	
 	public List<CartItem> CheckCartItemQuanlity(String cartId,int productId) {
 		EntityManager enma = JpaConfig.getEntityManager();

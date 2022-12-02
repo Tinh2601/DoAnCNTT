@@ -2,9 +2,12 @@ package testPackage;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import vn.iotstar.config.DBConnection;
+import vn.iotstar.controller.SendEmail;
 import vn.iotstar.dao.impl.CartDaoImpl;
 import vn.iotstar.dao.impl.CartItemDaoImpl;
 import vn.iotstar.dao.impl.DaoDBConection;
@@ -41,16 +45,40 @@ public class testUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		 CartItemDaoImpl dao = new CartItemDaoImpl(); PrintWriter printWriter =
-		  response.getWriter();
-		  
-		  HttpSession session = request.getSession(); User u = (User)
-		  session.getAttribute("USERMODEL"); //session.getAttribute("USERMODEL");
-		  //User lg= (User) session.getAttribute("USERMODEL");; DaoDBConection DAO=new
-		 DaoDBConection DAO=new DaoDBConection();
-		 CartItem cart=DAO.Update_CartItem(2, 200, 2, 13,32);
-		 printWriter.println(cart);
+		/*
+		 * CartItemDaoImpl dao = new CartItemDaoImpl();
+		 * 
+		 * HttpSession session = request.getSession(); User u = (User)
+		 * session.getAttribute("USERMODEL"); //session.getAttribute("USERMODEL");
+		 * //User lg= (User) session.getAttribute("USERMODEL");; DaoDBConection DAO=new
+		 * DaoDBConection DAO=new DaoDBConection(); CartItem cart=DAO.Update_CartItem(2,
+		 * 200, 2, 13,32); printWriter.println(cart);
+		 */
+		 CartDaoImpl cartDao = new CartDaoImpl();
+//		 List<Cart> list = cartDao.ListOrder();
+//		 PrintWriter printWriter =
+//				  response.getWriter();
+//		 printWriter.println(list);
+//		 Cart cart = cartDao.findCartByID(1);
+		 PrintWriter printWriter =
+				  response.getWriter();
 		 
+//		 cart.setStatus(2);
+//		 
+//		 cartDao.update(cart);
+//		 int status = cart.getStatus();
+		 
+//		 CartItemDaoImpl cartItemDao = new CartItemDaoImpl();
+//		 List<CartItem> list = cartItemDao.OrderDetail(5);
+//		 
+//		 printWriter.println(list);
+		 SendEmail sendEmail = new SendEmail();
+		 try {
+			sendEmail.SendEmail("20110576@student.hcmute.edu.vn", "hello");
+		} catch (UnsupportedEncodingException | MessagingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

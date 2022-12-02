@@ -31,7 +31,7 @@
                     <div class="modal-content">
                         <form action="${pageContext.request.contextPath}/admin-product/create" method="post">
                             <div class="modal-header">						
-                                <h4 class="modal-title">Edit Product</h4>
+                                <h4 class="modal-title">Add Product</h4>
                             </div>
                             <div class="modal-body">					                              
                                 <div class="form-group">
