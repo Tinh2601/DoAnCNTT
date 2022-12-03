@@ -68,17 +68,17 @@ public class testUser extends HttpServlet {
 //		 cartDao.update(cart);
 //		 int status = cart.getStatus();
 		 
-//		 CartItemDaoImpl cartItemDao = new CartItemDaoImpl();
+//		 CartItemDaoImpl cartItemDao = new CartItemDaoImpl()
 //		 List<CartItem> list = cartItemDao.OrderDetail(5);
-//		 
-//		 printWriter.println(list);
-		 SendEmail sendEmail = new SendEmail();
-		 try {
-			sendEmail.SendEmail("20110576@student.hcmute.edu.vn", "hello");
-		} catch (UnsupportedEncodingException | MessagingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 DaoDBConection DAO=new DaoDBConection();
+		 DAO.Insert_Cart(5, null, 0);
+		 printWriter.println(DAO.Insert_Bills(120, null, 1, 5,"tiền mặt", 0,"HCM","giao nhanh","Khánh","khanh@gmail.com","0326359823"));
+			/*
+			 * SendEmail sendEmail = new SendEmail(); try {
+			 * sendEmail.SendEmail("20110576@student.hcmute.edu.vn", "hello"); } catch
+			 * (UnsupportedEncodingException | MessagingException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); }
+			 */
 	}
 
 	/**

@@ -93,6 +93,7 @@ public class WebController extends HttpServlet {
 			
 			List<CartItem> listcart=cartItem.hienthicart(cart.getCartId());
 			request.setAttribute("listcart",listcart);
+			request.setAttribute("tienhang", DAO.totalPriceByCartId(cart.getCartId()));
 		}
 		else
 		{
@@ -100,6 +101,9 @@ public class WebController extends HttpServlet {
 			Date date = new Date();
 			  Timestamp timestamp2 = new Timestamp(date.getTime());
 			DAO.Insert_Cart(u.getUserId(),timestamp2,0);
+			Cart cart2 =DAO.CheckCartStatus(u.getUserId(),0);
+			request.setAttribute("tienhang", 0);
+			
 		}
 		//}
 		/*catch (Exception e)
@@ -108,6 +112,8 @@ public class WebController extends HttpServlet {
 
 			request.setAttribute("error", "Eror: " + e.getMessage());
 		}*/
+		
+		
 		
 		request.getRequestDispatcher("/views/web/cart.jsp").forward(request, response);
 

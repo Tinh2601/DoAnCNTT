@@ -9,10 +9,12 @@ import java.util.List;
 
 import org.apache.commons.collections.keyvalue.TiedMapEntry;
 
+
 import vn.iotstar.config.DBConnection;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.Category;
+import vn.iotstar.entity.Bills;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
@@ -66,6 +68,28 @@ public class DaoDBConection extends DBConnection  {
 			ps.setTimestamp(2, buyDate);
 			ps.setInt(3, status);
 			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	public Bills Insert_Bills(float total,Timestamp date,int cartId,int userId,String payment,int status,String address, String note,String fullname,String email,String phone) {
+		String query = "INSERT INTO dbo.Bills([total], [date], [cartId],[userId],[paymentmethod],[status],[address],[note],[fullname],[email],[phone]) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setFloat(1,total);
+			ps.setTimestamp(2, date);
+			ps.setInt(3, cartId);
+			ps.setInt(4, userId);
+			ps.setString(5, payment);
+			ps.setInt(6, status);
+			ps.setString(7,address );
+			ps.setString(8, note);
+			ps.setString(9, fullname);
+			ps.setString(10, email);
+			ps.setString(11, phone);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -185,7 +209,23 @@ public class DaoDBConection extends DBConnection  {
 		return null;
 	}
 	
-	
+	public int totalPriceByCartId(int cartID) {
+		int Sum = 0;
+		ResultSet rs = null;
+		String query = "SELECT SUM(unitPrice)FROM CartItem WHERE cartId=?";
+		try {
+			Connection conn = super.getConnection();
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, cartID);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return Sum = 0+rs.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return Sum;
+	}
 	
 	/*
 	 * public User CheckLoginGoogle(String email) { User String sql =

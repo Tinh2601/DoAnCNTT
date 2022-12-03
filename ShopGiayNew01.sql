@@ -1,9 +1,9 @@
-
-Create Database [ShopGiay]
+﻿
+Create Database [ShopGiayNew01]
 
 go
 
-USE [ShopGiay]
+USE [ShopGiayNew01]
 GO
 /****** Object:  Table [dbo].[Cart]    Script Date: 9/19/2022 8:44:04 AM ******/
 SET ANSI_NULLS ON
@@ -11,7 +11,7 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Cart](
-	[cartId] [nvarchar](50) NOT NULL,
+	[cartId] [int]IDENTITY(1,1) NOT NULL,
 	[userId] [int] NULL,
 	[buyDate] [datetime] NULL,
 	[status] [int] NULL,
@@ -27,11 +27,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[CartItem](
-	[cartItemId] [nvarchar](50) NOT NULL,
+	[cartItemId] [int]IDENTITY(1,1) NOT NULL,
 	[quantity] [int] NULL,
 	[unitPrice] [float] NULL,
 	[productId] [int] NULL,
-	[cartId] [nvarchar](50) NULL,
+	[cartId] int NULL,
  CONSTRAINT [PK_CartItem] PRIMARY KEY CLUSTERED 
 (
 	[cartItemId] ASC
@@ -150,6 +150,33 @@ CREATE TABLE [dbo].[Users](
 	[userId] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE TABLE [dbo].[Bills](
+	[bill_Id] [int] IDENTITY(1,1) NOT NULL,
+	[total] [float](50) NULL,
+	[date] [datetime] NULL,
+	[cartId] [int]NULL,
+	[userId] [int] NULL,
+	[address] [nvarchar](500) NULL,
+	[note] [nvarchar](500) NULL,
+	[paymentmethod] [nvarchar](500) NULL,
+	[fullname] [nvarchar](500) NULL,
+	[email] [nvarchar](500) NULL,
+	[phone] [nvarchar](500) NULL,
+	[status] [int] NULL,
+ CONSTRAINT [PK_Bills] PRIMARY KEY CLUSTERED 
+(
+	[bill_Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+
 GO
 ALTER TABLE [dbo].[Cart]  WITH CHECK ADD  CONSTRAINT [FK_Cart_Users] FOREIGN KEY([userId])
 REFERENCES [dbo].[Users] ([userId])
@@ -186,13 +213,23 @@ REFERENCES [dbo].[UserRoles] ([roleId])
 GO
 ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_UserRoles]
 GO
+ALTER TABLE [dbo].[Bills]  WITH CHECK ADD  CONSTRAINT [FK_Bills_CartId] FOREIGN KEY([cartId])
+REFERENCES [dbo].[Cart] ([cartId])
+GO
+ALTER TABLE [dbo].[Bills] CHECK CONSTRAINT [FK_Bills_CartId]
+GO
+ALTER TABLE [dbo].[Bills]  WITH CHECK ADD  CONSTRAINT [FK_Bills_UserId] FOREIGN KEY([userId])
+REFERENCES [dbo].[Users] ([userId])
+GO
+ALTER TABLE [dbo].[Bills] CHECK CONSTRAINT [FK_Bills_UserId]
+GO
 USE [master]
 GO
-ALTER DATABASE [ShopGiay] SET  READ_WRITE 
+ALTER DATABASE [ShopGiayNew01] SET  READ_WRITE 
 GO
 
 
-use [ShopGiay]
+use [ShopGiayNew01]
 
 go
 --Insert Sql 

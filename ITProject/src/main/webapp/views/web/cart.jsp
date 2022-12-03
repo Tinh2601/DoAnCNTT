@@ -51,7 +51,7 @@
 									<core:if test="${o.product.amount <=0}">
 										<td>Hết Hàng</td>
 									</core:if>
-                            <td><input class="form-control" type="number" value="${o.quantity }" /></td>
+                            <td><input class="form-control" type="number" value="${o.quantity}" /></td>
                             <td class="text-right">${o.unitPrice} đ</td>
                             <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
                         </tr>
@@ -100,22 +100,22 @@
                             <td>Tổng tiền hàng</td>
                             <td class="text-right">${tienhang} đ</td>
                         </tr>
-                        <tr>
+                       <%--  <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td>Phí Ship</td>
                             <td class="text-right">${tienship} đ</td>
-                        </tr>
-                        <tr>
+                        </tr> --%>
+                        <%-- <tr>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td><strong>Tổng</strong></td>
                             <td class="text-right"><strong>${tong} đ</strong></td>
-                        </tr>
+                        </tr> --%>
                     </tbody>
                 </table>
             </div>
@@ -126,7 +126,8 @@
                     <button class="btn btn-block btn-light">Cập Nhật Giỏ Hàng</button>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
-                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    <a href="${pageContext.request.contextPath}/checkout/xacnhan"><button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                    </a>
                 </div>
             </div>
         </div>
