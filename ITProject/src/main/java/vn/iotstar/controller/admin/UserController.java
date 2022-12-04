@@ -110,7 +110,7 @@ public class UserController extends HttpServlet{
 
 			String userId = request.getParameter("userId");
 
-			User user = userdao.findProductByID(Integer.parseInt(userId));
+			User user = userdao.findUserByID(Integer.parseInt(userId));
 
 			request.setAttribute("user", user);
 

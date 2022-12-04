@@ -16,4 +16,7 @@
 	<decorator name="register" page="register.jsp">
 		<pattern>/register*</pattern>
 	</decorator>
+	<decorator name="forgetPassword" page="forgetPassword.jsp">
+		<pattern>/forgetPassword*</pattern>
+	</decorator>
 </decorators>

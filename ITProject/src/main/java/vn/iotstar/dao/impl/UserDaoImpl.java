@@ -44,7 +44,15 @@ public class UserDaoImpl {
 		
 	}
 	
-	public User findProductByID(int userId) {
+	public User findUserByEmail(String email) {
+		EntityManager enma = JpaConfig.getEntityManager();
+		String jpql = "SELECT u FROM User u WHERE u.email like :email";
+		TypedQuery<User> query = enma.createQuery(jpql, User.class); // createQuery # createNamedQuery
+		query.setParameter("email",email);
+		return query.getSingleResult();
+	}
+	
+	public User findUserByID(int userId) {
 		EntityManager enma = JpaConfig.getEntityManager();
 		String jpql = "SELECT u FROM User u WHERE u.userId like :userId";
 		TypedQuery<User> query = enma.createQuery(jpql, User.class); // createQuery # createNamedQuery

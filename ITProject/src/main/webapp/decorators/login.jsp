@@ -57,6 +57,9 @@
 									class="form-control btn btn-primary submit px-3">Sign
 									In</button>
 							</div>
+							<div class="form-group">
+								<h3 class="mb-4 text-center"><a href="${pageContext.request.contextPath}/forgetPassword">Forgot Password  </a></h3>
+							</div>
 							
 							<!-- ghi nhớ mật khẩu --><!-- 
 							<div class="form-group d-md-flex">

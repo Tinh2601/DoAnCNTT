@@ -21,13 +21,13 @@
 				<div class="row">
 					<div class="col-sm-6">
 						<h2>
-							Manage <b>Order</b>
+							Order <b>Detail</b>
 						</h2>
 					</div>
 					<div class="col-sm-6">
 						<a href="${pageContext.request.contextPath}/admin-order/create"
 							class="btn btn-success" data-toggle="modal"><i
-							class="material-icons">&#xE147;</i> <span>Add New Order</span></a>
+							class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
 
 					</div>
 				</div>
@@ -37,8 +37,7 @@
 					<tr>
 
 						<th>Name</th>
-						<th>Email</th>
-						<th>Order Status</th>
+						<th>Image</th>
 						<th>Price</th>
 						<th>Actions</th>
 					</tr>
@@ -46,29 +45,18 @@
 				<tbody>
 					<c:forEach items="${cartitems}" var="o">
 						<tr>
-							<td><a href="" />${o.product.productName}</td>
-<%-- 							<td>${o.user.email}</td>
-							<c:if test="${o.status ==1}">
-								<td>Đang xử lý</td>
-							</c:if>
-							<c:if test="${o.status ==2}">
-								<td>Đã hoàn tất</td>
-							</c:if>
-							<c:if test="${o.status ==3}">
-								<td>Đang tạm giữ</td>
-							</c:if>
-							<c:if test="${o.status ==4}">
-								<td>Đã hủy bỏ</td>
-							</c:if>
-							<td>${o.status}</td> --%>
-							<%-- <td><a
-								href="${pageContext.request.contextPath}/admin-order/edit?cartId=${o.cartId}"
+							<td>${o.product.productName}</td>
+							<td><img src="${o.product.images}"></td>
+							<td>${o.product.price}</td>
+							<td>
+							<a	href=""
 								class="edit" data-toggle="modal"><i class="material-icons"
-									data-toggle="tooltip" title="Edit">&#xE254;</i></a> <a
-								href="${pageContext.request.contextPath}/admin-order/delete?orderId=${o.cartId}"
+									data-toggle="tooltip" title="Edit">&#xE254;</i></a> 
+									
+								<a href="${pageContext.request.contextPath}/admin-order/remove?cartItemId=${o.cartItemId}"
 								class="delete" data-toggle="modal"><i class="material-icons"
 									data-toggle="tooltip" title="Delete">&#xE872;</i></a></td>
-						</tr> --%>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>

@@ -1,6 +1,7 @@
 package vn.iotstar.controller.web;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,17 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import vn.iotstar.dao.impl.UserDaoImpl;
-import vn.iotstar.entity.Seller;
 import vn.iotstar.entity.User;
-import vn.iotstar.entity.UserRole;
 
-/**
- * Servlet implementation class profile
- */
-@WebServlet(urlPatterns = { "/profile","/updateuser" })
+
+@WebServlet(urlPatterns = { "/profile","/updateuser","/changePassWord" })
 public class Profile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -34,36 +29,28 @@ public class Profile extends HttpServlet {
 		String url = request.getRequestURL().toString();
 		if (url.contains("updateuser")) {
 			update(request, response);
-		}
+		}else if (url.contains("changePassWord")) {
+			changePassWord(request, response);
+		} 
 		request.getRequestDispatcher("/views/web/profile.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		try {
-			
-			request.setCharacterEncoding("UTF-8");
-
-			response.setCharacterEncoding("UTF-8");
-
-
-			User user = new User();
-
-			BeanUtils.populate(user, request.getParameterMap());
-			
-			
-			
-			userdao.update(user);
-			request.setAttribute("user", user);
-			request.setAttribute("message", "Cập nhật thành công!");
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.setAttribute("error", "Eror: " + e.getMessage());
-		}
-
+		doGet(request, response);
 	}
+	
+	protected void changePassWord(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// thêm 1 thẻ báo lỗi , khi người dùng gọi hàm , nếu ko thõa mãn thuộc tính ${error String }
+	
+		//nếu người dùng đang đăng nhập vào thì biến password còn lưu -> lấy biến đó ra kiểm tra và tái sử dụng hàm update bên dưới 
+		
+		// tạo giao diện changePassWord
+	}
+	
+	
 	protected void update(HttpServletRequest request, HttpServletResponse response)
 
 			throws ServletException, IOException {

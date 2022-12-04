@@ -30,21 +30,20 @@ import vn.iotstar.entity.Seller;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.UserRole;
 
-
-
-@WebServlet(urlPatterns = { "/admin-order", "/admin-order/create", "/admin-order/update",
-		"/admin-order/edit", "/admin-order/delete" , "/admin-order/orderdetail" })
-public class OrderController extends HttpServlet{
+@WebServlet(urlPatterns = { "/admin-order", "/admin-order/create", "/admin-order/update", "/admin-order/edit",
+		"/admin-order/delete", "/admin-order/orderdetail" ,  "/admin-order/new" , "/admin-order/remove" })
+public class OrderController extends HttpServlet {
 
 	/**
 	 * 
 	 */
 	UserDaoImpl userdao = new UserDaoImpl();
 	UserRolesDaoImpl userroledao = new UserRolesDaoImpl();
-	
+
 	CartDaoImpl cartdao = new CartDaoImpl();
 	CartItemDaoImpl cartitemdao = new CartItemDaoImpl();
 	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -60,8 +59,10 @@ public class OrderController extends HttpServlet{
 		} else if (url.contains("edit")) {
 			edit(request, response);
 			request.getRequestDispatcher("/views/admin/order/edit.jsp").forward(request, response);
-		}else if (url.contains("orderdetail")) {
-			orderdetail(request, response); 
+		} else if (url.contains("orderdetail")) {
+			orderdetail(request, response);
+		}else if (url.contains("remove")) {
+			remove(request, response);
 		}
 		findAll(request, response);
 		findAllUserRole(request, response);
@@ -83,17 +84,42 @@ public class OrderController extends HttpServlet{
 
 		} else if (url.contains("delete")) {
 
-			delete(request, response); // 
+			delete(request, response); //
 
-		}else if (url.contains("orderdetail")) {
+		} else if (url.contains("orderdetail")) {
 
-			orderdetail(request, response); 
+			orderdetail(request, response);
+
+		}else if (url.contains("remove")) {
+
+			remove(request, response);
 
 		}
 
 		listOrder(request, response);
 		request.getRequestDispatcher("/views/admin/order/list.jsp").forward(request, response);
 	}
+	
+	protected void remove(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		try {
+
+			String cartItemId = request.getParameter("cartItemId");
+			cartitemdao.delete(Integer.parseInt(cartItemId));
+
+			request.setAttribute("message", "Đã xóa thành công ");
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+
+			request.setAttribute("error", "Eror: " + e.getMessage());
+
+		}
+
+	}
+	
+	
 	
 	protected void listOrder(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -106,8 +132,9 @@ public class OrderController extends HttpServlet{
 			request.setAttribute("error", "Eror: " + e.getMessage());
 		}
 	}
-	
-	protected void orderdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	protected void orderdetail(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 
 			String userId = request.getParameter("userId");
@@ -126,7 +153,7 @@ public class OrderController extends HttpServlet{
 		}
 
 	}
-	
+
 	protected void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 
@@ -149,23 +176,15 @@ public class OrderController extends HttpServlet{
 	protected void insert(HttpServletRequest request, HttpServletResponse response)
 
 			throws ServletException, IOException {
-		User user = new User();
+		Cart cart = new Cart();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
 		try {
-			BeanUtils.populate(user, request.getParameterMap());
-			//set cac thuoc tinh cho khoa ngoai
-			UserRole uRole = new UserRole();
-			uRole.setRoleId(Integer.parseInt(request.getParameter("roleId")));
-
-			user.setUserRole(uRole);
-			
-			Seller seller = new Seller();
-			seller.setSellerId(Integer.parseInt(request.getParameter("sellerId")));
-			
-			user.setSeller(seller);
-			
+			BeanUtils.populate(cart, request.getParameterMap());
+			User user  = new User();
+			user.setUserId(Integer.parseInt(request.getParameter("userId")));
+			cart.setUser(user);
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -173,7 +192,7 @@ public class OrderController extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		userdao.insert(user);
+		cartdao.insert(cart);
 
 	}
 
@@ -181,8 +200,8 @@ public class OrderController extends HttpServlet{
 			throws ServletException, IOException {
 		try {
 
-			String userId = request.getParameter("userId");
-			userdao.delete(Integer.parseInt(userId));
+			String orderId = request.getParameter("orderId");
+			cartdao.delete(Integer.parseInt(orderId));
 
 			request.setAttribute("message", "Đã xóa thành công ");
 
@@ -195,6 +214,7 @@ public class OrderController extends HttpServlet{
 		}
 
 	}
+
 	protected void findAllUserRole(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
@@ -210,31 +230,29 @@ public class OrderController extends HttpServlet{
 	protected void findAll(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-											
-			
-			String indexPage = request.getParameter("index");
-	        if(indexPage == null) {
-	        	indexPage = "1";
-	        }
-			int index = Integer.parseInt(indexPage);
-	        int count = userdao.count();
-	        int endPage = count/4;    // -> má»—i trang 4 sp 
-	        if(count % 4 !=0) {
-	        	endPage++;
-	        }
 
-	        // vá»›i má»—i trang 4 sp 
-	        // trang 1 : 1,4 
-	        // trang 2 : 1+4,4+4
-	        // trang 3 : 1+4+4,4+4+4
-	        // trang n : 1+(sá»‘ sp phÃ¢n trang )*(index-1) , (sá»‘ sp phÃ¢n trang )*(index)
-	        int offset = 1 + 4*(index-1);
-	        int limit = 4*index;
-	        List<User> list = userdao.findAll(offset,limit);   
-	        request.setAttribute("endP", endPage);
-	        request.setAttribute("tag", index);
-			
-			 
+			String indexPage = request.getParameter("index");
+			if (indexPage == null) {
+				indexPage = "1";
+			}
+			int index = Integer.parseInt(indexPage);
+			int count = userdao.count();
+			int endPage = count / 4; // -> má»—i trang 4 sp
+			if (count % 4 != 0) {
+				endPage++;
+			}
+
+			// vá»›i má»—i trang 4 sp
+			// trang 1 : 1,4
+			// trang 2 : 1+4,4+4
+			// trang 3 : 1+4+4,4+4+4
+			// trang n : 1+(sá»‘ sp phÃ¢n trang )*(index-1) , (sá»‘ sp phÃ¢n trang )*(index)
+			int offset = 1 + 4 * (index - 1);
+			int limit = 4 * index;
+			List<User> list = userdao.findAll(offset, limit);
+			request.setAttribute("endP", endPage);
+			request.setAttribute("tag", index);
+
 			request.setAttribute("users", list);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -252,45 +270,54 @@ public class OrderController extends HttpServlet{
 
 			response.setCharacterEncoding("UTF-8");
 
-
 			Cart cart = new Cart();
 
 			BeanUtils.populate(cart, request.getParameterMap());
-			
-			//set cac thuoc tinh cho khoa ngoai
-			User user = new User();
-			user.setUserId(Integer.parseInt(request.getParameter("userId")));
-			
+
+			// set cac thuoc tinh cho khoa ngoai
+			User user = userdao.findUserByID(Integer.parseInt(request.getParameter("userId")));
+
 			cart.setUser(user);
-			
-//			 PrintWriter printWriter =
-//					  response.getWriter();
-//			String status = request.getParameter("status");
-//			System.out.println(status);
-//			System.out.println("--------------------------------------------------");
-//			printWriter.println(status);
-			//-------------------------------------------------
+
 			cartdao.update(cart);
 			request.setAttribute("cart", cart);
-			
-			//gửi email thông báo cho người dùng đã thay đổi trạng thái đơn hàng
-			
+
+			// user này mới tạo chỉ có 1 thuộc tính là id thui
+			// muốn lấy được thuộc tính email ra thì phải finduserID
+
+			String Thong_bao = "";
+			if (cart.getStatus() == 1) {
+				Thong_bao = "Đơn hàng của bạn đã được tiếp nhận và  đang được xử lý ."
+						+ "Cảm ơn bạn đã đặt hàng của của hàng K&T Shop . ";
+			} else if (cart.getStatus() == 2) {
+				Thong_bao = "Đơn hàng của bạn đã được xử lý hoàn tất ."
+						+ "Cảm ơn bạn đã đặt hàng của của hàng K&T Shop . ";
+			} else if (cart.getStatus() == 3) {
+				Thong_bao = "Đơn hàng của bạn đang được tạm giữ ." + "Cảm ơn bạn đã đặt hàng của của hàng K&T Shop . ";
+			} else if (cart.getStatus() == 4) {
+				Thong_bao = "Đơn hàng của bạn đã bị hủy bỏ ." + "Cảm ơn bạn đã đặt hàng của của hàng K&T Shop . ";
+			}
+			// gửi email thông báo cho người dùng đã thay đổi trạng thái đơn hàng String
+
 			SendEmail sendEmail = new SendEmail();
-			 try {
-				sendEmail.SendEmail(cart.getUser().getEmail(), "hello");
-			} catch (UnsupportedEncodingException | MessagingException e) {
+			try {
+				sendEmail.SendEmail(cart.getUser().getEmail(), Thong_bao);
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+
 			request.setAttribute("message", "Cập nhật thành công!");
-		} catch (Exception e) {
+		} catch (
+
+		Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "Eror: " + e.getMessage());
 		}
 
 	}
-	
+
 }

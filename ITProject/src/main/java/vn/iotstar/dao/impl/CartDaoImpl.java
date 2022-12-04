@@ -61,7 +61,7 @@ public class CartDaoImpl {
 		}
 	}
 
-	public void delete(String cartId) throws Exception {
+	public void delete(int cartId) throws Exception {
 		EntityManager enma = JpaConfig.getEntityManager(); //
 		EntityTransaction trans = enma.getTransaction(); //
 		try {

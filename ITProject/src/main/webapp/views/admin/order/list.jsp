@@ -73,9 +73,10 @@
 				</tbody>
 			</table>
 			<div class="clearfix" align="right">
+				
+				<!-- Phân trang  -->
 
-
-				<ul class="pagination">
+				<%-- <ul class="pagination">
 					<c:if test="${tag>1}">
 						<li class="page-item disabled"><a
 							href="${pageContext.request.contextPath}/admin-category?index=${tag-1}">Previous</a></li>
@@ -93,7 +94,7 @@
 							class="page-link">Next</a></li>
 					</c:if>
 				</ul>
-			</div>
+ --%>			</div>
 		</div>
 	</div>
 	<!-- Add Modal HTML -->
