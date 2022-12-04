@@ -1,3 +1,4 @@
+
 package vn.iotstar.controller.web;
 
 import java.io.IOException;
@@ -101,7 +102,7 @@ public class WebController extends HttpServlet {
 			Date date = new Date();
 			  Timestamp timestamp2 = new Timestamp(date.getTime());
 			DAO.Insert_Cart(u.getUserId(),timestamp2,0);
-			Cart cart2 =DAO.CheckCartStatus(u.getUserId(),0);
+			//Cart cart2 =DAO.CheckCartStatus(u.getUserId(),0);
 			request.setAttribute("tienhang", 0);
 			
 		}

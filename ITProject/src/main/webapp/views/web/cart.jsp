@@ -51,9 +51,15 @@
 									<core:if test="${o.product.amount <=0}">
 										<td>Hết Hàng</td>
 									</core:if>
-                            <td><input class="form-control" type="number" value="${o.quantity}" /></td>
+									<td><input type="number" name="${o.cartItemId}"  value="${o.quantity}" required class="form-control">
+</td>
+                            <%-- <td><input class="form-control" name="newquantity" type="number" value="${o.quantity}" /></td> --%>
                             <td class="text-right">${o.unitPrice} đ</td>
-                            <td class="text-right"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> </button> </td>
+                            <td class="text-right"><a href="${pageContext.request.contextPath}/cartupdate?cartitemid=${o.cartItemId}&quantity=${o.quantity}&unitprice=${o.unitPrice}&pid=${o.product.productId}&cartid=${o.cart.cartId}"><button class="btn btn-primary"><i class="fa fa-refresh fa-spin fa fa-fw" aria-hidden="true"></i>
+                          <span class="sr-only">Refreshing...</span> </button></a> </td>
+							<td class="text-right"><a href="${pageContext.request.contextPath}/deletecartitem?cartitemid=${o.cartItemId}"><button class="btn btn-danger"><i class="fa fa-trash"></i> </button></a> </td>
+                        
+                        
                         </tr>
                         </core:forEach>
                     
@@ -123,7 +129,8 @@
         <div class="col mb-2">
             <div class="row">
                 <div class="col-sm-12  col-md-6">
-                    <button class="btn btn-block btn-light">Cập Nhật Giỏ Hàng</button>
+                     <a href="${pageContext.request.contextPath}/category/list"><button class="btn btn-block btn-light">Continue Shopping</button>
+                      </a>
                 </div>
                 <div class="col-sm-12 col-md-6 text-right">
                     <a href="${pageContext.request.contextPath}/checkout/xacnhan"><button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>

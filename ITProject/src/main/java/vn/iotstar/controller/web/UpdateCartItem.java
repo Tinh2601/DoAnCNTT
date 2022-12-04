@@ -11,24 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.ctc.wstx.dtd.FullDTDReader;
-
 import vn.iotstar.dao.impl.CartDaoImpl;
 import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.User;
 
 /**
- * Servlet implementation class DatHangControl
+ * Servlet implementation class CartControl
  */
-@WebServlet("/dathang")
-public class DatHangControl extends HttpServlet {
+@WebServlet("/cartupdate")
+
+public class UpdateCartItem extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DatHangControl() {
+    public UpdateCartItem() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,7 +37,7 @@ public class DatHangControl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		DatHang(request, response);
+		update(request, response);
 	}
 
 	/**
@@ -48,32 +47,23 @@ public class DatHangControl extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	protected void DatHang(HttpServletRequest request, HttpServletResponse response)
+	
+	protected void update(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		//response.setContentType("text/html;charset=UTF-8");
+		DaoDBConection DAO=new DaoDBConection();
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		User u = (User) session.getAttribute("USERMODEL");
-		DaoDBConection DAO=new DaoDBConection();
+		int cartitemid=Integer.parseInt(request.getParameter("cartitemid"));
+		int quantity=Integer.parseInt(request.getParameter("quantity"));
+		float unitprice=Float.parseFloat(request.getParameter("unitprice"));
+		int pid=Integer.parseInt(request.getParameter("pid"));
+		int cartid=Integer.parseInt(request.getParameter("cartid"));
+		int newquantity=Integer.parseInt(request.getParameter(String.valueOf(cartitemid)));
+		float newunitprice= (unitprice/quantity)*newquantity;
+		DAO.Update_CartItem(newquantity, newunitprice, pid, cartid, cartitemid);
+		response.sendRedirect("/ITProject/cart");
 		
-		
-		
-		Date date = new Date();
-		  Timestamp timestamp2 = new Timestamp(date.getTime());
-		CartDaoImpl cartDAO= new CartDaoImpl();
-		Cart cartid=cartDAO.CheckCartstatus(u.getUserId(),0);
-		float total=DAO.totalPriceByCartId(cartid.getCartId());
-		String address=request.getParameter("address");
-		String note=request.getParameter("note");
-		String name=request.getParameter("fullname");
-		String payment=request.getParameter("payment");
-		String email=request.getParameter("email");
-		String phone=request.getParameter("sdt");
-		DAO.Insert_Bills(total, timestamp2, cartid.getCartId(), u.getUserId(), payment, 0, address, note, name, email, phone);
-		cartid.setStatus(1);
-		cartDAO.update(cartid);
-		response.sendRedirect("/ITProject/category/list");
 	}
 
 }

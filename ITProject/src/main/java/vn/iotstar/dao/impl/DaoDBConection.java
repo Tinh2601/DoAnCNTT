@@ -59,6 +59,21 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	
+	public User delete_cartitembycartitemid(int cartitemid) {
+		String query = "DELETE FROM CartItem WHERE cartitemId=?";
+		try {
+			Connection con = super.getConnection();
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, cartitemid);
+			
+			ps.executeUpdate();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
 	public Cart Insert_Cart(int userid,Timestamp buyDate,int status) {
 		String query = "INSERT INTO dbo.Cart([userId], [buyDate], [status]) VALUES(?,?,?)";
 		try {
@@ -132,6 +147,7 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	
 	public User CheckLoginGoogle(String email) {
 		ResultSet rs = null;
 		User user=new User();
@@ -209,8 +225,8 @@ public class DaoDBConection extends DBConnection  {
 		return null;
 	}
 	
-	public int totalPriceByCartId(int cartID) {
-		int Sum = 0;
+	public float totalPriceByCartId(int cartID) {
+		float Sum = 0;
 		ResultSet rs = null;
 		String query = "SELECT SUM(unitPrice)FROM CartItem WHERE cartId=?";
 		try {
@@ -225,6 +241,23 @@ public class DaoDBConection extends DBConnection  {
 			// TODO: handle exception
 		}
 		return Sum;
+	}
+	public int countCartItemByCartID(int cartID) {
+		int count = 0;
+		ResultSet rs = null;
+		String query = "SELECT COUNT(cartId) FROM CartItem WHERE cartId=?";
+		try {
+			Connection conn = super.getConnection();
+			PreparedStatement ps = conn.prepareStatement(query);
+			ps.setInt(1, cartID);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				return count = 0+rs.getInt(1);
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return count;
 	}
 	
 	/*

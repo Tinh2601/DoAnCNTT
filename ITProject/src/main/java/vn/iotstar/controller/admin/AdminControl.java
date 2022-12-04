@@ -14,8 +14,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.dao.impl.ProductDaoImpl;
 import vn.iotstar.dao.impl.UserDaoImpl;
+import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
@@ -28,6 +30,7 @@ public class AdminControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDaoImpl Productdao = new ProductDaoImpl();
 	UserDaoImpl UserDao = new UserDaoImpl();
+	DaoDBConection DAO=new DaoDBConection();
 	public void load(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
 
@@ -94,7 +97,8 @@ public class AdminControl extends HttpServlet {
 			if (action != null && action.equals("login")) {
 				if (user.getUserRole().getRoleName().equals("user")) {
 					response.sendRedirect(request.getContextPath() + "/homemain");
-					session.setAttribute("USERMODEL", user); 
+					session.setAttribute("USERMODEL", user);
+				
 				} else if (user.getUserRole().getRoleName().equals("admin")) {
 					response.sendRedirect(request.getContextPath() + "/admin-home"); 
 				}

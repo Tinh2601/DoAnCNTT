@@ -72,7 +72,8 @@ public class testUser extends HttpServlet {
 //		 List<CartItem> list = cartItemDao.OrderDetail(5);
 		 DaoDBConection DAO=new DaoDBConection();
 		 DAO.Insert_Cart(5, null, 0);
-		 printWriter.println(DAO.Insert_Bills(120, null, 1, 5,"tiền mặt", 0,"HCM","giao nhanh","Khánh","khanh@gmail.com","0326359823"));
+		 //printWriter.println(DAO.Insert_Bills(120, null, 1, 5,"tiền mặt", 0,"HCM","giao nhanh","Khánh","khanh@gmail.com","0326359823"));
+		 printWriter.println(DAO.countCartItemByCartID(3));
 			/*
 			 * SendEmail sendEmail = new SendEmail(); try {
 			 * sendEmail.SendEmail("20110576@student.hcmute.edu.vn", "hello"); } catch

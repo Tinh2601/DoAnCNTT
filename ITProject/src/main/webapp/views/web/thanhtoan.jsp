@@ -93,7 +93,7 @@
           <div class="card">
 
             <!--Card content-->
-            <form class="card-body">
+            <form class="card-body" action="${pageContext.request.contextPath}/dathang" method="post">
 
               <!--Grid row-->
               <div class="row">
@@ -103,8 +103,8 @@
 
                   <!--firstName-->
                   <div class="md-form mb-5">
-                  <label for="firstName" class="">Họ và Tên</label>
-                    <input type="text" id="firstName" value="${fullname}" required class="form-control"placeholder="Example: Nguyễn Văn A">
+                  <label for="fullname" class="">Họ và Tên</label>
+                    <input type="text" name="fullname" value="${fullname}" required class="form-control"placeholder="Example: Nguyễn Văn A">
                     
                   </div> 
 
@@ -116,8 +116,8 @@
 
                   <!--SDT-->
                   <div class="md-form mb-5">
-                  <label for="lastName" class="">Số điện thoại</label>
-                    <input type="text" id="sdt" value="${sdt}" required class="form-control">
+                  <label for="sdt" class="">Số điện thoại</label>
+                    <input type="text" name="sdt" value="${sdt}" required class="form-control">
                     
                   </div>
 
@@ -131,14 +131,14 @@
               <!--email-->
               <div class="md-form mb-5">
               <label for="email" class="">Email (optional)</label>
-                <input type="text" id="email" value="${email}" required class="form-control" placeholder="youremail@example.com">
+                <input type="text" name="email" value="${email}" required class="form-control" placeholder="youremail@example.com">
                 
               </div>
 
               <!--address-->
               <div class="md-form mb-5">
               <label for="address" class="">Địa Chỉ</label>
-                <input type="text" id="address"  value="${address}" required class="form-control" placeholder="1234 Main St">
+                <input type="text" name="address"  value="${address}" required class="form-control" placeholder="1234 Main St">
                 
               </div>
 
@@ -204,7 +204,7 @@
               </div> -->
                <label for="country">Hình Thức Thanh Toán
 </label>
-                  <select class="custom-select d-block w-100" id="country" required>
+                  <select class="custom-select d-block w-100" name="payment" required>
                     <option value="">Choose...</option>
                     <option>Thanh Toán Khi Nhận Hàng</option>
                   </select>
@@ -218,9 +218,9 @@
 
               <hr>
               <div class="md-form mb-5">
-              <label for="ghichu" class="">Ghi Chú giao hàng</label>
+              <label for="note" class="">Ghi Chú giao hàng</label>
                 <!-- <input type="text" id="ghichu" class="form-control" > -->
-                <textarea class="form-control" id="ghichu" value="${ghichu}" rows="3"></textarea>
+                <textarea class="form-control" name="note" value="${note }" rows="3"></textarea>
                 
               </div>
 
@@ -272,7 +272,7 @@
                 </div>
               </div> -->
               <hr class="mb-6">
-              <a href="dathang?sdt"><button class="btn btn-lg btn-block btn-success text-uppercase">ĐẶT HÀNG</button>
+              <button class="btn btn-lg btn-block btn-success text-uppercase">ĐẶT HÀNG</button>
                     </a>
             </form>
             

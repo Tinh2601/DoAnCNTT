@@ -41,16 +41,16 @@
 								<li><a href="home-02.html">Homepage 2</a></li>
 								<li><a href="home-03.html">Homepage 3</a></li>
 							</ul></li> -->
-						<li class="<!-- active- -->menu"><a href="${pageContext.request.contextPath}/category/list">Category</a></li>
+						<%-- <li class="<!-- active- -->menu" data-menu="hot"><a href="${pageContext.request.contextPath}/category/list">Category</a></li> --%>
 
 						<li class="label1" data-label1="hot"><a
-							href="dathang">Test</a></li>
+							href="${pageContext.request.contextPath}/category/list">Category</a></li>
 
 						<!-- <li><a href="blog.html">Blog</a></li> -->
 
 						<!-- <li><a href="about.html">About</a></li>
  -->
-						<li><a href="contact">Contact</a></li>
+						<li><a href="${pageContext.request.contextPath}/contact">Contact</a></li>
 					</ul>
 				</div>
 
@@ -76,19 +76,19 @@
 
 					<c:if test="${empty USERMODEL}">
 						<div
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="0">
+						class="icon-header-item ">
 						<a href="login"> <i class="zmdi zmdi-shopping-cart"></i></a>
 						
 					</div>
 					</c:if>
 					<c:if test="${not empty USERMODEL}">
-						<div
-						class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-						data-notify="o">
-						<a href="${pageContext.request.contextPath}/cart"> <i class="zmdi zmdi-shopping-cart"></i></a>
-						
-					</div>
+
+<div
+						class="icon-header-item ">
+							<a href="${pageContext.request.contextPath}/cart"> <i
+								class="zmdi zmdi-shopping-cart"></i></a>
+
+						</div>
 
 					</c:if>
 
