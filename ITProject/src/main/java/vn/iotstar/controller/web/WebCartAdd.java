@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.jsp.PageContext;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -73,8 +74,11 @@ public class WebCartAdd extends HttpServlet {
 		int productId=Integer.parseInt(request.getParameter("productid"));
 		String price=request.getParameter("price");
 		float price2= Float.parseFloat(price);
-			Cart cart =DAO.CheckCartStatus(u.getUserId(),0);
+		Cart cart = new Cart();
 			
+		if(u != null) {
+			cart =DAO.CheckCartStatus(u.getUserId(),0);
+		}
 		if(cart !=null) {
 			
 			CartItem cartitem=DAO.CheckCartItemStatus(cart.getCartId(),productId);
@@ -101,7 +105,7 @@ public class WebCartAdd extends HttpServlet {
 			DAO.Insert_CartItem(1, price2, productId, cart2.getCartId());
 			int i=1;
 			request.setAttribute("thongbao", i);
-			//response.sendRedirect("/ITProject/category/list");
+
 		}
 	
 		int i=1;
@@ -110,7 +114,21 @@ public class WebCartAdd extends HttpServlet {
 
 		
 	}
+	ProductDaoImpl productdao = new ProductDaoImpl();
+	protected void loadHome(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
 
+		Product top1 = productdao.findTop1Price();
+
+		List<Product> top4last = productdao.findLastProduct();
+		List<Product> top4best = productdao.findBestAmount();
+		request.setAttribute("top1", top1);
+		request.setAttribute("top4last", top4last);
+		request.setAttribute("top4best", top4best);
+
+		request.getRequestDispatcher("/views/web/homemain.jsp").forward(request, response);
+	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -120,25 +138,6 @@ public class WebCartAdd extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	/*
-	 * protected void addcart(HttpServletRequest request, HttpServletResponse
-	 * response) throws ServletException, IOException { String pid
-	 * =request.getParameter("pid"); CartDaoImpl DaoCart=new CartDaoImpl();
-	 * CartItemDaoImpl DaoCartItem=new CartItemDaoImpl(); //List<Cart> cartuser=
-	 * DaoCart.CheckCartstatus(5, 0);// Cart cart=new Cart();
-	 * 
-	 * CartItem cartitem=new CartItem();
-	 * 
-	 * 
-	 * // Date date = new Date(); Timestamp timestamp2 = new
-	 * Timestamp(date.getTime()); if(cartuser == null) {
-	 * cart.setBuyDate(timestamp2); cart.setStatus(0); cart.setUser(null);
-	 * DaoCart.insert(cart); List<CartItem>
-	 * listcart=DaoCartItem.findCartItemByCartID(1);
-	 * request.setAttribute("listcart", cartuser); }
-	 * 
-	 * request.getRequestDispatcher("/views/web/cart.jsp").forward(request,
-	 * response); }
-	 */
+	
 
 }

@@ -1,6 +1,7 @@
 package vn.iotstar.controller.admin;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -12,17 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.apache.commons.beanutils.BeanUtils;
 
 import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.dao.impl.ProductDaoImpl;
 import vn.iotstar.dao.impl.UserDaoImpl;
-import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
 @WebServlet(urlPatterns = { "/admin-home", "/login", "/logout" })
-public class AdminControl extends HttpServlet {
+public class LoginControl extends HttpServlet {
 	
 	/**
 	 * 
@@ -38,20 +39,6 @@ public class AdminControl extends HttpServlet {
 		request.setAttribute("listP", list);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
 		rd.forward(request, response);
-//		
-
-//
-//		String cateID = request.getParameter("cateId");
-//		CategoryDAOimpl cdao = new CategoryDAOimpl();
-//		List<Category> listCate = cdao.findAll();
-//		request.setAttribute("tagCate", cateID);
-//		request.setAttribute("listCC", listCate);
-//
-//		List<productModel> list = productService.findAll();
-//
-//		request.setAttribute("listP", list);
-//		RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
-//		rd.forward(request, response);
 	}
 
 	
@@ -70,8 +57,8 @@ public class AdminControl extends HttpServlet {
 			load(request, response);
 			response.sendRedirect(request.getContextPath() + "/homemain");
 		} else {
-			load(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("/views/web/home.jsp");
+//			load(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp");
 			rd.forward(request, response);
 		}
 	}
@@ -84,7 +71,7 @@ public class AdminControl extends HttpServlet {
 		String password = request.getParameter("password");	
 		User user = new User();
 		try {
-			BeanUtils.populate(user, request.getParameterMap());
+			BeanUtils.populate(user, request.getParameterMap());  // câu lệnh này sẽ gắn 2 thuộc tính tk + mk cho user , do đó check user != null sẽ bị sai
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block  nhập sai rùi , nhập lại 
 			e.printStackTrace();
@@ -92,8 +79,16 @@ public class AdminControl extends HttpServlet {
 			// TODO Auto-generated catch block 
 			e.printStackTrace();
 		}
-		user = UserDao.login(username, password);
-		if (user != null) {
+		try {
+			user = UserDao.login(username, password);
+		} catch (Exception e) {
+			RequestDispatcher rd = request.getRequestDispatcher("/decorators/login.jsp");
+			rd.forward(request, response);
+		}
+		String check = user.getEmail();
+		System.out.println(check);
+		System.out.println("-----");
+		if (check != null ) {
 			if (action != null && action.equals("login")) {
 				if (user.getUserRole().getRoleName().equals("user")) {
 					response.sendRedirect(request.getContextPath() + "/homemain");
@@ -105,7 +100,7 @@ public class AdminControl extends HttpServlet {
 			}
 		} else {
 			response.sendRedirect(request.getContextPath() + "/login?action=login");
-		}			
+		}		
 
 	}
 }

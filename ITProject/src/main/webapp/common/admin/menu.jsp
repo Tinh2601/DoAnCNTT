@@ -79,10 +79,7 @@
 						</ul>
 					</li>
 
-			<li class=""><a href="widgets.html"> <i
-					class="menu-icon fa fa-list-alt"></i> <span class="menu-text">
-						Manager Account </span>
-			</a> <b class="arrow"></b></li>
+			
 
 			<li class=""><a href="calendar.html"> <i
 					class="menu-icon fa fa-calendar"></i> <span class="menu-text">
@@ -96,6 +93,10 @@
 			<li class=""><a href="gallery.html"> <i
 					class="menu-icon fa fa-tag"></i> <span class="menu-text">
 						Transaction </span>
+			</a> <b class="arrow"></b></li>
+			<li class=""><a href='<c:url value="/logout?action=logout"/>'> <i class=" menu-icon fa fa-sign-out" aria-hidden="true">
+			</i> <span class="menu-text">
+						Log out </span>
 			</a> <b class="arrow"></b></li>
 
 		</ul>
