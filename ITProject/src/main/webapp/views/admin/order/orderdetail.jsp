@@ -25,9 +25,9 @@
 						</h2>
 					</div>
 					<div class="col-sm-6">
-						<a href="${pageContext.request.contextPath}/admin-order/create"
+						<a href="${pageContext.request.contextPath}/admin-order/info"
 							class="btn btn-success" data-toggle="modal"><i
-							class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+							class="material-icons">&#xE147;</i> <span>Receiver's information </span></a>
 
 					</div>
 				</div>

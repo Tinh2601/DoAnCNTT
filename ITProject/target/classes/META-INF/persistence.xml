@@ -19,7 +19,7 @@
 		<class>vn.iotstar.entity.Slide</class>
 		<class>vn.iotstar.entity.UserRole</class>
 		<class>vn.iotstar.entity.User</class>
-		<class>vn.iotstar.entity.Bills</class>
+		<class>vn.iotstar.entity.Bill</class>
 
 		<properties>
 

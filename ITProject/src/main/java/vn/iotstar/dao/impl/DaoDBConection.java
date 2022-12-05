@@ -7,39 +7,17 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.keyvalue.TiedMapEntry;
-
-
 import vn.iotstar.config.DBConnection;
+import vn.iotstar.entity.Bill;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.CartItem;
-import vn.iotstar.entity.Category;
-import vn.iotstar.entity.Bills;
 import vn.iotstar.entity.Product;
 import vn.iotstar.entity.User;
 
 
 
 public class DaoDBConection extends DBConnection  {
-	/*
-	 * public List<CartItem> findAll() { List<Category> categories = new
-	 * ArrayList<Category>(); String sql =
-	 * "select Product.images,Product.productName,Product.stock,CartItem.quantity,CartItem.unitPrice from Product Join CartItem on Product.productId=CartItem.productId where CartItem.cartId=2"
-	 * ; try { Connection conn = super.getConnection(); // PreparedStatement: dung
-	 * duoc cho cau sql co tham so va khong co tham so // Statement: dung duoc voi
-	 * cau co tham so PreparedStatement ps = conn.prepareStatement(sql); // nem cau
-	 * sql vao cho phat phat prepare // thiet lap tham so cho phat bieu // thuc thi
-	 * phat bieu tra ve ResultSet ResultSet rs = ps.executeQuery(); // chon ra //
-	 * executeUpdate: chinh csdl while (rs.next()) { Product product=new Product();
-	 * CartItem cartitem= new CartItem(); product.setImages(rs.getString("images"));
-	 * product.setProductName(rs.getString("productName"));
-	 * product.setStock(rs.getInt("stock")); // ten truong trong db
-	 * cartitem.setQuantity(rs.getInt("quantity"));
-	 * cartitem.setUnitPrice(rs.getInt("unitPrice"));
-	 * 
-	 * } } catch (Exception e) { e.printStackTrace(); } return categories; // tra ve
-	 * LIST cac cotegory }
-	 */
+	
 	public User Insert_Login(String user_name, String email, String fullname, String image,int roleid,int sellerid,int status) {
 		String query = "INSERT INTO dbo.Users([username], [email], [fullname],[images],[roleId],[sellerid],[status]) VALUES(?,?,?,?,?,?,?)";
 		try {
@@ -89,7 +67,7 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
-	public Bills Insert_Bills(float total,Timestamp date,int cartId,int userId,String payment,int status,String address, String note,String fullname,String email,String phone) {
+	public Bill Insert_Bills(float total,Timestamp date,int cartId,int userId,String payment,int status,String address, String note,String fullname,String email,String phone) {
 		String query = "INSERT INTO dbo.Bills([total], [date], [cartId],[userId],[paymentmethod],[status],[address],[note],[fullname],[email],[phone]) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			Connection con = super.getConnection();
@@ -111,6 +89,9 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return null;
 	}
+	
+	
+	
 	
 	public CartItem Insert_CartItem(int quantity,float unitprice,int productId,int Cartid) {
 		String query = "INSERT INTO dbo.CartItem([quantity], [unitPrice], [productId],[cartId]) VALUES(?,?,?,?)";
@@ -259,23 +240,6 @@ public class DaoDBConection extends DBConnection  {
 		}
 		return count;
 	}
-	
-	/*
-	 * public User CheckLoginGoogle(String email) { User String sql =
-	 * "SELECT * FROM Category"; try { Connection conn = super.getConnection(); //
-	 * PreparedStatement: dung duoc cho cau sql co tham so va khong co tham so //
-	 * Statement: dung duoc voi cau co tham so PreparedStatement ps =
-	 * conn.prepareStatement(sql); // nem cau sql vao cho phat phat prepare // thiet
-	 * lap tham so cho phat bieu // thuc thi phat bieu tra ve ResultSet ResultSet rs
-	 * = ps.executeQuery(); // chon ra // executeUpdate: chinh csdl while
-	 * (rs.next()) { CategoryModel category = new CategoryModel();
-	 * category.setCateId(rs.getInt("categoryId")); // ten truong trong db
-	 * category.setCateName(rs.getString("categoryName"));
-	 * category.setImages(rs.getString(3)); // so thu tu cot trong db
-	 * category.setStatus(rs.getInt("status")); categories.add(category); // them
-	 * vao LIST } } catch (Exception e) { e.printStackTrace(); } return categories;
-	 * // tra ve LIST cac cotegory }
-	 */
 	
 
 	

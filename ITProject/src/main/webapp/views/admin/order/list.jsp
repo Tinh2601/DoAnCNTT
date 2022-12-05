@@ -46,7 +46,7 @@
 				<tbody>
 					<c:forEach items="${orders}" var="o">
 						<tr>
-							<td><a href="${pageContext.request.contextPath}/admin-order/orderdetail?userId=${o.user.userId}" /> ${o.user.fullname}</td>
+							<td><a href="${pageContext.request.contextPath}/admin-order/orderdetail?userId=${o.user.userId}&cartId=${o.cartId}"/> ${o.user.fullname}</td>
 							<td>${o.user.email}</td>
 							<c:if test="${o.status ==1}">
 								<td>Đang xử lý</td>

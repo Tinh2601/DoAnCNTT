@@ -18,6 +18,9 @@
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <a href="${pageContext.request.contextPath}/changePassword"><h4 class="text-right">Change Password</h4></a>
                 </div>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <a href="${pageContext.request.contextPath}/BillControl"><h4 class="text-right">Order</h4></a>
+                </div>
                 <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="${sessionScope.USERMODEL.images }"></span></div>
         </div>
