@@ -83,12 +83,11 @@ public class CheckoutControl extends HttpServlet {
 	}
 	protected void DatHang(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
 		User u = (User) session.getAttribute("USERMODEL");
 		DaoDBConection DAO=new DaoDBConection();
-		
-		
 		float total=Float.parseFloat(request.getParameter("total"));
 		Date date = new Date();
 		  Timestamp timestamp2 = new Timestamp(date.getTime());

@@ -13,10 +13,13 @@ import javax.servlet.http.HttpSession;
 
 import com.ctc.wstx.dtd.FullDTDReader;
 
+import vn.iotstar.dao.impl.BillDaoImpl;
 import vn.iotstar.dao.impl.CartDaoImpl;
 import vn.iotstar.dao.impl.DaoDBConection;
 import vn.iotstar.entity.Cart;
 import vn.iotstar.entity.User;
+import vn.iotstar.entity.Bill;
+
 
 /**
  * Servlet implementation class DatHangControl
@@ -54,9 +57,10 @@ public class DatHangControl extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		HttpSession sessionBill=request.getSession();
 		User u = (User) session.getAttribute("USERMODEL");
 		DaoDBConection DAO=new DaoDBConection();
-		
+		BillDaoImpl DAOBills=new BillDaoImpl();
 		
 		
 		Date date = new Date();
@@ -72,8 +76,13 @@ public class DatHangControl extends HttpServlet {
 		String phone=request.getParameter("sdt");
 		DAO.Insert_Bills(total, timestamp2, cartid.getCartId(), u.getUserId(), payment, 0, address, note, name, email, phone);
 		cartid.setStatus(1);
+		
 		cartDAO.update(cartid);
-		response.sendRedirect("/ITProject/category/list");
+		Bill bills=DAOBills.findBillByCartID_UserId(cartid.getCartId(),u.getUserId());
+		sessionBill.setAttribute("BILLS",bills);
+		response.sendRedirect("/ITProject/XemLaiDonHang");
+		
+		
 	}
 
 }

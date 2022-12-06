@@ -161,7 +161,6 @@ public class WebController extends HttpServlet {
 		List<Category> listCate = cdao.findAll();
 		request.setAttribute("tagCate", cateID);
 		request.setAttribute("listCC", listCate);
-
 		Product top1 = productdao.findTop1Price();
 		request.setAttribute("top1", top1);
 
