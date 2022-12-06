@@ -77,7 +77,7 @@
 					<c:if test="${empty USERMODEL}">
 						<div
 						class="icon-header-item ">
-						<a href="login"> <i class="zmdi zmdi-shopping-cart"></i></a>
+						<a href="${pageContext.request.contextPath}/login"> <i class="zmdi zmdi-shopping-cart"></i></a>
 						
 					</div>
 					</c:if>

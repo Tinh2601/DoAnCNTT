@@ -51,29 +51,52 @@
 									<core:if test="${o.product.amount <=0}">
 										<td>Hết Hàng</td>
 									</core:if>
-									<td><input type="number" name="${o.cartItemId}"  value="${o.quantity}" required class="form-control">
-</td>
-                            <%-- <td><input class="form-control" name="newquantity" type="number" value="${o.quantity}" /></td> --%>
+									<td><div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<a href="${pageContext.request.contextPath}/subtractionquantity?cartitemid=${o.cartItemId}&quantity=${o.quantity}&unitprice=${o.unitPrice}&pid=${o.product.productId}&cartid=${o.cart.cartId}">
+										<button type="button"
+											class="quantity-left-minus btn btn-danger btn-number"
+											data-type="minus" data-field="">
+											<i class="fa fa-minus"></i>
+										</button>
+										</a>
+									</div>
+									<input type="text" class="form-control" id="quantity"
+										name="quantity" min="1" max="100" value="${o.quantity }" disabled>
+									<div class="input-group-append">
+									<a href="${pageContext.request.contextPath}/addquantity?cartitemid=${o.cartItemId}&quantity=${o.quantity}&unitprice=${o.unitPrice}&pid=${o.product.productId}&cartid=${o.cart.cartId}">
+										<button type="button"
+											class="quantity-right-plus btn btn-success btn-number"
+											data-type="plus" data-field="">
+											<i class="fa fa-plus"></i>
+										</button>
+										</a>
+									</div>
+								    </div></td>
+									
+								
+
+                            
                             <td class="text-right">${o.unitPrice} đ</td>
-                            <td class="text-right"><a href="${pageContext.request.contextPath}/cartupdate?cartitemid=${o.cartItemId}&quantity=${o.quantity}&unitprice=${o.unitPrice}&pid=${o.product.productId}&cartid=${o.cart.cartId}"><button class="btn btn-primary"><i class="fa fa-refresh fa-spin fa fa-fw" aria-hidden="true"></i>
-                          <span class="sr-only">Refreshing...</span> </button></a> </td>
+                            <%-- <td class="text-right"><a href="${pageContext.request.contextPath}/cartupdate?cartitemid=${o.cartItemId}&quantity=${o.quantity}&unitprice=${o.unitPrice}&pid=${o.product.productId}&cartid=${o.cart.cartId}"><button class="btn btn-primary"><i class="fa fa-refresh fa-spin fa fa-fw" aria-hidden="true"></i>
+                          <span class="sr-only">Refreshing...</span> </button></a> </td> --%>
 							<td class="text-right"><a href="${pageContext.request.contextPath}/deletecartitem?cartitemid=${o.cartItemId}"><button class="btn btn-danger"><i class="fa fa-trash"></i> </button></a> </td>
                         
                         
                         </tr>
                         </core:forEach>
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    <!-- 
+							
+
+
+
+
+
+
+
+
+
+
+							<!-- 
                         <tr>
                             <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
                             <td>Product Name Dada</td>

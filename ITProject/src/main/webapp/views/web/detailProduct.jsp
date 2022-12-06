@@ -48,44 +48,51 @@
 			<div class="col-12 col-lg-6 add_to_cart_block">
 				<div class="card bg-light mb-3">
 					<div class="card-body">
-						<p class="price">${detail.price} đ</p>
-						<p class="price_discounted">0 đ </p>
-						<form method="get" action="cart.html">
+						<p class="price">$ ${detail.price}</p>
+						<!-- <p class="price_discounted">0 đ </p> -->
+						<form method="get" action="${pageContext.request.contextPath}/addcartitemondetail">
 							<div class="form-group">
-								<label for="colors">Color</label> <select class="custom-select"
+								<label for="colors">SIZE</label> <select class="custom-select"
 									id="colors">
-									<option seleSScted>Select</option>
-									<option value="1">Blue</option>
-									<option value="2">Red</option>
-									<option value="3">Green</option>
+									<option value="0">38</option>
+									<option value="1">39</option>
+									<option value="2">40</option>
+									<option value="3">41</option>
 								</select>
 							</div>
 							<div class="form-group">
 								<label>Quantity :</label>
 								<div class="input-group mb-3">
-									<div class="input-group-prepend">
+									<!-- <div class="input-group-prepend">
 										<button type="button"
 											class="quantity-left-minus btn btn-danger btn-number"
 											data-type="minus" data-field="">
 											<i class="fa fa-minus"></i>
 										</button>
-									</div>
-									<input type="text" class="form-control" id="quantity"
-										name="quantity" min="1" max="100" value="1">
-									<div class="input-group-append">
+									</div>	 -->
+																	
+									<input type="number" class="form-control"
+										name="quantity2" min="1" max="100" value="1">
+										<input type="hidden" class="form-control"
+										name="productid" value="${detail.productId }">
+										<input type="hidden" class="form-control"
+										name="price" value="${detail.price }">
+									<!-- <div class="input-group-append">
 										<button type="button"
 											class="quantity-right-plus btn btn-success btn-number"
 											data-type="plus" data-field="">
 											<i class="fa fa-plus"></i>
 										</button>
-									</div>
+									</div> -->
 								</div>
 							</div>
-							<a href="${pageContext.request.contextPath}/cart/add?productid=${detail.productId}&price=${detail.price}"
+							<%-- <a href="${pageContext.request.contextPath}/addcartitemondetail?productid=${detail.productId}&price=${detail.price}"
 								class="btn btn-success btn-lg btn-block text-uppercase"> <i
 								class="fa fa-shopping-cart"></i> Add To Cart
-							</a>
-						</form>
+								
+							</a> --%>
+							<button class="btn btn-lg btn-block btn-success text-uppercase">ĐẶT HÀNG</button>
+					<!-- 	</form> -->
 						<div class="product_rassurance">
 							<ul class="list-inline">
 								<li class="list-inline-item"><i class="fa fa-truck fa-2x"></i><br />Fast
