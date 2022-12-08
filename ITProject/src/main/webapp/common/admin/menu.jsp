@@ -77,23 +77,75 @@
 							</li>
 
 						</ul>
-					</li>
+					</li>			
+			<li class="">
+						<a href="#" class="dropdown-toggle">
+							<i class="menu-icon fa fa-bar-chart"></i>
+							<span class="menu-text"> Analytics </span>
 
-			
+							<b class="arrow fa fa-angle-down"></b>
+						</a>
 
-			<li class=""><a href="calendar.html"> <i
-					class="menu-icon fa fa-calendar"></i> <span class="menu-text">
-						Reporting </span>
-			</a> <b class="arrow"></b></li>
+						<b class="arrow"></b>
 
-			<li class=""><a href="gallery.html"> <i
-					class="menu-icon fa fa-picture-o"></i> <span class="menu-text">
-						Analysis </span>
-			</a> <b class="arrow"></b></li>
-			<li class=""><a href="gallery.html"> <i
-					class="menu-icon fa fa-tag"></i> <span class="menu-text">
-						Transaction </span>
-			</a> <b class="arrow"></b></li>
+						<ul class="submenu">
+
+
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/sday">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Statics in Day
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+							
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/smonth">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Statics in Month
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/syear">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Statics in Year
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/aweek?date=2022-12-08&status=false">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Chart in 7 Day 
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/syear">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Chart in Month
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							<li class="">
+								<a href="${pageContext.request.contextPath}/admin-analytics/ayear?date=2022-12-04&status=false">
+									<i class="menu-icon fa fa-caret-right"></i>
+									Chart in Year
+								</a>
+
+								<b class="arrow"></b>
+							</li>
+							
+
+						</ul>
+					</li>			
+
 			<li class=""><a href='<c:url value="/logout?action=logout"/>'> <i class=" menu-icon fa fa-sign-out" aria-hidden="true">
 			</i> <span class="menu-text">
 						Log out </span>

@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import vn.iotstar.dao.impl.BillDaoImpl;
+import vn.iotstar.dao.impl.CartDaoImpl;
+import vn.iotstar.dao.impl.CartItemDaoImpl;
 import vn.iotstar.entity.Bill;
+import vn.iotstar.entity.CartItem;
 import vn.iotstar.entity.User;
 
 /**
@@ -27,7 +30,8 @@ public class BillControl extends HttpServlet {
     // class gồm 3 chức năng : hiển thị danh sách,hiển thị 1 đơn hàng sửa và xóa 
     
     BillDaoImpl billdao = new BillDaoImpl();
-	
+	CartDaoImpl cartdao = new CartDaoImpl();
+	CartItemDaoImpl cartItemdao = new CartItemDaoImpl();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		if (url.contains("delete")) {
@@ -59,16 +63,19 @@ public class BillControl extends HttpServlet {
 		request.getRequestDispatcher("/views/web/listorder.jsp").forward(request, response);
 	}
 	
-	//hiển thị riêng một đơn hàng ứng với bill_Id
+	//hiển thị riêng một đơn hàng ứng với bill_Id + danh sách những hàng đã được đặt 
 	protected void order(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-
+			
 			String bill_Id = request.getParameter("bill_Id");
-
+			
 			Bill bill = billdao.findBill(Integer.parseInt(bill_Id));
 
 			request.setAttribute("bill", bill);
-
+			
+			int cartId = Integer.parseInt(request.getParameter("cartId"));
+			List<CartItem> listcart = cartItemdao.hienthicart(cartId);
+			request.setAttribute("listcart", listcart);
 		} catch (Exception e) {
 
 			e.printStackTrace();

@@ -77,7 +77,7 @@
         <div class="col-sm">
             <div class="card">
                 <div class="card-header bg-primary text-white text-uppercase">
-                    <i class="fa fa-star"></i> Last products
+                    <i class="fa fa-star"></i> New products
                 </div>
                 <div class="card-body">
 					<div class="row">

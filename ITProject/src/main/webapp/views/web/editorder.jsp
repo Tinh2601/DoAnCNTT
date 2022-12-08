@@ -150,11 +150,11 @@
               <hr>
               <div class="md-form mb-5">
               <label for="note" class="">Ghi Chú giao hàng</label>
-                <!-- <input type="text" id="ghichu" class="form-control" > -->
-                <textarea class="form-control" name="note" value="${bill.note }" rows="3"></textarea>
-                
+                <input type="text" id="ghichu" name="note" value="${bill.note }" class="form-control" >              
               </div>
-
+				
+				
+			
               <!-- <div class="d-block my-3">
                 
               <div class="row">
@@ -191,8 +191,7 @@
                 </div>
               </div> -->
               <hr class="mb-6">
-              <button class="btn btn-lg btn-block btn-success text-uppercase">Chỉnh sửa</button>
-                    </a>
+              
             </form>
             
     

@@ -65,7 +65,7 @@
 											<td>Đã hủy bỏ</td>
 										</core:if>
 										<td>${o.total}</td>
-										<td><a href="${pageContext.request.contextPath}/BillControl/detail?bill_Id=${o.bill_Id}"><button class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i> 
+										<td><a href="${pageContext.request.contextPath}/BillControl/detail?bill_Id=${o.bill_Id}&cartId=${o.cart.cartId}"><button class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i> 
 										</td>
 									</tr>
 								</core:forEach>

@@ -1,17 +1,60 @@
 package vn.iotstar.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
+import vn.iotstar.config.DBConnection;
 import vn.iotstar.config.JpaConfig;
 import vn.iotstar.entity.Bill;
 
 
 
 public class BillDaoImpl {
+	
+	Connection conn = null;
+	PreparedStatement ps = null;
+	ResultSet rs = null;
+
+	public int donhang(String date) {
+		int count = 0 ;
+		String query = "SELECT count(*) FROM BIlls\r\n"
+				+ "WHERE CONVERT(VARCHAR(25), date, 126) LIKE ?";
+		try {
+			conn = new DBConnection().getConnection();// mo ket noi voi sql
+			ps = conn.prepareStatement(query);
+			ps.setString(1, date+"%");
+			rs = ps.executeQuery();
+			rs.next();
+			count = rs.getInt(1);			
+		} catch (Exception e) {
+		}
+		return count;
+	}
+
+	
+	public int tien(String date) {
+		int count = 0 ;
+		String query = "SELECT sum(total) FROM BIlls\r\n"
+				+ "WHERE CONVERT(VARCHAR(25), date, 126) LIKE ?";
+		try {
+			conn = new DBConnection().getConnection();// mo ket noi voi sql
+			ps = conn.prepareStatement(query);
+			ps.setString(1, date+"%");
+			rs = ps.executeQuery();
+			rs.next();
+			count = rs.getInt(1);			
+		} catch (Exception e) {
+		}
+		return count;
+	}
+	
+	
 	public Bill findBillByCartID_UserId(int cartId,int userId) {
 		EntityManager enma = JpaConfig.getEntityManager();
 		String jpql = "SELECT b FROM Bill b join b.cart join b.user where b.cart.cartId like:cartId and b.user.userId like:userId";
@@ -80,5 +123,7 @@ public class BillDaoImpl {
 			enma.close();
 		}
 	}
+	
+	
 	
 }
