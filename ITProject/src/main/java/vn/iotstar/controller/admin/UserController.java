@@ -12,12 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import vn.iotstar.dao.impl.CategoryDaoImpl;
-import vn.iotstar.dao.impl.ProductDaoImpl;
 import vn.iotstar.dao.impl.UserDaoImpl;
 import vn.iotstar.dao.impl.UserRolesDaoImpl;
-import vn.iotstar.entity.Category;
-import vn.iotstar.entity.Product;
 import vn.iotstar.entity.Seller;
 import vn.iotstar.entity.User;
 import vn.iotstar.entity.UserRole;

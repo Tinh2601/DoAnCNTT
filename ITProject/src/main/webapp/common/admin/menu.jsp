@@ -126,7 +126,7 @@
 								<b class="arrow"></b>
 							</li>
 							<li class="">
-								<a href="${pageContext.request.contextPath}/admin-analytics/syear">
+								<a href="${pageContext.request.contextPath}/admin-analytics/amonth?date=2022-12-08&status=false">
 									<i class="menu-icon fa fa-caret-right"></i>
 									Chart in Month
 								</a>

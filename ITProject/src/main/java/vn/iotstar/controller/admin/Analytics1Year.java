@@ -22,7 +22,7 @@ import vn.iotstar.dao.impl.BillDaoImpl;
  * Servlet implementation class testAnalytics
  */
 @WebServlet(urlPatterns = { "/admin-analytics/ayear" })
-public class Analytics extends HttpServlet {
+public class Analytics1Year extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	BillDaoImpl billdao = new BillDaoImpl();

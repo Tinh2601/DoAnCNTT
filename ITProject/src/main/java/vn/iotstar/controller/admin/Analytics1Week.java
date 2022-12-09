@@ -17,13 +17,13 @@ import vn.iotstar.dao.impl.BillDaoImpl;
  * Servlet implementation class Week
  */
 @WebServlet("/admin-analytics/aweek")
-public class Week2 extends HttpServlet {
+public class Analytics1Week extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Week2() {
+	public Analytics1Week() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

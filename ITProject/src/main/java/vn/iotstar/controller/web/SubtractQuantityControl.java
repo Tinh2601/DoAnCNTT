@@ -26,9 +26,7 @@ public class SubtractQuantityControl extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DaoDBConection DAO=new DaoDBConection();
 		ProductDaoImpl DAOPro=new ProductDaoImpl();
