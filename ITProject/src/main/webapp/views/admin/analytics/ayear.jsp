@@ -8,33 +8,27 @@
 </head>
 <body>
 
-	<form action="${pageContext.request.contextPath}/admin-analytics/ayear" method ="get">
-		<label for="birthday">Time</label> <input type="date" id="date"
-			name="date"> <input id="statuson" class="form-check-input"
-			type="radio" name="status" value="true"> <label
-			for="statuson" class="form-check-label">Order</label> <input
-			id="statusoff" class="form-check-input" type="radio" name="status"
-			value="false"> <label for="statusoff"
-			class="form-check-label">Total Money</label> <input type="submit">
-	</form>
 
-	<table>
+	<table class="columns">
 		<tr>
-			<td></td>
+			<form
+				action="${pageContext.request.contextPath}/admin-analytics/ayear"
+				method="get">
+				<label for="birthday">Time</label> <input type="date" id="date"
+					name="date"> <input type="submit">
+			</form>
 		</tr>
 		<tr>
-			<td></td>
+			<td><div id="chart" style="border: 1px solid #ccc"></div></td>
+		</tr>
+		<tr>
+			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
 		</tr>
 	</table>
 
-	<div class="column">
 
-		<!--Div for our chart -->
-		<div id="chart"></div>
-
-		<!-- load Google AJAX API -->
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript">
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
 		//load the Google Visualization API and the chart
 		google.load('visualization', '1', {
 			'packages' : [ 'columnchart' ]
@@ -63,17 +57,42 @@
 
 			//define options for visualization
 			var options = {
-				width : 800,
-				height : 300,
-				is3D : false,
+				width : 900,
+				height : 250,
+				is3D : true,
 				title : '${title}'
 			};
 
 			//draw our chart
 			chart.draw(dataTable, options);
+			
+			
+			
+			//create data table object
+			var data = new google.visualization.DataTable();
 
+			//define columns
+			data.addColumn('string', 'Quarters 2009');
+			data.addColumn('number', '${column_properities2}');  // thay đổi cái cột xanh xanh 
+
+			//define rows of data
+			//dataTable.addRows([ [ '${name}'', 20 ] ]);
+			data.addRows([['1', ${total2_1}],['2', ${total2_2}],['3', ${total2_3}],['4', ${total2_4}],['5', ${total2_5}],['6', ${total2_6}],['7', ${total2_7}],['8', ${total2_8}],['9', ${total2_9}],['10', ${total2_10}],['11', ${total2_11}],['12', ${total2_12}]]);
+
+			//instantiate our chart object
+			var chart2 = new google.visualization.ColumnChart(document
+					.getElementById('chart2'));
+			var options = {
+					width : 900,
+					height : 250,
+					is3D : false,
+					title : '${title2}'
+				};
+
+			//draw our chart
+			chart2.draw(data, options);
+			
 		}
 	</script>
-	</div>
 </body>
 </html>

@@ -50,8 +50,10 @@ public class Analytics1Week extends HttpServlet {
 			throws ServletException, IOException {
 		String title = "";
 		String column_properities = "";
+		String title2 = "";
+		String column_properities2 = "";
 		String value = request.getParameter("status"); // true là order , false : total money
-		String date = request.getParameter("date"); //"2022-12-08";
+		String date = request.getParameter("date"); // "2022-12-08";
 		String YearAndMonth = date.substring(0, 8);
 		int Day = Integer.parseInt(date.substring(8, 10));
 		int Month = Integer.parseInt(date.substring(5, 7));
@@ -59,74 +61,71 @@ public class Analytics1Week extends HttpServlet {
 
 		List<Integer> total = new ArrayList<>();
 		List<String> name = new ArrayList<>();
-		if(value.equals("true")) {
-			title = "Order in 7 day ";
-			column_properities = "Number";
-			
-			if (Day >= 7) { 
-				BiggerDayOrder(Day, YearAndMonth, total, name);
+		List<Integer> total2 = new ArrayList<>();
+		List<String> name2 = new ArrayList<>();
 
-				SetAttribute(total, name, title, column_properities, request, response);
+		title = "Order in 7 day ";
+		column_properities = "Number";
 
-			} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
-				// chỉnh sửa
-				LesserDayOrder(Day, YearAndMonth, Month, Year, total, name);
-				
-				SetAttribute(total, name, title, column_properities, request, response);
+		if (Day >= 7) {
+			BiggerDayOrder(Day, YearAndMonth, total, name);
 
-			}
-		}else if(value.equals("false")) {
-			title = "Total money in 7 day ";
-			column_properities = "Money";
-			
-			if (Day >= 7) { 
-				BiggerDayTotalMoney(Day, YearAndMonth, total, name);
+			SetAttributeChart1(total, name, title, column_properities, request, response);
 
-				SetAttribute(total, name, title, column_properities, request, response);
+		} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
+			// chỉnh sửa
+			LesserDayOrder(Day, YearAndMonth, Month, Year, total, name);
 
-			} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
-				// chỉnh sửa
-				LesserDayTotalMoney(Day, YearAndMonth, Month, Year, total, name);
-				
-				SetAttribute(total, name, title, column_properities, request, response);
-
-			}
+			SetAttributeChart1(total, name, title, column_properities, request, response);
 		}
-		
+		title2 = "Total money in 7 day ";
+		column_properities2 = "Money";
+
+		if (Day >= 7) {
+			BiggerDayTotalMoney(Day, YearAndMonth, total2, name2);
+
+			SetAttributeChart2(total2, name2, title2, column_properities2, request, response);
+
+		} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
+			// chỉnh sửa
+			LesserDayTotalMoney(Day, YearAndMonth, Month, Year, total2, name2);
+
+			SetAttributeChart2(total2, name2, title2, column_properities2, request, response);
+
+		}
+		System.out.println(name);
 	}
-	
 
-	
-
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	public void LesserDayOrder(int Day,String YearAndMonth,int Month ,int Year,List<Integer> total, List<String> name) {
+
+	public void LesserDayOrder(int Day, String YearAndMonth, int Month, int Year, List<Integer> total,
+			List<String> name) {
 		for (int i = 6; i >= 0; i--) { // tăng lên 1 số để lấy ngày hiện tại
-			
+
 			float i1 = Day - i; // chỉ có chỗ này mới chuyển kiểu thui
 			if (i1 <= 0) {
-				// giảm month đi 1 tháng nếu số ngày bị âm 			
-				int new_month = Month-1;
-				if(new_month==0) {
-					new_month=12;
+				// giảm month đi 1 tháng nếu số ngày bị âm
+				int new_month = Month - 1;
+				if (new_month == 0) {
+					new_month = 12;
 				}
-				// chuyển thành chuỗi + thêm số 0 đằng trước nếu là số 1 chữ số 						
-				String m1 = Integer.toString(Month-1);
-				System.out.println("m1 :"+m1);
+				// chuyển thành chuỗi + thêm số 0 đằng trước nếu là số 1 chữ số
+				String m1 = Integer.toString(Month - 1);
+				System.out.println("m1 :" + m1);
 				if (m1.length() < 2) {
 					String temp = "0";
 					temp += m1;
 					m1 = temp;
 					System.out.println("m1 :" + m1);
 				}
-				// ghép vào chuỗi date 
-				String day_new = Year+"-"+m1 +"-";
-				if (new_month == 1 || new_month == 3 || new_month == 5 || new_month == 7 || new_month == 8 || new_month == 10
-						|| new_month == 12) {
+				// ghép vào chuỗi date
+				String day_new = Year + "-" + m1 + "-";
+				if (new_month == 1 || new_month == 3 || new_month == 5 || new_month == 7 || new_month == 8
+						|| new_month == 10 || new_month == 12) {
 					int s = 31; // ngay
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
@@ -178,34 +177,34 @@ public class Analytics1Week extends HttpServlet {
 			}
 			total.add(billdao.donhang(YearAndMonth + d));
 			name.add(YearAndMonth + d);
-	
+
 		}
 	}
-	
-	
-	public void LesserDayTotalMoney(int Day,String YearAndMonth,int Month ,int Year,List<Integer> total, List<String> name) {
+
+	public void LesserDayTotalMoney(int Day, String YearAndMonth, int Month, int Year, List<Integer> total,
+			List<String> name) {
 		for (int i = 6; i >= 0; i--) { // tăng lên 1 số để lấy ngày hiện tại
-			
+
 			float i1 = Day - i; // chỉ có chỗ này mới chuyển kiểu thui
 			if (i1 <= 0) {
-				// giảm month đi 1 tháng nếu số ngày bị âm 			
-				int new_month = Month-1;
-				if(new_month==0) {
-					new_month=12;
+				// giảm month đi 1 tháng nếu số ngày bị âm
+				int new_month = Month - 1;
+				if (new_month == 0) {
+					new_month = 12;
 				}
-				// chuyển thành chuỗi + thêm số 0 đằng trước nếu là số 1 chữ số 						
-				String m1 = Integer.toString(Month-1);
-				System.out.println("m1 :"+m1);
+				// chuyển thành chuỗi + thêm số 0 đằng trước nếu là số 1 chữ số
+				String m1 = Integer.toString(Month - 1);
+				System.out.println("m1 :" + m1);
 				if (m1.length() < 2) {
 					String temp = "0";
 					temp += m1;
 					m1 = temp;
 					System.out.println("m1 :" + m1);
 				}
-				// ghép vào chuỗi date 
-				String day_new = Year+"-"+m1 +"-";
-				if (new_month == 1 || new_month == 3 || new_month == 5 || new_month == 7 || new_month == 8 || new_month == 10
-						|| new_month == 12) {
+				// ghép vào chuỗi date
+				String day_new = Year + "-" + m1 + "-";
+				if (new_month == 1 || new_month == 3 || new_month == 5 || new_month == 7 || new_month == 8
+						|| new_month == 10 || new_month == 12) {
 					int s = 31; // ngay
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
@@ -257,14 +256,13 @@ public class Analytics1Week extends HttpServlet {
 			}
 			total.add(billdao.tien(YearAndMonth + d));
 			name.add(YearAndMonth + d);
-	
+
 		}
 	}
-	
-	
-	public void BiggerDayTotalMoney(int Day,String YearAndMonth,List<Integer> total, List<String> name) {
-		for (int i = 6; i >= 0; i--) { 
-			int i1 = Day - i; 
+
+	public void BiggerDayTotalMoney(int Day, String YearAndMonth, List<Integer> total, List<String> name) {
+		for (int i = 6; i >= 0; i--) {
+			int i1 = Day - i;
 			String d = Integer.toString(i1);
 			if (d.length() < 2) {
 				String temp = "0";
@@ -272,14 +270,13 @@ public class Analytics1Week extends HttpServlet {
 				d = temp;
 			}
 			total.add(billdao.tien(YearAndMonth + d));
-			name.add(YearAndMonth + d);				
+			name.add(YearAndMonth + d);
 		}
 	}
-	
 
-	public void BiggerDayOrder(int Day,String YearAndMonth,List<Integer> total, List<String> name) {
-		for (int i = 6; i >= 0; i--) { 
-			int i1 = Day - i; 
+	public void BiggerDayOrder(int Day, String YearAndMonth, List<Integer> total, List<String> name) {
+		for (int i = 6; i >= 0; i--) {
+			int i1 = Day - i;
 			String d = Integer.toString(i1);
 			if (d.length() < 2) {
 				String temp = "0";
@@ -287,31 +284,41 @@ public class Analytics1Week extends HttpServlet {
 				d = temp;
 			}
 			total.add(billdao.donhang(YearAndMonth + d));
-			name.add(YearAndMonth + d);				
+			name.add(YearAndMonth + d);
 		}
 	}
-	
-	
-	
-	public void SetAttribute(List<Integer> total, List<String> name, String title, String column_properities,
+
+	public void SetAttributeChart1(List<Integer> total, List<String> name, String title, String column_properities,
 			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("total1", total.get(0));
-		request.setAttribute("total2", total.get(1));
-		request.setAttribute("total3", total.get(2));
-		request.setAttribute("total4", total.get(3));
-		request.setAttribute("total5", total.get(4));
-		request.setAttribute("total6", total.get(5));
-		request.setAttribute("total7", total.get(6));
-
-		request.setAttribute("name1", name.get(0));
-		request.setAttribute("name2", name.get(1));
-		request.setAttribute("name3", name.get(2));
-		request.setAttribute("name4", name.get(3));
-		request.setAttribute("name5", name.get(4));
-		request.setAttribute("name6", name.get(5));
-		request.setAttribute("name7", name.get(6));
 
 		request.setAttribute("column_properities", column_properities);
 		request.setAttribute("title", title);
+
+		String tableValue = "";
+		int size = name.size();
+		for (int i = 0; i < size; i++) {
+			if (i != 0) {
+				tableValue += ",";
+			}
+			tableValue += "['" + name.get(i) + "'," + total.get(i) + "]";
+		}
+		request.setAttribute("table", tableValue);
+	}
+
+	public void SetAttributeChart2(List<Integer> total, List<String> name, String title, String column_properities,
+			HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setAttribute("column_properities2", column_properities);
+		request.setAttribute("title2", title);
+
+		String tableValue = "";
+		int size = name.size();
+		for (int i = 0; i < size; i++) {
+			if (i != 0) {
+				tableValue += ",";
+			}
+			tableValue += "['" + name.get(i) + "'," + total.get(i) + "]";
+		}
+		request.setAttribute("table2", tableValue);
 	}
 }

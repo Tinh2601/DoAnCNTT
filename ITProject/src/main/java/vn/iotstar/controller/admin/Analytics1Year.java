@@ -34,22 +34,20 @@ public class Analytics1Year extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
-		if (url.contains("ayear")) {
-			AnalyticsYear(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/analytics/ayear.jsp");
-			rd.forward(request, response);
-		}
+
+		AnalyticsYear(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/analytics/ayear.jsp");
+		rd.forward(request, response);
 
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
-		if (url.contains("ayear")) {
-			StaticsDay(request, response);
-			RequestDispatcher rd = request.getRequestDispatcher("/views/admin/analytics/ayear.jsp");
-			rd.forward(request, response);
-		}
+
+		StaticsDay(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/analytics/ayear.jsp");
+		rd.forward(request, response);
 
 	}
 
@@ -59,45 +57,45 @@ public class Analytics1Year extends HttpServlet {
 			throws ServletException, IOException {
 		String title = "";
 		String column_properities = "";
-		String name = "";
+		String title2 = "";
+		String column_properities2 = "";
+
 		String value = request.getParameter("status"); // true là order , false : total money
 		String date = request.getParameter("date");
 		String day = date.substring(0, 5);
 		List<Integer> total = new ArrayList<>();
+		List<Integer> total2 = new ArrayList<>();
 		String year = day.substring(0, 4);
-		if (value.equals("false")) {
-			title = "Total money in year "+year;
-			column_properities = "Money";
-			total.add(billdao.tien(day + "01"));
-			total.add(billdao.tien(day + "02"));
-			total.add(billdao.tien(day + "03"));
-			total.add(billdao.tien(day + "04"));
-			total.add(billdao.tien(day + "05"));
-			total.add(billdao.tien(day + "06"));
-			total.add(billdao.tien(day + "07"));
-			total.add(billdao.tien(day + "08"));
-			total.add(billdao.tien(day + "09"));
-			total.add(billdao.tien(day + "10"));
-			total.add(billdao.tien(day + "11"));
-			total.add(billdao.tien(day + "12"));
-			name = "Total money";
-		} else {
-			title = "Total order in year "+year;
-			column_properities = "number";
-			total.add(billdao.donhang(day + "01"));
-			total.add(billdao.donhang(day + "02"));
-			total.add(billdao.donhang(day + "03"));
-			total.add(billdao.donhang(day + "04"));
-			total.add(billdao.donhang(day + "05"));
-			total.add(billdao.donhang(day + "06"));
-			total.add(billdao.donhang(day + "07"));
-			total.add(billdao.donhang(day + "08"));
-			total.add(billdao.donhang(day + "09"));
-			total.add(billdao.donhang(day + "10"));
-			total.add(billdao.donhang(day + "11"));
-			total.add(billdao.donhang(day + "12"));
-			name = "Total order";
-		}
+
+		title = "Total money in year " + year;
+		column_properities = "Money";
+		total.add(billdao.tien(day + "01"));
+		total.add(billdao.tien(day + "02"));
+		total.add(billdao.tien(day + "03"));
+		total.add(billdao.tien(day + "04"));
+		total.add(billdao.tien(day + "05"));
+		total.add(billdao.tien(day + "06"));
+		total.add(billdao.tien(day + "07"));
+		total.add(billdao.tien(day + "08"));
+		total.add(billdao.tien(day + "09"));
+		total.add(billdao.tien(day + "10"));
+		total.add(billdao.tien(day + "11"));
+		total.add(billdao.tien(day + "12"));
+
+		title2 = "Total order in year " + year;
+		column_properities2 = "number";
+		total2.add(billdao.donhang(day + "01"));
+		total2.add(billdao.donhang(day + "02"));
+		total2.add(billdao.donhang(day + "03"));
+		total2.add(billdao.donhang(day + "04"));
+		total2.add(billdao.donhang(day + "05"));
+		total2.add(billdao.donhang(day + "06"));
+		total2.add(billdao.donhang(day + "07"));
+		total2.add(billdao.donhang(day + "08"));
+		total2.add(billdao.donhang(day + "09"));
+		total2.add(billdao.donhang(day + "10"));
+		total2.add(billdao.donhang(day + "11"));
+		total2.add(billdao.donhang(day + "12"));
 
 		request.setAttribute("total1", total.get(0));
 		request.setAttribute("total2", total.get(1));
@@ -111,9 +109,25 @@ public class Analytics1Year extends HttpServlet {
 		request.setAttribute("total10", total.get(9));
 		request.setAttribute("total11", total.get(10));
 		request.setAttribute("total12", total.get(11));
-		request.setAttribute("name", name);
+
 		request.setAttribute("column_properities", column_properities);
 		request.setAttribute("title", title);
+
+		request.setAttribute("total2_1", total2.get(0));
+		request.setAttribute("total2_2", total2.get(1));
+		request.setAttribute("total2_3", total2.get(2));
+		request.setAttribute("total2_4", total2.get(3));
+		request.setAttribute("total2_5", total2.get(4));
+		request.setAttribute("total2_6", total2.get(5));
+		request.setAttribute("total2_7", total2.get(6));
+		request.setAttribute("total2_8", total2.get(7));
+		request.setAttribute("total2_9", total2.get(8));
+		request.setAttribute("total2_10", total2.get(9));
+		request.setAttribute("total2_11", total2.get(10));
+		request.setAttribute("total2_12", total2.get(11));
+
+		request.setAttribute("column_properities2", column_properities2);
+		request.setAttribute("title2", title2);
 	}
 
 	protected void StaticsMonth(HttpServletRequest request, HttpServletResponse response)

@@ -38,7 +38,7 @@ public class UserController extends HttpServlet{
 		findAllUserRole(request, response);
 		if (url.contains("create")) {
 			request.getRequestDispatcher("/views/admin/user/add.jsp").forward(request, response);
-		} else if (url.contains("delete")) {
+		} else if (url.contains("delete")) {  
 			delete(request, response);
 			user = new User();
 			request.setAttribute("user", user);

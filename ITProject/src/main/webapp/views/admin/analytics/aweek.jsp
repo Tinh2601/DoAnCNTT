@@ -8,72 +8,87 @@
 </head>
 <body>
 
-	<form action="${pageContext.request.contextPath}/admin-analytics/aweek" method ="get">
-		<label for="birthday">Time</label> <input type="date" id="date"
-			name="date"> <input id="statuson" class="form-check-input"
-			type="radio" name="status" value="true"> <label
-			for="statuson" class="form-check-label">Order</label> <input
-			id="statusoff" class="form-check-input" type="radio" name="status"
-			value="false"> <label for="statusoff"
-			class="form-check-label">Total Money</label> <input type="submit">
-	</form>
-
-	<table>
+	<table class="columns">
 		<tr>
-			<td></td>
+			<form
+				action="${pageContext.request.contextPath}/admin-analytics/aweek"
+				method="get">
+				<label for="birthday">Time</label> <input type="date" id="date"
+					name="date"> <input type="submit">
+			</form>
 		</tr>
 		<tr>
-			<td></td>
+			<td><div id="chart" style="border: 1px solid #ccc"></div></td>
+		</tr>
+		<tr>
+			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
 		</tr>
 	</table>
 
-	<div class="column">
 
-		<!--Div for our chart -->
-		<div id="chart"></div>
+	<!-- load Google AJAX API -->
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+			//load the Google Visualization API and the chart
+			google.load('visualization', '1', {
+				'packages' : [ 'columnchart' ]
+			});
 
-		<!-- load Google AJAX API -->
-		<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-		<script type="text/javascript">
-		//load the Google Visualization API and the chart
-		google.load('visualization', '1', {
-			'packages' : [ 'columnchart' ]
-		});
+			//set callback
+			google.setOnLoadCallback(createChart);
 
-		//set callback
-		google.setOnLoadCallback(createChart);
+			//callback function
+			function createChart() {
 
-		//callback function
-		function createChart() {
+				//create data table object
+				var dataTable = new google.visualization.DataTable();
 
-			//create data table object
-			var dataTable = new google.visualization.DataTable();
+				//define columns
+				dataTable.addColumn('string', 'Quarters 2009');
+				dataTable.addColumn('number', '${column_properities}'); 
 
-			//define columns
-			dataTable.addColumn('string', 'Quarters 2009');
-			dataTable.addColumn('number', '${column_properities}');  // thay đổi cái cột xanh xanh 
+				//define rows of data				
+				dataTable.addRows([${table}]);
+				//instantiate our chart object
+				var chart = new google.visualization.LineChart(document
+						.getElementById('chart'));
 
-			//define rows of data
-			//dataTable.addRows([ [ '${name}'', 20 ] ]);
-			dataTable.addRows([['${name1}', ${total1}],['${name2}', ${total2}],['${name3}', ${total3}],['${name4}', ${total4}],['${name5}', ${total5}],['${name6}', ${total6}],['${name7}', ${total7}]]);
+				//define options for visualization
+				var options = {
+					width : 900,
+					height : 250,
+					is3D : true,
+					title : '${title}'
+				};
 
-			//instantiate our chart object
-			var chart = new google.visualization.LineChart(document
-					.getElementById('chart'));
+				//draw our chart
+				chart.draw(dataTable, options);
+				
+		        //TABLE 2 
+				//create data table object
+				var dataTable2 = new google.visualization.DataTable();
 
-			//define options for visualization
-			var options = {
-				width : 1200,
-				height : 300,
-				is3D : false,
-				title : '${title}'
-			};
+				//define columns
+				dataTable2.addColumn('string', 'Quarters 2009');
+				dataTable2.addColumn('number', '${column_properities2}'); 
 
-			//draw our chart
-			chart.draw(dataTable, options);
+				//define rows of data				
+				dataTable2.addRows([${table2}]);
+				//instantiate our chart object
+				var chart2 = new google.visualization.ColumnChart(document
+						.getElementById('chart2'));
 
-		}
-	</script>
-	</div>
+				//define options for visualization
+				var options = {
+					width : 900,
+					height : 250,
+					is3D : true,
+					title : '${title2}'
+				};
+				//draw our chart
+				chart2.draw(dataTable2, options);
+				
+			}
+		</script>
 </body>
 </html>
