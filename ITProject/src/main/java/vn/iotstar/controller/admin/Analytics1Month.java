@@ -47,7 +47,7 @@ public class Analytics1Month extends HttpServlet {
 		String column_properities = "";
 		String title2 = "";
 		String column_properities2 = "";
-		String value = request.getParameter("status"); // true là order , false : total money
+		
 		String date = request.getParameter("date"); // "2022-12-08";
 		String YearAndMonth = date.substring(0, 8);
 		int Day = Integer.parseInt(date.substring(8, 10));
@@ -89,6 +89,20 @@ public class Analytics1Month extends HttpServlet {
 		}
 		System.out.println(DayForChart);
 		
+		
+		// Hiển thị tiền và hàng hóa tháng đang hiển thị 
+		int TotalMoneyMonth = billdao.tien(dtm.toLocalDate().toString().substring(0, 8));
+		int TotalOrderMonth = billdao.donhang(dtm.toLocalDate().toString().substring(0, 8));
+		int month = Integer.parseInt(dtm.toLocalDate().toString().substring(5, 7));
+		request.setAttribute("TotalMoneyMonth", TotalMoneyMonth);
+		request.setAttribute("TotalOrderMonth", TotalOrderMonth);
+		request.setAttribute("Month", month);
+		
+		// Hiển thị tiền và hóa đơn ngày hôm nay 
+		int TotalMoneyToDay = billdao.tien(dtm.toLocalDate().toString());
+		int TotalOrderToDay = billdao.donhang(dtm.toLocalDate().toString());
+		request.setAttribute("TotalMoneyToDay", TotalMoneyToDay);
+		request.setAttribute("TotalOrderToDay", TotalOrderToDay);
 		
 		for (int i = 1; i <= DayForChart; i++) {
 			String day = Integer.toString(i);

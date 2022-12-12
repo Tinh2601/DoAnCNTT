@@ -9,36 +9,44 @@
 <body>
 
 
+
 	<table class="columns">
 		<tr>
 			<form
-				action="${pageContext.request.contextPath}/admin-analytics/ayear"
-				method="get">
+				action="${pageContext.request.contextPath}/admin-analytics/aday"
+				method="post">
 				<label for="birthday">Time</label> <input type="date" id="date"
 					name="date"> <input type="submit">
 			</form>
 		</tr>
 		<tr>
 			<td><div id="chart" style="border: 1px solid #ccc"></div></td>
-			<td>
-				<h2>Year ${Year}</h2>
-				<ul>
-					<li><h4>Total money :${TotalMoneyYear}$ </h4></li>
-					<li><h4>Total order :${TotalOrderYear} </h4></li>					
-				</ul>
-				
-				<h2>Today</h2>
-				<ul>
-					<li><h4>Total money :${TotalMoneyToDay} $ </h4></li>
-					<li><h4>Total order :${TotalOrderToDay} </h4></li>					
-				</ul></td>
+			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
+			
 		</tr>
 		<tr>
-			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
+			<td>
+				<h2>Day ${Day}</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyDay}$</h4></li>
+					<li><h4>Total order :${TotalOrderDay}</h4></li>
+				</ul>
+
+				<h2>Today</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyToDay} $</h4></li>
+					<li><h4>Total order :${TotalOrderToDay}</h4></li>
+				</ul>
+			</td>
+
 		</tr>
 	</table>
 
 
+
+
+
+	<!-- load Google AJAX API -->
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript">
 		//load the Google Visualization API and the chart
@@ -61,7 +69,7 @@
 
 			//define rows of data
 			//dataTable.addRows([ [ '${name}'', 20 ] ]);
-			dataTable.addRows([['1', ${total1}],['2', ${total2}],['3', ${total3}],['4', ${total4}],['5', ${total5}],['6', ${total6}],['7', ${total7}],['8', ${total8}],['9', ${total9}],['10', ${total10}],['11', ${total11}],['12', ${total12}]]);
+			dataTable.addRows([['${name}', ${total}]]);
 
 			//instantiate our chart object
 			var chart = new google.visualization.LineChart(document
@@ -69,41 +77,38 @@
 
 			//define options for visualization
 			var options = {
-				width : 900,
-				height : 250,
+				width : 300,
+				height : 300,
 				is3D : true,
 				title : '${title}'
 			};
 
 			//draw our chart
 			chart.draw(dataTable, options);
-			
-			
-			
+				
+			//TABLE 2 
 			//create data table object
-			var data = new google.visualization.DataTable();
+			var dataTable2 = new google.visualization.DataTable();
 
 			//define columns
-			data.addColumn('string', 'Quarters 2009');
-			data.addColumn('number', '${column_properities2}');  // thay đổi cái cột xanh xanh 
+			dataTable2.addColumn('string', 'Quarters 2009');
+			dataTable2.addColumn('number', '${column_properities2}'); 
 
-			//define rows of data
-			//dataTable.addRows([ [ '${name}'', 20 ] ]);
-			data.addRows([['1', ${total2_1}],['2', ${total2_2}],['3', ${total2_3}],['4', ${total2_4}],['5', ${total2_5}],['6', ${total2_6}],['7', ${total2_7}],['8', ${total2_8}],['9', ${total2_9}],['10', ${total2_10}],['11', ${total2_11}],['12', ${total2_12}]]);
-
+			//define rows of data				
+			dataTable2.addRows([['${name2}', ${total2}]]);
 			//instantiate our chart object
 			var chart2 = new google.visualization.ColumnChart(document
 					.getElementById('chart2'));
-			var options = {
-					width : 900,
-					height : 250,
-					is3D : false,
-					title : '${title2}'
-				};
 
+			//define options for visualization
+			var options = {
+				width : 300,
+				height : 300,
+				is3D : true,
+				title : '${title2}'
+			};
 			//draw our chart
-			chart2.draw(data, options);
-			
+			chart2.draw(dataTable2, options);
 		}
 	</script>
 </body>

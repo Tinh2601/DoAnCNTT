@@ -21,9 +21,22 @@
 		</tr>
 		<tr>
 			<td><div id="chart" style="border: 1px solid #ccc"></div></td>
+			<td>
+				<h2>Month ${Month}</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyMonth}$ </h4></li>
+					<li><h4>Total order :${TotalOrderMonth} </h4></li>					
+				</ul>
+				
+				<h2>Today</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyToDay} $ </h4></li>
+					<li><h4>Total order :${TotalOrderToDay} </h4></li>					
+				</ul></td>
 		</tr>
 		<tr>
 			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
+			<td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
 		</tr>
 	</table>
 
@@ -90,6 +103,23 @@
 				//draw our chart
 				chart2.draw(dataTable2, options);
 				
+				
+				 var data = new google.visualization.DataTable();
+			        data.addColumn('string', 'Topping');
+			        data.addColumn('number', 'Slices');
+			        data.addRows([
+			          ['Mushrooms', 3],
+			          ['Onions', 1],
+			          ['Olives', 1],
+			          ['Zucchini', 1],
+			          ['Pepperoni', 2]
+			        ]);
+
+			        var piechart_options = {title:'Pie Chart: How Much Pizza I Ate Last Night',
+			                       width:400,
+			                       height:300};
+			        var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+			        piechart.draw(data, piechart_options);
 			}
 		</script>
 </body>

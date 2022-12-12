@@ -92,31 +92,14 @@
 
 
 							<li class="">
-								<a href="${pageContext.request.contextPath}/admin-analytics/sday">
+								<a href="${pageContext.request.contextPath}/admin-analytics/aday?date=2022-12-08&status=false"">
 									<i class="menu-icon fa fa-caret-right"></i>
-									Statics in Day
+									Chart in Day
 								</a>
 
 								<b class="arrow"></b>
 							</li>
 							
-							
-							<li class="">
-								<a href="${pageContext.request.contextPath}/admin-analytics/smonth">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Statics in Month
-								</a>
-
-								<b class="arrow"></b>
-							</li>
-							<li class="">
-								<a href="${pageContext.request.contextPath}/admin-analytics/syear">
-									<i class="menu-icon fa fa-caret-right"></i>
-									Statics in Year
-								</a>
-
-								<b class="arrow"></b>
-							</li>
 							<li class="">
 								<a href="${pageContext.request.contextPath}/admin-analytics/aweek?date=2022-12-08&status=false">
 									<i class="menu-icon fa fa-caret-right"></i>

@@ -1,6 +1,7 @@
 package vn.iotstar.controller.admin;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,14 +46,17 @@ public class Analytics1Week extends HttpServlet {
 
 	BillDaoImpl billdao = new BillDaoImpl();
 	// hiển thị 12 tháng trong 1 năm
-
+	
+	//
+	int TotalMoneyWeek = 0;
+	int TotalOrderWeek = 0;	
 	protected void AnalyticsYear(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String title = "";
 		String column_properities = "";
 		String title2 = "";
 		String column_properities2 = "";
-		String value = request.getParameter("status"); // true là order , false : total money
+
 		String date = request.getParameter("date"); // "2022-12-08";
 		String YearAndMonth = date.substring(0, 8);
 		int Day = Integer.parseInt(date.substring(8, 10));
@@ -67,16 +71,32 @@ public class Analytics1Week extends HttpServlet {
 		title = "Order in 7 day ";
 		column_properities = "Number";
 
+		LocalDateTime dtm = LocalDateTime.now();
+		// Hiển thị tổng số tiền và đơn hàng trong 7 ngày đang hiển thị 
+		TotalMoneyWeek = 0;
+		TotalOrderWeek = 0;	
+		// gán biết public cho nên tổng sẽ cộng dồn mỗi lần hiển thị giá trị khác
+		
+		
+		// Hiển thị tiền và hóa đơn ngày hôm nay
+		int TotalMoneyToDay = billdao.tien(dtm.toLocalDate().toString());
+		int TotalOrderToDay = billdao.donhang(dtm.toLocalDate().toString());
+		request.setAttribute("TotalMoneyToDay", TotalMoneyToDay);
+		request.setAttribute("TotalOrderToDay", TotalOrderToDay);
+
 		if (Day >= 7) {
 			BiggerDayOrder(Day, YearAndMonth, total, name);
-
 			SetAttributeChart1(total, name, title, column_properities, request, response);
+			System.out.println("tổng số đơn hàng chính là :" + TotalOrderWeek);
+			request.setAttribute("TotalOrderWeek", TotalOrderWeek);
+			
 
 		} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
 			// chỉnh sửa
 			LesserDayOrder(Day, YearAndMonth, Month, Year, total, name);
 
 			SetAttributeChart1(total, name, title, column_properities, request, response);
+			request.setAttribute("TotalOrderWeek", TotalOrderWeek);
 		}
 		title2 = "Total money in 7 day ";
 		column_properities2 = "Money";
@@ -85,12 +105,14 @@ public class Analytics1Week extends HttpServlet {
 			BiggerDayTotalMoney(Day, YearAndMonth, total2, name2);
 
 			SetAttributeChart2(total2, name2, title2, column_properities2, request, response);
+			request.setAttribute("TotalMoneyWeek", TotalMoneyWeek);
 
 		} else if (Day < 7) { // chuyển kiểu int thành kiểu kiểu float cho có dấu - rùi dựa vào đó + tháng để
 			// chỉnh sửa
 			LesserDayTotalMoney(Day, YearAndMonth, Month, Year, total2, name2);
 
 			SetAttributeChart2(total2, name2, title2, column_properities2, request, response);
+			request.setAttribute("TotalMoneyWeek", TotalMoneyWeek);
 
 		}
 		System.out.println(name);
@@ -103,7 +125,7 @@ public class Analytics1Week extends HttpServlet {
 	}
 
 	public void LesserDayOrder(int Day, String YearAndMonth, int Month, int Year, List<Integer> total,
-			List<String> name) {
+			List<String> name ) {
 		for (int i = 6; i >= 0; i--) { // tăng lên 1 số để lấy ngày hiện tại
 
 			float i1 = Day - i; // chỉ có chỗ này mới chuyển kiểu thui
@@ -130,7 +152,10 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.donhang(ngay2));
+//					total.add(billdao.donhang(ngay2));
+					int totalAdd = billdao.donhang(ngay2) ;
+					total.add(totalAdd);
+					TotalOrderWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -140,7 +165,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.donhang(ngay2));
+					int totalAdd = billdao.donhang(ngay2) ;
+					total.add(totalAdd);
+					TotalOrderWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -150,7 +177,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.donhang(ngay2));
+					int totalAdd = billdao.donhang(ngay2) ;
+					total.add(totalAdd);
+					TotalOrderWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -160,7 +189,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.donhang(ngay2));
+					int totalAdd = billdao.donhang(ngay2) ;
+					total.add(totalAdd);
+					TotalOrderWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -175,14 +206,17 @@ public class Analytics1Week extends HttpServlet {
 				d = temp;
 				System.out.println("d :" + d);
 			}
-			total.add(billdao.donhang(YearAndMonth + d));
+//			total.add(billdao.donhang(YearAndMonth + d));
+			int totalAdd = billdao.donhang(YearAndMonth + d) ;
+			total.add(totalAdd);
+			TotalOrderWeek += totalAdd;
 			name.add(YearAndMonth + d);
 
 		}
 	}
 
 	public void LesserDayTotalMoney(int Day, String YearAndMonth, int Month, int Year, List<Integer> total,
-			List<String> name) {
+			List<String> name ) {
 		for (int i = 6; i >= 0; i--) { // tăng lên 1 số để lấy ngày hiện tại
 
 			float i1 = Day - i; // chỉ có chỗ này mới chuyển kiểu thui
@@ -209,7 +243,10 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.tien(ngay2));
+//					total.add(billdao.tien(ngay2));
+					int totalAdd = billdao.tien(ngay2) ;
+					total.add(totalAdd);
+					TotalMoneyWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -219,7 +256,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.tien(ngay2));
+					int totalAdd = billdao.tien(ngay2) ;
+					total.add(totalAdd);
+					TotalMoneyWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -229,7 +268,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.tien(ngay2));
+					int totalAdd = billdao.tien(ngay2) ;
+					total.add(totalAdd);
+					TotalMoneyWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -239,7 +280,9 @@ public class Analytics1Week extends HttpServlet {
 					float ngay = s + i1;// ngay bang cai nay lun với lệnh continue
 					String ngay1 = day_new + ngay;
 					String ngay2 = ngay1.substring(0, 10);
-					total.add(billdao.tien(ngay2));
+					int totalAdd = billdao.tien(ngay2) ;
+					total.add(totalAdd);
+					TotalMoneyWeek += totalAdd;
 					name.add(ngay2);
 					System.out.println(ngay2);
 					continue;
@@ -254,7 +297,9 @@ public class Analytics1Week extends HttpServlet {
 				d = temp;
 				System.out.println("d :" + d);
 			}
-			total.add(billdao.tien(YearAndMonth + d));
+			int totalAdd = billdao.tien(YearAndMonth + d) ;
+			total.add(totalAdd);
+			TotalMoneyWeek += totalAdd;
 			name.add(YearAndMonth + d);
 
 		}
@@ -269,7 +314,10 @@ public class Analytics1Week extends HttpServlet {
 				temp += d;
 				d = temp;
 			}
-			total.add(billdao.tien(YearAndMonth + d));
+			int totalAdd = billdao.tien(YearAndMonth + d) ;
+			total.add(totalAdd);
+			TotalMoneyWeek += totalAdd;
+			System.out.println("don hang cua 7 ngay : " + TotalMoneyWeek);
 			name.add(YearAndMonth + d);
 		}
 	}
@@ -283,7 +331,12 @@ public class Analytics1Week extends HttpServlet {
 				temp += d;
 				d = temp;
 			}
-			total.add(billdao.donhang(YearAndMonth + d));
+			
+			int totalAdd = billdao.donhang(YearAndMonth + d) ;
+			total.add(totalAdd);
+			TotalOrderWeek += totalAdd;
+			System.out.println("don hang cua 7 ngay : " + TotalOrderWeek);
+//			total.add(billdao.donhang(YearAndMonth + d));
 			name.add(YearAndMonth + d);
 		}
 	}

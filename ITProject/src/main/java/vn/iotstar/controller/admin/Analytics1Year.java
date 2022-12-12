@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,12 +61,27 @@ public class Analytics1Year extends HttpServlet {
 		String title2 = "";
 		String column_properities2 = "";
 
-		String value = request.getParameter("status"); // true là order , false : total money
+		
 		String date = request.getParameter("date");
 		String day = date.substring(0, 5);
 		List<Integer> total = new ArrayList<>();
 		List<Integer> total2 = new ArrayList<>();
 		String year = day.substring(0, 4);
+
+		LocalDateTime dtm = LocalDateTime.now();
+		// Hiển thị tiền và hóa đơn năm đang hiển thị
+		int TotalMoneyYear = billdao.tien(dtm.toLocalDate().toString().substring(0, 5));
+		int TotalOrderYear = billdao.donhang(dtm.toLocalDate().toString().substring(0, 5));
+	
+		request.setAttribute("TotalMoneyYear", TotalMoneyYear);
+		request.setAttribute("TotalOrderYear", TotalOrderYear);
+		request.setAttribute("Year", year);
+		
+		// Hiển thị tiền và hóa đơn ngày hôm nay
+		int TotalMoneyToDay = billdao.tien(dtm.toLocalDate().toString());
+		int TotalOrderToDay = billdao.donhang(dtm.toLocalDate().toString());
+		request.setAttribute("TotalMoneyToDay", TotalMoneyToDay);
+		request.setAttribute("TotalOrderToDay", TotalOrderToDay);
 
 		title = "Total money in year " + year;
 		column_properities = "Money";

@@ -19,6 +19,18 @@
 		</tr>
 		<tr>
 			<td><div id="chart" style="border: 1px solid #ccc"></div></td>
+			<td>
+				<h2>7 Day</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyWeek}$ </h4></li>
+					<li><h4>Total order :${TotalOrderWeek} </h4></li>					
+				</ul>
+				
+				<h2>Today</h2>
+				<ul>
+					<li><h4>Total money :${TotalMoneyToDay} $ </h4></li>
+					<li><h4>Total order :${TotalOrderToDay} </h4></li>					
+				</ul></td>
 		</tr>
 		<tr>
 			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
