@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                 <label>Category</label>
-                                <select name="category" class="form-select" aria-label="Default select example">
+                                <select name="categoryId" class="form-select" aria-label="Default select example">
                                     <c:forEach items="${categorys}" var="o">
                                         <option value="${o.categoryId}">${o.categoryName}</option>
                                     </c:forEach>

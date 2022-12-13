@@ -129,6 +129,17 @@ public class ProductController extends HttpServlet{
 
 		try {
 			BeanUtils.populate(product, request.getParameterMap());
+			
+			Category category = new Category();
+			category.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
+
+			product.setCategory(category);
+			
+			Seller seller = new Seller();
+			seller.setSellerId(Integer.parseInt(request.getParameter("sellerId")));
+			
+			product.setSeller(seller);
+			
 		} catch (IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
