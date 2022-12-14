@@ -65,8 +65,6 @@ public class CheckoutControl extends HttpServlet {
 			  
 		
 			Cart cart =DAO.CheckCartStatus(u.getUserId(),0);
-		
-			
 			List<CartItem> listcart=cartItem.hienthicart(cart.getCartId());
 			
 			//document.getElementById("firstName").value=u.getFullname();

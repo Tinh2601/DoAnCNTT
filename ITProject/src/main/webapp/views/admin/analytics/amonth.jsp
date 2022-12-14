@@ -36,7 +36,7 @@
 		</tr>
 		<tr>
 			<td><div id="chart2" style="border: 1px solid #ccc"></div></td>
-			<td><div id="piechart_div" style="border: 1px solid #ccc"></div></td>
+			<!-- <td><div id="piechart_div" style="border: 1px solid #ccc"></div></td> -->
 		</tr>
 	</table>
 
@@ -104,7 +104,7 @@
 				chart2.draw(dataTable2, options);
 				
 				
-				 var data = new google.visualization.DataTable();
+				 /* var data = new google.visualization.DataTable();
 			        data.addColumn('string', 'Topping');
 			        data.addColumn('number', 'Slices');
 			        data.addRows([
@@ -119,7 +119,7 @@
 			                       width:400,
 			                       height:300};
 			        var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
-			        piechart.draw(data, piechart_options);
+			        piechart.draw(data, piechart_options); */
 			}
 		</script>
 </body>
